@@ -1,16 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
-
-
-class App extends Component {
-
-    render() {
-        return <>
-            <h1>Sistema de Citas - Cliente</h1>
-        </>
-    }
-
-}
+import App from './components/App';
 
 
 const divRoot = document.querySelector('#root');
