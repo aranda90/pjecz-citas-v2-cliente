@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import '../../css/global.css';
+
+
+const cleanDatos = {
+    email: '',
+    email2: '',
+}
 
 
 export const RecoverAccountScreen = () => {
+
+    const [datos, setDatos] = useState({
+        email: '',
+        email2: '',
+    });
+
+    const handleChange = (evento) => {
+        const { name, value } = evento.target;
+        setDatos((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+    }
+
+    const submitForm = () => {
+        console.log(datos);
+        setDatos(cleanDatos);
+    }
 
     const styles = {
         link: { textDecoration: 'none', color: 'inherit' }
@@ -18,34 +45,41 @@ export const RecoverAccountScreen = () => {
                         <Typography variant='h5' sx={{ marginBottom: 2 }}>
                             Recuperar mi contrasena
                         </Typography>
-                        <form>
+                        <form onSubmit={(e) => e.preventDefault()}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <TextField
                                         label="Correo electronico"
-                                        name="username"
                                         type="email"
                                         fullWidth
+                                        name='email'
+                                        onChange={handleChange}
+                                        value={datos.email}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
                                         label="Correo electronico"
-                                        name="username"
                                         type="email"
                                         fullWidth
+                                        name='email2'
+                                        onChange={handleChange}
+                                        value={datos.email2}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Button
                                         variant='contained'
-                                        fullWidth>
+                                        fullWidth
+                                        type='submit'
+                                        onClick={submitForm}
+                                    >
                                         Recuperar
                                     </Button>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography variant='body1'>
-                                        <Link to='/' style={styles.link}>
+                                        <Link to='/' className='link'>
                                             Si ya tienes tu cuenta, regresa al inicio
                                         </Link>
                                     </Typography>

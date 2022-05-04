@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
 
 
@@ -70,7 +70,7 @@ export const UseTerms = () => {
             <Typography variant='body2' gutterBottom>
                 Una vez que la persona se registre, deberá aceptar los términos y condiciones del SCL.
             </Typography>
-            
+
             <Typography variant='body2' gutterBottom>
                 Artículo 8. Los datos que se requieren para ser usuario o usuaria del SCL, serán:
             </Typography>
@@ -125,11 +125,11 @@ export const UseTerms = () => {
             <Typography variant='body2'>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> Seleccionar la fecha y la hora de preferencia para acudir a la sede del órgano jurisdiccional de que se trate, siempre y cuando haya disponibilidad.
             </Typography>
-            
+
             <Typography variant='body2'>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} />  Revisar que los datos de la cita sean correctos, seleccionando la opción de confirmar cita.
             </Typography>
-            
+
             <Typography variant='body2' gutterBottom>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> En el correo utilizado para el registro se recibirá la confirmación de la cita con los datos correspondientes, confirmación que deberá ser mostrada de manera electrónica o impresa en el punto de entrada al edificio así como al órgano jurisdiccional correspondiente.
             </Typography>
@@ -145,7 +145,7 @@ export const UseTerms = () => {
             <Typography variant='body2'>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> Tramitación de oficios, edictos y exhortos.
             </Typography>
-            
+
             <Typography variant='body2'>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> Citas con actuarios y actuarias (civiles y familiares únicamente).
             </Typography>
@@ -157,7 +157,7 @@ export const UseTerms = () => {
             <Typography variant='body2'>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> Expedición de copias simples certificadas.
             </Typography>
-            
+
             <Typography variant='body2'>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> Devolución de documentos.
             </Typography>
@@ -165,7 +165,7 @@ export const UseTerms = () => {
             <Typography variant='body2' gutterBottom>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> Entrega de cheques y certificados de depósito.
             </Typography>
-            
+
             <Typography variant='body2' gutterBottom>
                 Los demás que estén disponibles por parte de las autoridades en beneficio de la ciudadanía.
             </Typography>
@@ -189,7 +189,7 @@ export const UseTerms = () => {
             <Typography variant='body2' gutterBottom>
                 Artículo 14. Para el uso del SCL se observarán las siguientes reglas:
             </Typography>
-            
+
             <Typography variant='body2' gutterBottom>
                 <ArrowDropDownCircleOutlinedIcon sx={{fontSize:'small'}} /> Las citas tendrán una duración de 30 minutos.
             </Typography>
