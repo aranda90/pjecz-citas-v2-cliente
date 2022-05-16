@@ -34,7 +34,7 @@ export const RecoverAccountScreen = () => {
             console.log(response);
         });
         setFormValues(cleanFormData);
-        setFormSent(true)
+        setFormSent(true);
     }
 
     if (formSent) {
