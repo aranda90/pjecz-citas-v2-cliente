@@ -1,7 +1,7 @@
 import HttpClient from '../../services/HttpClient';
 
-export const NewAccount = data => {
 
+export const NewAccount = data => {
     return new Promise((resolve, reject) => {
         HttpClient.post('/cit_clientes_registros', data)
             .then(response => {
@@ -13,11 +13,10 @@ export const NewAccount = data => {
                 resolve(error.response);
             });
     });
-
 }
 
-export const RecoverAccount = data => {
 
+export const RecoverAccount = data => {
     return new Promise((resolve, reject) => {
         HttpClient.post('/cit_clientes_recuperaciones', data)
             .then(response => {
@@ -29,5 +28,4 @@ export const RecoverAccount = data => {
                 resolve(error.response);
             });
     });
-
 }
