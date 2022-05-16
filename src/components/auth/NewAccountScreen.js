@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Card, Checkbox, Container, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { NewAccount } from '../actions/NewAccountAction';
+import { NewAccount } from '../actions/AuthActions';
+import '../../css/global.css';
 
 
 const cleanFormData = {
@@ -195,7 +196,7 @@ export const NewAccountScreen = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <Typography variant="body1">
-                                    <Link to='/'>
+                                    <Link to='/' className='link'>
                                         Si ya tienes una cuenta, regresa a la pagina inicial
                                     </Link>
                                 </Typography>

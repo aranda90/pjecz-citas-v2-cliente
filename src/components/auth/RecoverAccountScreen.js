@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { RecoverAccount } from '../actions/AuthActions';
 import '../../css/global.css';
 
 
-const cleanDatos = {
+const cleanFormData = {
     email: '',
     email2: '',
 }
@@ -12,7 +13,7 @@ const cleanDatos = {
 
 export const RecoverAccountScreen = () => {
 
-    const [datos, setFormValues] = useState({
+    const [formData, setFormValues] = useState({
         email: '',
         email2: '',
     });
@@ -28,8 +29,10 @@ export const RecoverAccountScreen = () => {
     }
 
     const submitForm = () => {
-        console.log(datos);
-        setFormValues(cleanDatos);
+        RecoverAccount(formData).then( response => {
+            console.log(response);
+        });
+        setFormValues(cleanFormData);
     }
 
     return (
@@ -50,7 +53,7 @@ export const RecoverAccountScreen = () => {
                                         fullWidth
                                         name='email'
                                         onChange={handleChange}
-                                        value={datos.email}
+                                        value={formData.email}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -60,7 +63,7 @@ export const RecoverAccountScreen = () => {
                                         fullWidth
                                         name='email2'
                                         onChange={handleChange}
-                                        value={datos.email2}
+                                        value={formData.email2}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
