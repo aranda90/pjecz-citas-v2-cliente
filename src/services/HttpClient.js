@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8000/v2';
+axios.defaults.baseURL = 'http://localhost:8005/v1';
 
 const request = {
     get: (url) => axios.get(url),
