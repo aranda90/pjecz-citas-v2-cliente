@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Card, Checkbox, Container, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { NewAccount } from '../actions/NewAccountAction';
 
 
 const cleanFormData = {
     nombres: '',
-    apellido_paterno: '',
-    apellido_materno: '',
+    apellido_primero: '',
+    apellido_segundo: '',
     curp: '',
     curp2: '',
     telefono: '',
     telefono2: '',
     email: '',
     email2: '',
-    contrasena: '',
-    contrasena2: '',
 }
 
 
@@ -22,16 +21,14 @@ export const NewAccountScreen = () => {
 
     const [formData, setFormValue] = useState({
         nombres: '',
-        apellido_paterno: '',
-        apellido_materno: '',
+        apellido_primero: '',
+        apellido_segundo: '',
         curp: '',
         curp2: '',
         telefono: '',
         telefono2: '',
         email: '',
         email2: '',
-        contrasena: '',
-        contrasena2: '',
     });
 
     const handleChange = (event) => {
@@ -45,7 +42,9 @@ export const NewAccountScreen = () => {
     };
 
     const submitForm = () => {
-        console.log(formData);
+        NewAccount(formData).then( response => {
+            console.log(response);
+        });
         setFormValue(cleanFormData);
     };
 
@@ -81,8 +80,8 @@ export const NewAccountScreen = () => {
                                         label='Apellido paterno'
                                         type='text'
                                         variant='outlined'
-                                        name='apellido_paterno'
-                                        value={formData.apellido_paterno}
+                                        name='apellido_primero'
+                                        value={formData.apellido_primero}
                                         onChange={handleChange}
                                     />
                                 </Grid>
@@ -92,8 +91,8 @@ export const NewAccountScreen = () => {
                                         label='Apellido materno'
                                         type='text'
                                         variant='outlined'
-                                        name='apellido_materno'
-                                        value={formData.apellido_materno}
+                                        name='apellido_segundo'
+                                        value={formData.apellido_segundo}
                                         onChange={handleChange}
                                     />
                                 </Grid>
@@ -160,28 +159,6 @@ export const NewAccountScreen = () => {
                                         variant='outlined'
                                         name='email2'
                                         value={formData.email2}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item md={6} xs={12}>
-                                    <TextField
-                                        fullWidth
-                                        label='Contraseña'
-                                        type='password'
-                                        variant='outlined'
-                                        name='contrasena'
-                                        value={formData.contrasena}
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item md={6} xs={12}>
-                                    <TextField
-                                        fullWidth
-                                        label='De nuevo la Contraseña'
-                                        type='password'
-                                        variant='outlined'
-                                        name='contrasena2'
-                                        value={formData.contrasena2}
                                         onChange={handleChange}
                                     />
                                 </Grid>
