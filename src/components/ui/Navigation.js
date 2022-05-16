@@ -2,13 +2,11 @@ import React from 'react';
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../css/global.css';
 
 
 export const Navigation = () => {
-
-    const history = useNavigate();
 
     const styles = {
         appBarBox: { flexGrow: 1, mt: 15 },

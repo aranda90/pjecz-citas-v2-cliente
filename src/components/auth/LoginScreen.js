@@ -12,14 +12,14 @@ const cleanFormData = {
 
 export const LoginScreen = () => {
 
-    const [formData, setFormValue] = useState({
+    const [formData, setFormValues] = useState({
         username: '',
         password: '',
     });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormValue((prevState) => {
+        setFormValues((prevState) => {
             return {
                 ...prevState,
                 [name]: value,
@@ -29,11 +29,7 @@ export const LoginScreen = () => {
 
     const submitForm = () => {
         console.log(formData);
-        setFormValue(cleanFormData);
-    }
-
-    const styles = {
-        link: { textDecoration: 'none', color: 'inherit' }
+        setFormValues(cleanFormData);
     }
 
     return (

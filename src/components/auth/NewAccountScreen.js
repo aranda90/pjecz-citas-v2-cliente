@@ -19,7 +19,7 @@ const cleanFormData = {
 
 export const NewAccountScreen = () => {
 
-    const [formData, setFormValue] = useState({
+    const [formData, setFormValues] = useState({
         nombres: '',
         apellido_primero: '',
         apellido_segundo: '',
@@ -33,7 +33,7 @@ export const NewAccountScreen = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormValue((prevState) => {
+        setFormValues((prevState) => {
             return {
                 ...prevState,
                 [name]: value,
@@ -45,12 +45,8 @@ export const NewAccountScreen = () => {
         NewAccount(formData).then( response => {
             console.log(response);
         });
-        setFormValue(cleanFormData);
+        setFormValues(cleanFormData);
     };
-
-    const styles = {
-        link: { textDecoration: 'none', color: 'inherit' }
-    }
 
     return (
         <Container sx={{ marginTop: '40px' }}>

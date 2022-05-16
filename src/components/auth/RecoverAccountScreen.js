@@ -12,14 +12,14 @@ const cleanDatos = {
 
 export const RecoverAccountScreen = () => {
 
-    const [datos, setDatos] = useState({
+    const [datos, setFormValues] = useState({
         email: '',
         email2: '',
     });
 
     const handleChange = (evento) => {
         const { name, value } = evento.target;
-        setDatos((prevState) => {
+        setFormValues((prevState) => {
             return {
                 ...prevState,
                 [name]: value,
@@ -29,11 +29,7 @@ export const RecoverAccountScreen = () => {
 
     const submitForm = () => {
         console.log(datos);
-        setDatos(cleanDatos);
-    }
-
-    const styles = {
-        link: { textDecoration: 'none', color: 'inherit' }
+        setFormValues(cleanDatos);
     }
 
     return (

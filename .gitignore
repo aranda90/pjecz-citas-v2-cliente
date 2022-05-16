@@ -24,4 +24,5 @@ yarn-error.log*
 
 /app.yaml
 
+/.bashrc
 .env
