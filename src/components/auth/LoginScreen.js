@@ -51,7 +51,7 @@ export const LoginScreen = () => {
             }
         })
         .catch( error => {
-            // FALLO el inicio de sesion
+            // FALLO el inicio de sesion, mostrar el mensaje de la API
             setIsError(true);
             setErrorMessage(error.response.data.detail);
         });
