@@ -43,10 +43,8 @@ export const LoginScreen = () => {
         params.append('password', formData.password);
         axios.post('/token', params, headers).then( result => {
             if (result.status === 200) {
-                // Exito
-
+                // Exito, redirigir
                 navigate('/list');
-
                 window.localStorage.setItem('token', result.data.access_token);
                 setIsLoggedIn(true);
             } else {
