@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../css/global.css';
 
 
@@ -12,6 +12,8 @@ const cleanFormData = {
 
 
 export const LoginScreen = () => {
+
+    let navigate = useNavigate();
 
     const [formData, setFormValues] = useState({
         username: '',
@@ -41,7 +43,8 @@ export const LoginScreen = () => {
         params.append('password', formData.password);
         axios.post('/token', params, headers).then( result => {
             if (result.status === 200) {
-                // Exito
+                // Exito, redirigir
+                navigate('/list');
                 window.localStorage.setItem('token', result.data.access_token);
                 setIsLoggedIn(true);
             } else {

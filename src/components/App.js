@@ -12,6 +12,7 @@ import { RecoverAccountScreen } from './auth/RecoverAccountScreen';
 import { RecoverAccountConfirmScreen } from './auth/RecoverAccountConfirmScreen';
 import { PrivacyTerms } from './static/PrivacyTerms';
 import { UseTerms } from './static/UseTerms';
+import { CitCitasListScreen } from './citCitas/CitCitasListScreen';
 
 
 const Layout = () => {
@@ -39,6 +40,7 @@ const App = () => {
                     <Route path='/recover_account_confirm' element={<RecoverAccountConfirmScreen />} />
                     <Route path='/privacy_terms' element={<PrivacyTerms />} />
                     <Route path='/use_terms' element={<UseTerms />} />
+                    <Route path='/list' element={<CitCitasListScreen />} />
                 </Route>
             </Routes>
         </BrowserRouter>
