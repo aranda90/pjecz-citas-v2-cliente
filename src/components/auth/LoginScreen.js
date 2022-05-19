@@ -42,7 +42,7 @@ export const LoginScreen = () => {
         axios.post('/token', params, headers).then( result => {
             if (result.status === 200) {
                 // Exito
-                window.localStorage.setItem('token', result.access_token);
+                window.localStorage.setItem('token', result.data.access_token);
                 setIsLoggedIn(true);
             } else {
                 // ERROR fatal en inicio de sesion
