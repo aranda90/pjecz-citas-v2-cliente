@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, Container, Typography } from '@mui/material';
 import '../../css/global.css';
 
-
 export const CitCitasListScreen = () => {
 
     return (
