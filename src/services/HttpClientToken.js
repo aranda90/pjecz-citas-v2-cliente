@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:8005';
+axios.defaults.baseURL = process.env.REACT_APP_URL_BASE
 
 const request = {
     get: (url, token) => axios.get(url, { headers: { 'Authorization': 'Bearer ' + token } } ),
@@ -9,4 +9,4 @@ const request = {
     delete: (url, token) => axios.delete(url, { headers: { 'Authorization': 'Bearer ' + token } } )
 }
 
-export default request;
+export default request

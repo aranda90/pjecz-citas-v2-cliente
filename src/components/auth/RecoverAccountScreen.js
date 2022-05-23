@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { RecoverAccount } from '../actions/AuthActions';
-import '../../css/global.css';
+import React, { useState } from 'react'
+import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { RecoverAccount } from '../actions/AuthActions'
+import { commonSX } from '../ui/commonSX'
+import '../../css/global.css'
 
 
 const cleanFormData = {
@@ -10,41 +11,40 @@ const cleanFormData = {
     email2: '',
 }
 
-
 export const RecoverAccountScreen = () => {
 
     const [formData, setFormValues] = useState({
         email: '',
         email2: '',
-    });
-    const [formSent, setFormSent] = useState(false);
+    })
+    const [formSent, setFormSent] = useState(false)
 
     const handleChange = (evento) => {
-        const { name, value } = evento.target;
+        const { name, value } = evento.target
         setFormValues((prevState) => {
             return {
                 ...prevState,
                 [name]: value,
-            };
-        });
+            }
+        })
     }
 
     const submitForm = () => {
         RecoverAccount(formData).then( response => {
-            console.log(response);
-        });
-        setFormValues(cleanFormData);
-        setFormSent(true);
+            console.log(response)
+        })
+        setFormValues(cleanFormData)
+        setFormSent(true)
     }
 
     if (formSent) {
         return (
-            <Container sx={{ marginTop: '40px' }}>
+            <Container sx={commonSX.container}>
                 <Grid container spacing={2}>
                     <Grid item md={3} xs={12}></Grid>
                     <Grid item md={6} xs={12}>
-                        <Card align='center' sx={{ padding: 4 }}>
-                            <Typography variant='h5' sx={{ marginBottom: 2 }}>
+                        <Card align='center' sx={commonSX.card}>
+                            <Typography variant='h5' sx={commonSX.title}>
                                 Se ha enviado su solicitud de recuperacion
                             </Typography>
                             <Typography variant='body1'>
@@ -60,15 +60,15 @@ export const RecoverAccountScreen = () => {
                     <Grid item md={3} xs={12}></Grid>
                 </Grid>
             </Container>
-        );
+        )
     } else {
         return (
-            <Container sx={{ marginTop: '40px' }}>
+            <Container sx={commonSX.container}>
                 <Grid container spacing={2}>
                     <Grid item md={3} xs={12}></Grid>
                     <Grid item md={6} xs={12}>
-                        <Card align='center' sx={{ padding: 4 }}>
-                            <Typography variant='h5' sx={{ marginBottom: 2 }}>
+                        <Card align='center' sx={commonSX.card}>
+                            <Typography variant='h5' sx={commonSX.title}>
                                 Recuperar mi contrasena
                             </Typography>
                             <form onSubmit={(e) => e.preventDefault()}>
@@ -117,7 +117,7 @@ export const RecoverAccountScreen = () => {
                     <Grid item md={3} xs={12}></Grid>
                 </Grid>
             </Container>
-        );
+        )
     }
 
 }

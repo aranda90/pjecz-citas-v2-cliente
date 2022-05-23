@@ -1,12 +1,14 @@
-import React from 'react';
-import { Container, Typography } from '@mui/material';
-import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined';
+import React from 'react'
+import { Container, Typography } from '@mui/material'
+import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined'
+import { commonSX } from '../ui/commonSX'
 
 
 export const UseTerms = () => {
 
     return (
-        <Container sx={{ marginTop: '40px' }}>
+        <Container sx={commonSX.container}>
+
             <Typography variant='h4' gutterBottom>
                 REGLAS DE OPERACIÓN DEL SISTEMA DE CITAS MEDIANTE PLATAFORMA EN LÍNEA DEL PODER JUDICIAL DEL ESTADO DE COAHUILA DE ZARAGOZA
             </Typography>
@@ -231,6 +233,6 @@ export const UseTerms = () => {
             </Typography>
 
         </Container>
-    );
+    )
 
 }
