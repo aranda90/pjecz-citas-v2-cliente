@@ -1,34 +1,32 @@
-import React from 'react';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import React from 'react'
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
+import { ThemeProvider } from '@mui/material'
 
-import { ThemeProvider } from '@mui/material';
-import { InstitutionalTheme } from './theme/InstitutionalTheme';
+import { InstitutionalTheme } from './theme/InstitutionalTheme'
+import { Navigation } from './ui/Navigation'
 
-import { LoginScreen } from './auth/LoginScreen';
-import { NewAccountScreen } from './auth/NewAccountScreen';
-import { NewAccountConfirmScreen } from './auth/NewAccountConfirmScreen';
-import { Navigation } from './ui/Navigation';
-import { RecoverAccountScreen } from './auth/RecoverAccountScreen';
-import { RecoverAccountConfirmScreen } from './auth/RecoverAccountConfirmScreen';
-import { PrivacyTerms } from './static/PrivacyTerms';
-import { UseTerms } from './static/UseTerms';
-import { CitCitasListScreen } from './citCitas/CitCitasListScreen';
+import { LoginScreen } from './auth/LoginScreen'
+import { NewAccountScreen } from './auth/NewAccountScreen'
+import { NewAccountConfirmScreen } from './auth/NewAccountConfirmScreen'
+import { RecoverAccountScreen } from './auth/RecoverAccountScreen'
+import { RecoverAccountConfirmScreen } from './auth/RecoverAccountConfirmScreen'
+
+import { PrivacyTerms } from './static/PrivacyTerms'
+import { UseTerms } from './static/UseTerms'
+
+import { CitCitasListScreen } from './citCitas/CitCitasListScreen'
 
 
 const Layout = () => {
-
     return(
         <ThemeProvider theme={InstitutionalTheme}>
             <Navigation />
             <Outlet />
         </ThemeProvider>
-    );
-
+    )
 }
 
-
 const App = () => {
-
     return(
         <BrowserRouter>
             <Routes>
@@ -44,8 +42,7 @@ const App = () => {
                 </Route>
             </Routes>
         </BrowserRouter>
-    );
-
+    )
 }
 
-export default App;
+export default App

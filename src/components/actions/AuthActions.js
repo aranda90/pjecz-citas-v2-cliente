@@ -1,4 +1,4 @@
-import HttpClient from '../../services/HttpClient';
+import HttpClient from '../../services/HttpClient'
 
 
 export const NewAccount = data => {
@@ -6,43 +6,41 @@ export const NewAccount = data => {
         HttpClient.post('/cit_clientes_registros', data)
             .then(response => {
                 if (response.status === 200) {
-                    resolve(response);
+                    resolve(response)
                 }
             })
             .catch((error) => {
-                resolve(error.response);
-            });
-    });
+                resolve(error.response)
+            })
+    })
 }
-
 
 export const NewAccountConfirm = data => {
     return new Promise((resolve, reject) => {
         HttpClient.post('/cit_clientes_registros_confirm', data)
             .then(response => {
                 if (response.status === 200) {
-                    resolve(response);
+                    resolve(response)
                 }
             })
             .catch((error) => {
-                resolve(error.response);
-            });
-    });
+                resolve(error.response)
+            })
+    })
 }
-
 
 export const RecoverAccount = data => {
     return new Promise((resolve, reject) => {
         HttpClient.post('/cit_clientes_recuperaciones', data)
             .then(response => {
                 if (response.status === 200) {
-                    resolve(response);
+                    resolve(response)
                 }
             })
             .catch((error) => {
-                resolve(error.response);
-            });
-    });
+                resolve(error.response)
+            })
+    })
 }
 
 
@@ -51,11 +49,11 @@ export const RecoverAccountConfirm = data => {
         HttpClient.post('/cit_clientes_recuperaciones_confirm', data)
             .then(response => {
                 if (response.status === 200) {
-                    resolve(response);
+                    resolve(response)
                 }
             })
             .catch((error) => {
-                resolve(error.response);
-            });
-    });
+                resolve(error.response)
+            })
+    })
 }

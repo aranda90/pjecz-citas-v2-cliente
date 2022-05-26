@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:8005/v2';
+axios.defaults.baseURL = process.env.REACT_APP_URL_BASE
 
 const request = {
     get: (url) => axios.get(url),
@@ -9,4 +9,4 @@ const request = {
     delete: (url) => axios.delete(url)
 }
 
-export default request;
+export default request

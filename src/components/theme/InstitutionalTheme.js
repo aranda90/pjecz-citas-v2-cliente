@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material';
+import { createTheme } from '@mui/material'
 
 
 export const InstitutionalTheme = createTheme({
@@ -11,4 +11,4 @@ export const InstitutionalTheme = createTheme({
             main: '#d0a473',
         },
     },
-});
+})

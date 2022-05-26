@@ -1,9 +1,9 @@
-import React from 'react';
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
-import '../../css/global.css';
+import React from 'react'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
+import { Box } from '@mui/system'
+import MenuIcon from '@mui/icons-material/Menu'
+import { Link } from 'react-router-dom'
+import '../../css/global.css'
 
 
 export const Navigation = () => {
@@ -46,6 +46,6 @@ export const Navigation = () => {
                 </Toolbar>
             </AppBar>
         </Box>
-    );
+    )
 
 }

@@ -1,11 +1,13 @@
-import React from 'react';
-import { Container, Typography } from '@mui/material';
+import React from 'react'
+import { Container, Typography } from '@mui/material'
+import { commonSX } from '../ui/commonSX'
 
 
 export const PrivacyTerms = () => {
 
     return (
-        <Container sx={{ marginTop: '40px' }}>
+        <Container sx={commonSX.container}>
+
             <Typography variant='h4'>
                 AVISO DE PRIVACIDAD SIMPLIFICADO
             </Typography>
@@ -51,6 +53,6 @@ export const PrivacyTerms = () => {
             </Typography>
 
         </Container>
-    );
+    )
 
 }
