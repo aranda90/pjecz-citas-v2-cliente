@@ -1,4 +1,5 @@
 import HttpClient from '../services/HttpClient'
+import HttpClientToken from '../services/HttpClientToken'
 
 
 export const NewAccount = data => {
@@ -55,5 +56,21 @@ export const RecoverAccountConfirm = data => {
             .catch((error) => {
                 resolve(error.response)
             })
+    })
+}
+
+
+export const Profile = () => {
+    return new Promise((resolve, eject) => {
+        const token = window.localStorage.getItem('token')
+        if (token) {
+            HttpClientToken.get(`/profile`, token)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    resolve(error.response)
+                })
+        }
     })
 }

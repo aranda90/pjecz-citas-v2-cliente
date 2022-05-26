@@ -9,7 +9,8 @@ import '../../css/global.css'
 const ListCitasScreen = () => {
 
     // Redirigir al login cuando no haya iniciado sesion
-    const token = JSON.parse(window.localStorage.getItem('token'))
+    const token = window.localStorage.getItem('token')
+    console.log(token)
     const navigate = useNavigate()
     useEffect(() => {
         if (!token) {
