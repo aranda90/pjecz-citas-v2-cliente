@@ -6,7 +6,7 @@ Front-End hecho en React del Sistema de Citas V2
 
 Crear un archivo `.env` con las variables de entorno
 
-    REACT_APP_URL_BASE=http://localhost:8002
+    REACT_APP_URL_BASE=http://127.0.0.1:8005
 
 Para hacer la instalacion a partir de `package.json`
 
