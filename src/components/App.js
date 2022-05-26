@@ -2,19 +2,18 @@ import React from 'react'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 
-import { InstitutionalTheme } from './theme/InstitutionalTheme'
-import { Navigation } from './ui/Navigation'
+import InstitutionalTheme from '../theme/InstitutionalTheme'
 
-import { LoginScreen } from './auth/LoginScreen'
-import { NewAccountScreen } from './auth/NewAccountScreen'
-import { NewAccountConfirmScreen } from './auth/NewAccountConfirmScreen'
-import { RecoverAccountScreen } from './auth/RecoverAccountScreen'
-import { RecoverAccountConfirmScreen } from './auth/RecoverAccountConfirmScreen'
+import Navigation from './ui/Navigation'
 
-import { PrivacyTerms } from './static/PrivacyTerms'
-import { UseTerms } from './static/UseTerms'
-
-import { CitCitasListScreen } from './citCitas/CitCitasListScreen'
+import LoginScreen from './auth/LoginScreen'
+import NewAccountScreen from './auth/NewAccountScreen'
+import NewAccountConfirmScreen from './auth/NewAccountConfirmScreen'
+import RecoverAccountScreen from './auth/RecoverAccountScreen'
+import RecoverAccountConfirmScreen from './auth/RecoverAccountConfirmScreen'
+import PrivacyTermsScreen from './static/PrivacyTermsScreen'
+import UseTermsScreen from './static/UseTermsScreen'
+import ListCitasScreen from './citas/ListCitasScreen'
 
 
 const Layout = () => {
@@ -36,9 +35,9 @@ const App = () => {
                     <Route path='/new_account_confirm' element={<NewAccountConfirmScreen />} />
                     <Route path='/recover_account' element={<RecoverAccountScreen />} />
                     <Route path='/recover_account_confirm' element={<RecoverAccountConfirmScreen />} />
-                    <Route path='/privacy_terms' element={<PrivacyTerms />} />
-                    <Route path='/use_terms' element={<UseTerms />} />
-                    <Route path='/list' element={<CitCitasListScreen />} />
+                    <Route path='/privacy_terms' element={<PrivacyTermsScreen />} />
+                    <Route path='/use_terms' element={<UseTermsScreen />} />
+                    <Route path='/list' element={<ListCitasScreen />} />
                 </Route>
             </Routes>
         </BrowserRouter>

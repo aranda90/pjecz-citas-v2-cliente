@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { NewAccountConfirm } from '../actions/AuthActions'
-import { commonSX } from '../ui/commonSX'
+import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material'
+
+import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
+
+import { NewAccountConfirm } from '../../actions/AuthActions'
 
 
 const cleanFormData = {
@@ -11,7 +13,7 @@ const cleanFormData = {
     password2: '',
 }
 
-export const NewAccountConfirmScreen = () => {
+const NewAccountConfirmScreen = () => {
 
     const [formData, setFormValues] = useState({
         password: '',
@@ -121,3 +123,5 @@ export const NewAccountConfirmScreen = () => {
     }
 
 }
+
+export default NewAccountConfirmScreen

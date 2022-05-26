@@ -1,9 +1,10 @@
 import React from 'react'
 import { Container, Typography } from '@mui/material'
-import { commonSX } from '../ui/commonSX'
+
+import commonSX from '../../theme/CommonSX'
 
 
-export const PrivacyTerms = () => {
+const PrivacyTermsScreen = () => {
 
     return (
         <Container sx={commonSX.container}>
@@ -56,3 +57,5 @@ export const PrivacyTerms = () => {
     )
 
 }
+
+export default PrivacyTermsScreen

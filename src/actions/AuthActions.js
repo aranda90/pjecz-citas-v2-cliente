@@ -1,4 +1,4 @@
-import HttpClient from '../../services/HttpClient'
+import HttpClient from '../services/HttpClient'
 
 
 export const NewAccount = data => {

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
-import { commonSX } from '../ui/commonSX'
+
+import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 
@@ -11,7 +12,7 @@ const cleanFormData = {
     password: '',
 }
 
-export const LoginScreen = () => {
+const LoginScreen = () => {
 
     let navigate = useNavigate()
 
@@ -171,3 +172,5 @@ export const LoginScreen = () => {
     }
 
 }
+
+export default LoginScreen

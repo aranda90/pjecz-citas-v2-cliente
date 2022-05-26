@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react'
-import { Card, Container, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { commonSX } from '../ui/commonSX'
+import { Card, Container, Typography } from '@mui/material'
+
+import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 
-export const CitCitasListScreen = () => {
+const ListCitasScreen = () => {
 
-    let navigate = useNavigate()
-
-    const token = window.localStorage.getItem('token')
-
-    console.log(token)
-
+    // Redirigir al login cuando no haya iniciado sesion
+    const token = JSON.parse(window.localStorage.getItem('token'))
+    const navigate = useNavigate()
     useEffect(() => {
-
-        if (!token ) {
+        if (!token) {
             navigate('/')
         }
-
-    }, [ token ])
+    })
 
     return (
         <Container sx={commonSX.container}>
@@ -32,3 +28,5 @@ export const CitCitasListScreen = () => {
     )
 
 }
+
+export default ListCitasScreen

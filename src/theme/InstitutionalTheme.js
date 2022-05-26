@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material'
 
 
-export const InstitutionalTheme = createTheme({
+const InstitutionalTheme = createTheme({
     palette: {
         type: 'light',
         primary: {
@@ -12,3 +12,5 @@ export const InstitutionalTheme = createTheme({
         },
     },
 })
+
+export default InstitutionalTheme
