@@ -1,10 +1,11 @@
 import React from 'react'
 import { Container, Typography } from '@mui/material'
 import ArrowDropDownCircleOutlinedIcon from '@mui/icons-material/ArrowDropDownCircleOutlined'
-import { commonSX } from '../ui/commonSX'
+
+import commonSX from '../../theme/CommonSX'
 
 
-export const UseTerms = () => {
+const UseTermsScreen = () => {
 
     return (
         <Container sx={commonSX.container}>
@@ -236,3 +237,5 @@ export const UseTerms = () => {
     )
 
 }
+
+export default UseTermsScreen

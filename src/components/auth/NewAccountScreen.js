@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Button, Card, Checkbox, Container, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { NewAccount } from '../actions/AuthActions'
-import { commonSX } from '../ui/commonSX'
+import { Button, Card, Checkbox, Container, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material'
+
+import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
+
+import { NewAccount } from '../../actions/AuthActions'
 
 
 const cleanFormData = {
@@ -18,7 +20,7 @@ const cleanFormData = {
     email2: '',
 }
 
-export const NewAccountScreen = () => {
+const NewAccountScreen = () => {
 
     const [formData, setFormValues] = useState({
         nombres: '',
@@ -238,3 +240,5 @@ export const NewAccountScreen = () => {
     }
 
 }
+
+export default NewAccountScreen

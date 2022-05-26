@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Button, Card, Container, Grid, TextField, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { RecoverAccount } from '../actions/AuthActions'
-import { commonSX } from '../ui/commonSX'
+
+import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
+
+import { RecoverAccount } from '../../actions/AuthActions'
 
 
 const cleanFormData = {
@@ -11,7 +13,7 @@ const cleanFormData = {
     email2: '',
 }
 
-export const RecoverAccountScreen = () => {
+const RecoverAccountScreen = () => {
 
     const [formData, setFormValues] = useState({
         email: '',
@@ -121,3 +123,5 @@ export const RecoverAccountScreen = () => {
     }
 
 }
+
+export default RecoverAccountScreen

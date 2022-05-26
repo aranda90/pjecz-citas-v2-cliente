@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Link } from 'react-router-dom'
+
 import '../../css/global.css'
 
 
-export const Navigation = () => {
+const Navigation = () => {
 
     const styles = {
         appBarBox: { flexGrow: 1, mt: 15 },
@@ -49,3 +50,5 @@ export const Navigation = () => {
     )
 
 }
+
+export default Navigation
