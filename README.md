@@ -22,14 +22,37 @@ Es util crear un archivo `.bashrc` para cargar en Konsole
         source ~/.bashrc
     fi
 
+    if [ -f .env ]; then
+        export $(grep -v '^#' .env | xargs)
+    fi
+
     figlet Citas V2 cliente
     echo
 
-    echo "-- React development"
-    echo "   npm start"
+    echo "-- Variables de entorno"
+    echo "   REACT_APP_URL_BASE: $REACT_APP_URL_BASE"
     echo
 
-## Instalacion en Fedora Linux
+    alias arrancar='npm start'
+    echo "-- Aliases"
+    echo "   arrancar: npm start"
+    echo
+
+## Comandos para crear la app e instalar los paquetes
+
+Crear la app con
+
+    npx create-react-app pjecz-citas-v2-cliente
+    cd pjecz-citas-v2-cliente
+
+Luego los paquetes que se usan
+
+    npm install axios --save
+    npm install react-router-dom --save
+    npm install @mui/material @mui/icons-material @emotion/react @emotion/styled --save
+    npm install @mdi/react @mdi/js --save
+
+## Requerimientos en Fedora Linux
 
 Instalar NodeJS
 
