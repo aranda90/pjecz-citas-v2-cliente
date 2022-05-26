@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Grid, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
@@ -47,13 +47,79 @@ const ProfileScreen = () => {
         fetchData()
     }, [])
 
-    return (
-        <ContainerCardCenter>
-            <Typography variant='h5' sx={commonSX.title}>
-                Esta fuera del sistema
-            </Typography>
-        </ContainerCardCenter>
-    )
+    if (consultado) {
+        return (
+            <Container sx={commonSX.container}>
+                <Typography variant='h4' sx={commonSX.title}>
+                    Perfil
+                </Typography>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Nombres"
+                            type="text"
+                            fullWidth
+                            aria-readonly
+                            value={profile.nombres}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Apellido primero"
+                            type="text"
+                            fullWidth
+                            aria-readonly
+                            value={profile.apellido_primero}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Apellido segundo"
+                            type="text"
+                            fullWidth
+                            aria-readonly
+                            value={profile.apellido_segundo}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="CURP"
+                            type="text"
+                            fullWidth
+                            aria-readonly
+                            value={profile.curp}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Telefono"
+                            type="text"
+                            fullWidth
+                            aria-readonly
+                            value={profile.telefono}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Correo electronico"
+                            type="text"
+                            fullWidth
+                            aria-readonly
+                            value={profile.email}
+                        />
+                    </Grid>
+                </Grid>
+            </Container>
+        )
+    } else {
+        return (
+            <ContainerCardCenter>
+                <Typography variant='h5' sx={commonSX.title}>
+                    Esta fuera del sistema
+                </Typography>
+            </ContainerCardCenter>
+        )
+    }
 
 }
 

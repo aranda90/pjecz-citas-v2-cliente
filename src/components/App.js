@@ -9,6 +9,7 @@ import Navigation from './ui/Navigation'
 import LoginScreen from './auth/LoginScreen'
 import NewAccountScreen from './auth/NewAccountScreen'
 import NewAccountConfirmScreen from './auth/NewAccountConfirmScreen'
+import ProfileScreen from './auth/ProfileScreen'
 import RecoverAccountScreen from './auth/RecoverAccountScreen'
 import RecoverAccountConfirmScreen from './auth/RecoverAccountConfirmScreen'
 import PrivacyTermsScreen from './static/PrivacyTermsScreen'
@@ -33,6 +34,7 @@ const App = () => {
                     <Route index element={<LoginScreen />} />
                     <Route path='/new_account' element={<NewAccountScreen />} />
                     <Route path='/new_account_confirm' element={<NewAccountConfirmScreen />} />
+                    <Route path='/profile' element={<ProfileScreen />} />
                     <Route path='/recover_account' element={<RecoverAccountScreen />} />
                     <Route path='/recover_account_confirm' element={<RecoverAccountConfirmScreen />} />
                     <Route path='/privacy_terms' element={<PrivacyTermsScreen />} />
