@@ -72,11 +72,15 @@ Para bajar, instalar y ejecutar
 
 ## Pasos para subir a produccion
 
-Para subir a Google Cloud
+Escriba el archivo `app.yaml` de no tenerlo
 
-1. Ejecute `npm run build`
-1. Escriba el archivo `app.yaml` de no tenerlo
-1. Suba a Google Cloud con `gcloud app deploy`
+CAMBIAR variable de entorno
+
+    REACT_APP_API_URL_BASE=https://citas-api-oauth2.justiciadigital.gob.mx
+
+Ejecute `npm run build`
+
+Carge **Google SDK** y suba a Google Cloud con `gcloud app deploy`
 
 ## Archivo app.yaml
 
