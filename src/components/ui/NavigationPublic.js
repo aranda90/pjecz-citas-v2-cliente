@@ -1,6 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Box, Button } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 
 import navigationSX from '../../theme/NavigationSX'
 import '../../css/global.css'
@@ -8,22 +7,13 @@ import '../../css/global.css'
 
 const NavigationPublic = () => {
 
-    const navigate = useNavigate()
-    const goToPrivacyTerms = () => {
-        navigate('/privacy_terms')
-    }
-    const goToUseTerms = () => {
-        navigate('/use_terms')
-    }
-
     return (
         <Box sx={navigationSX.pagesBoxDesktop}>
-            <Button key='aviso_privacidad' onClick={goToPrivacyTerms} sx={navigationSX.pagesButtonDesktop}>
-                Aviso de Privacidad
-            </Button>
-            <Button key='terminos_condiciones_uso' onClick={goToUseTerms} sx={navigationSX.pagesButtonDesktop}>
-                Términos y Condiciones de Uso
-            </Button>
+            <Link target='_blank' href='https://www.pjecz.gob.mx' className='app-bar-desktop-link'>
+                <Typography variant='body2'>
+                    Poder Judicial del Estado de Coahuila de Zaragoza
+                </Typography>
+            </Link>
         </Box>
     )
 
