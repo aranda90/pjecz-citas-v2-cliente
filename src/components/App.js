@@ -6,15 +6,18 @@ import InstitutionalTheme from '../theme/InstitutionalTheme'
 
 import Navigation from './ui/Navigation'
 
-import LoginScreen from './auth/LoginScreen'
+import ListCitasScreen from './citas/ListCitasScreen'
+
+import LogInScreen from './auth/LogInScreen'
+import LogOutScreen from './auth/LogOutScreen'
 import NewAccountScreen from './auth/NewAccountScreen'
 import NewAccountConfirmScreen from './auth/NewAccountConfirmScreen'
 import ProfileScreen from './auth/ProfileScreen'
 import RecoverAccountScreen from './auth/RecoverAccountScreen'
 import RecoverAccountConfirmScreen from './auth/RecoverAccountConfirmScreen'
+
 import PrivacyTermsScreen from './static/PrivacyTermsScreen'
 import UseTermsScreen from './static/UseTermsScreen'
-import ListCitasScreen from './citas/ListCitasScreen'
 
 
 const Layout = () => {
@@ -32,7 +35,8 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<ListCitasScreen />} />
-                    <Route path='/login' element={<LoginScreen />} />
+                    <Route path='/login' element={<LogInScreen />} />
+                    <Route path='/logout' element={<LogOutScreen />} />
                     <Route path='/new_account' element={<NewAccountScreen />} />
                     <Route path='/new_account_confirm' element={<NewAccountConfirmScreen />} />
                     <Route path='/profile' element={<ProfileScreen />} />
