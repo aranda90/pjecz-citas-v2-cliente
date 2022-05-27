@@ -4,6 +4,7 @@ import { Button, Typography } from '@mui/material'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
+import { Link } from 'react-router-dom'
 
 
 const LogOutScreen = () => {
@@ -50,6 +51,11 @@ const LogOutScreen = () => {
                 <Typography variant='h5' sx={commonSX.title}>
                     Esta fuera del sistema
                 </Typography>
+                <Link to='/login' className='link'>
+                    <Typography variant='body1'>
+                        Volver a ingresar
+                    </Typography>
+                </Link>
             </ContainerCardCenter>
         )
     }

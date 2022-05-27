@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material'
 
 import InstitutionalTheme from '../theme/InstitutionalTheme'
 
+import Footer from './ui/Footer'
 import Navigation from './ui/Navigation'
 
 import CancelCitaScreen from './citas/CancelCitaScreen'
@@ -27,6 +28,7 @@ const Layout = () => {
         <ThemeProvider theme={InstitutionalTheme}>
             <Navigation />
             <Outlet />
+            <Footer />
         </ThemeProvider>
     )
 }
