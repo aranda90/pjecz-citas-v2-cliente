@@ -13,7 +13,7 @@ const ProfileScreen = () => {
     // Revisar si ya esta logueado
     const [isLogged, setIsLogged] = useState(false)
     function checkStorage() {
-        if (window.localStorage.getItem('data')) {
+        if (window.localStorage.getItem('token')) {
             setIsLogged(true)
         } else {
             setIsLogged(false)
