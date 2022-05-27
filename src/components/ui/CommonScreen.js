@@ -7,12 +7,12 @@ import commonSX from '../../theme/CommonSX'
 
 const CommonScreen = (props) => {
 
-    // Redirigir al inicio cuando no haya iniciado sesion
+    // Redirigir al login cuando NO haya iniciado sesion
     const token = window.localStorage.getItem('token')
     const navigate = useNavigate()
     useEffect(() => {
         if (!token) {
-            navigate('/')
+            navigate('/login')
         }
     })
 

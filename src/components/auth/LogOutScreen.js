@@ -24,7 +24,7 @@ const LogOutScreen = () => {
 
     // Salir de la sesion
     const logOut = () => {
-        window.localStorage.removeItem('data')
+        window.localStorage.removeItem('token')
         setIsLogged(false)
     }
 

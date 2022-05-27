@@ -17,7 +17,7 @@ const cleanFormData = {
 const LoginScreen = () => {
 
     // Redirigir al inicio si ya esta logueado
-    const data = JSON.parse(window.localStorage.getItem('token'))
+    const data = window.localStorage.getItem('token')
     const navigate = useNavigate()
     useEffect(() => {
         if (data) {
@@ -47,7 +47,7 @@ const LoginScreen = () => {
         LogIn(formData).then((response) => {
             if (response.status === 200) {
                 const { data } = response
-                window.localStorage.setItem('token', JSON.stringify(data))
+                window.localStorage.setItem('token', data.access_token)
                 navigate('/')
             } else {
                 setIsError(true)

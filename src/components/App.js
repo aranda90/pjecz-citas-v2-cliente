@@ -6,7 +6,9 @@ import InstitutionalTheme from '../theme/InstitutionalTheme'
 
 import Navigation from './ui/Navigation'
 
+import CancelCitaScreen from './citas/CancelCitaScreen'
 import ListCitasScreen from './citas/ListCitasScreen'
+import NewCitaScreen from './citas/NewCitaScreen'
 
 import LogInScreen from './auth/LogInScreen'
 import LogOutScreen from './auth/LogOutScreen'
@@ -35,6 +37,8 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<Layout />}>
                     <Route index element={<ListCitasScreen />} />
+                    <Route path='/new' element={<NewCitaScreen />} />
+                    <Route path='/cancel' element={<CancelCitaScreen />} />
                     <Route path='/login' element={<LogInScreen />} />
                     <Route path='/logout' element={<LogOutScreen />} />
                     <Route path='/new_account' element={<NewAccountScreen />} />
