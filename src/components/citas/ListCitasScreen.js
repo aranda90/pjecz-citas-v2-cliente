@@ -9,14 +9,14 @@ import '../../css/global.css'
 const ListCitasScreen = () => {
 
     // Redirigir al login cuando no haya iniciado sesion
-    const token = window.localStorage.getItem('token')
-    console.log(token)
-    const navigate = useNavigate()
-    useEffect(() => {
-        if (!token) {
-            navigate('/')
-        }
-    })
+    //const token = window.localStorage.getItem('token')
+    //console.log(token)
+    //const navigate = useNavigate()
+    //useEffect(() => {
+    //    if (!token) {
+    //        navigate('/login')
+    //    }
+    //})
 
     return (
         <Container sx={commonSX.container}>

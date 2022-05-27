@@ -31,7 +31,8 @@ const App = () => {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Layout />}>
-                    <Route index element={<LoginScreen />} />
+                    <Route index element={<ListCitasScreen />} />
+                    <Route path='/login' element={<LoginScreen />} />
                     <Route path='/new_account' element={<NewAccountScreen />} />
                     <Route path='/new_account_confirm' element={<NewAccountConfirmScreen />} />
                     <Route path='/profile' element={<ProfileScreen />} />
@@ -39,7 +40,6 @@ const App = () => {
                     <Route path='/recover_account_confirm' element={<RecoverAccountConfirmScreen />} />
                     <Route path='/privacy_terms' element={<PrivacyTermsScreen />} />
                     <Route path='/use_terms' element={<UseTermsScreen />} />
-                    <Route path='/list' element={<ListCitasScreen />} />
                 </Route>
             </Routes>
         </BrowserRouter>
