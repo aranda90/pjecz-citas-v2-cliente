@@ -1,52 +1,58 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import React, { useEffect, useState } from 'react'
+import { AppBar, Toolbar, Typography } from '@mui/material'
+import { Container } from '@mui/system'
 import MenuIcon from '@mui/icons-material/Menu'
 
+import navigationSX from '../../theme/NavigationSX'
 import '../../css/global.css'
 
+import { Profile } from '../../actions/AuthActions'
+
+import NavigationAccess from './NavigationAccess'
+import NavigationMain from './NavigationMain'
+import NavigationLogged from './NavigationLogged'
+import NavigationPublic from './NavigationPublic'
 
 const Navigation = () => {
 
-    const styles = {
-        appBarBox: { flexGrow: 1, mt: 15 },
-        systemName: { mr: 2 },
-        optionBox: { flexGrow: 1, display: { xs: 'none', md: 'flex' } },
-        optionButton: { my: 2, color: 'white', display: 'block', mr: 1 },
-    }
+    // Determinar si el usuario esta logueado
+    const [isLogged, setIsLogged] = useState(false)
+    const [username, setUsername] = useState('')
+    useEffect(() => {
+        async function fetchData() {
+            if (window.localStorage.getItem('token')) {
+                const response = await Profile()
+                if (response.status === 200) {
+                    setIsLogged(true)
+                    setUsername(response.data.email)
+                } else if (response.status === 401) {
+                    setIsLogged(false)
+                    window.localStorage.removeItem('data')
+                }
+                setIsLogged(true)
+                setUsername(response.data.username)
+            }
+        }
+        fetchData()
+    }, [isLogged])
 
-    return (
-        <Box sx={styles.appBarBox}>
-            <AppBar position='absolute'>
-                <Toolbar>
-
-                    <IconButton color='inherit'>
-                        <MenuIcon fontSize='large' />
-                    </IconButton>
-
-                    <Typography variant='h5' sx={styles.systemName}>
-                        <Link to='/' className='app-bar-desktop-link'>
-                            Sistema de Citas
-                        </Link>
+    return(
+        <AppBar position='absolute'>
+            <Container maxWidth='xl'>
+                <Toolbar disableGutters>
+                    <MenuIcon sx={navigationSX.menuIconMobile} />
+                    <Typography variant='h6' noWrap component='a' href='/' sx={navigationSX.systemNameMobile}>
+                        Citas
                     </Typography>
-
-                    <Box sx={styles.optionBox}>
-                        <Button key='aviso_privacidad' sx={styles.optionButton} >
-                            <Link to='/privacy_terms' className='app-bar-desktop-link'>
-                                Aviso de Privacidad
-                            </Link>
-                        </Button>
-                        <Button key='terminos_condiciones_uso' sx={styles.optionButton} >
-                            <Link to='/use_terms' className='app-bar-desktop-link'>
-                                Términos y Condiciones de Uso
-                            </Link>
-                        </Button>
-                    </Box>
-
+                    <MenuIcon sx={navigationSX.menuIconDesktop} />
+                    <Typography variant='h5' noWrap component='a' href='/' sx={navigationSX.systemNameDesktop}>
+                        Sistema de Citas
+                    </Typography>
+                    {isLogged ? <NavigationMain /> : <NavigationPublic />}
+                    {isLogged ? <NavigationLogged username={username} /> : <NavigationAccess />}
                 </Toolbar>
-            </AppBar>
-        </Box>
+            </Container>
+        </AppBar>
     )
 
 }

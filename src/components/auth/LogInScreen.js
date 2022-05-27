@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { Button, Card, Grid, TextField, Typography } from '@mui/material'
 
+import ComponentCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
-import ComponentCardCenter from '../ui/ContainerCardCenter'
+import { LogIn } from '../../actions/AuthActions'
 
 
 const cleanFormData = {
@@ -16,16 +16,22 @@ const cleanFormData = {
 
 const LoginScreen = () => {
 
-    let navigate = useNavigate()
+    // Redirigir al inicio si ya esta logueado
+    const data = window.localStorage.getItem('token')
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (data) {
+            navigate('/')
+        }
+    })
 
+    // Formulario
     const [formData, setFormValues] = useState({
         username: '',
         password: '',
     })
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [isError, setIsError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
-
     const handleChange = (event) => {
         const { name, value } = event.target
         setFormValues((prevState) => {
@@ -36,44 +42,22 @@ const LoginScreen = () => {
         })
     }
 
+    // Enviar el formulario
     const submitForm = () => {
-        // Enviar formulario para iniciar sesion
-        const headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-        const params = new URLSearchParams()
-        params.append('username', formData.username)
-        params.append('password', formData.password)
-        axios.post('/token', params, headers).then( result => {
-            if (result.status === 200) {
-                // Exito, redirigir
-                navigate('/list')
-                window.localStorage.setItem('token', result.data.access_token)
-                setIsLoggedIn(true)
+        LogIn(formData).then((response) => {
+            if (response.status === 200) {
+                const { data } = response
+                window.localStorage.setItem('token', data.access_token)
+                navigate('/')
             } else {
-                // ERROR fatal en inicio de sesion
                 setIsError(true)
-                setErrorMessage('ERROR fatal en inicio de sesion')
+                setErrorMessage(response.data.detail)
             }
         })
-        .catch( error => {
-            // FALLO el inicio de sesion, mostrar el mensaje de la API
-            setIsError(true)
-            setErrorMessage(error.response.data.detail)
-        })
-        // Limpiar formulario
         setFormValues(cleanFormData)
     }
 
-    if (isLoggedIn) {
-        return (
-            <ComponentCardCenter>
-                <Typography variant='h5' sx={commonSX.title}>
-                    Bienvenido
-                </Typography>
-            </ComponentCardCenter>
-        )
-    } else if (isError) {
+    if (isError) {
         return (
             <ComponentCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>

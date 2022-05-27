@@ -1,28 +1,28 @@
 const navigationSX = {
-    adbIconMobile: {
-        display: { xs: 'none', md: 'flex' },
-        mr: 1
-    },
-    adbIconDesktop: {
+    menuIconMobile: {
         display: { xs: 'flex', md: 'none' },
         mr: 1
     },
-    systemMobile: {
-        mr: 2,
+    menuIconDesktop: {
         display: { xs: 'none', md: 'flex' },
+        mr: 1
+    },
+    systemNameMobile: {
+        display: { xs: 'flex', md: 'none' },
+        mr: 2,
+        flexGrow: 1,
         color: 'inherit',
         textDecoration: 'none',
     },
-    systemDesktop: {
+    systemNameDesktop: {
+        display: { xs: 'none', md: 'flex' },
         mr: 2,
-        display: { xs: 'flex', md: 'none' },
-        flexGrow: 1,
         color: 'inherit',
         textDecoration: 'none',
     },
     pagesBoxDesktop: {
-        flexGrow: 1,
-        display: { xs: 'none', md: 'flex' }
+        display: { xs: 'none', md: 'flex' },
+        flexGrow: 1
     },
     pagesButtonDesktop: {
         my: 2,

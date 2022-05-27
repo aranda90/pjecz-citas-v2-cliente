@@ -10,19 +10,14 @@ import { Profile } from '../../actions/AuthActions'
 
 const ProfileScreen = () => {
 
-    // Revisar si ya esta logueado
-    const [isLogged, setIsLogged] = useState(false)
-    function checkStorage() {
-        if (window.localStorage.getItem('data')) {
-            setIsLogged(true)
-        } else {
-            setIsLogged(false)
-        }
-    }
+    // Revisar si hay token
+    const [haveToken, setHaveToken] = useState(false)
+    const token = window.localStorage.getItem('token')
     useEffect(() => {
-        checkStorage()
-        return () => {}
-    }, [isLogged])
+        if (token) {
+            setHaveToken(true)
+        }
+    }, [token])
 
     // Consultar Perfil
     const [consultado, setConsultado] = useState(false)
@@ -38,14 +33,16 @@ const ProfileScreen = () => {
     })
     useEffect(() => {
         async function fetchData() {
-            const response = await Profile()
-            if (response.status === 200) {
-                setConsultado(true)
-                setProfile(response.data)
+            if (haveToken) {
+                const response = await Profile()
+                if (response.status === 200) {
+                    setConsultado(true)
+                    setProfile(response.data)
+                }
             }
         }
         fetchData()
-    }, [])
+    }, [haveToken])
 
     if (consultado) {
         return (
