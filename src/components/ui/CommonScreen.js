@@ -21,7 +21,7 @@ const CommonScreen = (props) => {
     //    }
     //})
 
-    if (isLogged) {
+    if (!isLogged) {
         return (
             <Container sx={commonSX.container}>
                 <Typography variant='h5' sx={commonSX.title}>
