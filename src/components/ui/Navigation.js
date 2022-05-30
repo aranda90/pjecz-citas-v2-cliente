@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { AppBar, Toolbar, Typography, Container } from '@mui/material'
+import React, { useContext } from 'react'
+import { AppBar, Container, Toolbar, Typography } from '@mui/material'
+
+
 import MenuIcon from '@mui/icons-material/Menu'
+
+import CitClienteContext from '../../context/citcliente/CitClienteContext'
 
 import navigationSX from '../../theme/NavigationSX'
 import '../../css/global.css'
-
-import { Profile } from '../../actions/AuthActions'
 
 import NavigationAccess from './NavigationAccess'
 import NavigationMain from './NavigationMain'
@@ -14,26 +16,8 @@ import NavigationPublic from './NavigationPublic'
 
 const Navigation = () => {
 
-    // Determinar si el usuario esta logueado
-    const [isLogged, setIsLogged] = useState(false)
-    const [username, setUsername] = useState('')
-    useEffect(() => {
-        async function fetchData() {
-            if (window.localStorage.getItem('token')) {
-                const response = await Profile()
-                if (response.status === 200) {
-                    setIsLogged(true)
-                    setUsername(response.data.email)
-                } else if (response.status === 401) {
-                    setIsLogged(false)
-                    window.localStorage.removeItem('data')
-                }
-                setIsLogged(true)
-                setUsername(response.data.username)
-            }
-        }
-        fetchData()
-    }, [isLogged])
+    // Obtener el contexto del cliente
+    const { isLogged, username } = useContext(CitClienteContext)
 
     return(
         <AppBar position='absolute'>

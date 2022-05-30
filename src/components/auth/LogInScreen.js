@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button, Card, Grid, TextField, Typography } from '@mui/material'
+
+import CitClienteContext from '../../context/citcliente/CitClienteContext'
 
 import ComponentCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
@@ -16,14 +18,17 @@ const cleanFormData = {
 
 const LoginScreen = () => {
 
+    // Obtener el contexto del cliente
+    const { isLogged, getCitCliente, setLogInCitCliente } = useContext(CitClienteContext)
+
     // Redirigir al inicio si ya esta logueado
-    const data = window.localStorage.getItem('token')
+    //const data = window.localStorage.getItem('token')
     const navigate = useNavigate()
-    useEffect(() => {
-        if (data) {
-            navigate('/')
-        }
-    })
+    //useEffect(() => {
+    //    if (data) {
+    //        navigate('/')
+    //    }
+    //})
 
     // Formulario
     const [formData, setFormValues] = useState({
@@ -48,6 +53,7 @@ const LoginScreen = () => {
             if (response.status === 200) {
                 const { data } = response
                 window.localStorage.setItem('token', data.access_token)
+                setLogInCitCliente()
                 navigate('/')
             } else {
                 setIsError(true)

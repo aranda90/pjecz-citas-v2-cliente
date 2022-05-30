@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 
+import CitClienteState from '../context/citcliente/CitClienteState'
+
 import InstitutionalTheme from '../theme/InstitutionalTheme'
 
 import Footer from './ui/Footer'
@@ -26,8 +28,10 @@ import UseTermsScreen from './static/UseTermsScreen'
 const Layout = () => {
     return(
         <ThemeProvider theme={InstitutionalTheme}>
-            <Navigation />
-            <Outlet />
+            <CitClienteState>
+                <Navigation />
+                <Outlet />
+            </CitClienteState>
             <Footer />
         </ThemeProvider>
     )
