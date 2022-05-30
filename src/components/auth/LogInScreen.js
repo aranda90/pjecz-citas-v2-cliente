@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button, Card, Grid, TextField, Typography } from '@mui/material'
 
 import CitClienteContext from '../../context/citcliente/CitClienteContext'
 
-import ComponentCardCenter from '../ui/ContainerCardCenter'
+import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
@@ -20,15 +20,6 @@ const LoginScreen = () => {
 
     // Obtener el contexto del cliente
     const { isLogged, getCitCliente, setLogInCitCliente } = useContext(CitClienteContext)
-
-    // Redirigir al inicio si ya esta logueado
-    //const data = window.localStorage.getItem('token')
-    const navigate = useNavigate()
-    //useEffect(() => {
-    //    if (data) {
-    //        navigate('/')
-    //    }
-    //})
 
     // Formulario
     const [formData, setFormValues] = useState({
@@ -48,13 +39,14 @@ const LoginScreen = () => {
     }
 
     // Enviar el formulario
+    const navigate = useNavigate()
     const submitForm = () => {
         LogIn(formData).then((response) => {
             if (response.status === 200) {
                 const { data } = response
-                window.localStorage.setItem('token', data.access_token)
+                window.localStorage.setItem('token', data.access_token) // Guardar el token
                 setLogInCitCliente()
-                navigate('/')
+                navigate('/') // Redirigir a la pagina inicial
             } else {
                 setIsError(true)
                 setErrorMessage(response.data.detail)
@@ -65,18 +57,18 @@ const LoginScreen = () => {
 
     if (isError) {
         return (
-            <ComponentCardCenter>
+            <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
                     Error al tratar de ingresar
                 </Typography>
                 <Typography variant='body1'>
                     {errorMessage}
                 </Typography>
-            </ComponentCardCenter>
+            </ContainerCardCenter>
         )
     } else {
         return (
-            <ComponentCardCenter>
+            <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
                     Ingresar al Sistema de Citas
                 </Typography>
@@ -135,7 +127,7 @@ const LoginScreen = () => {
                         </Grid>
                     </Grid>
                 </form>
-            </ComponentCardCenter>
+            </ContainerCardCenter>
         )
     }
 

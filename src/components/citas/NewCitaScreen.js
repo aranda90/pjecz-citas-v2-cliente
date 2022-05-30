@@ -1,7 +1,7 @@
 import React, { useState }  from 'react'
 import { Box, Button, Card, Typography, Step, StepLabel, Stepper } from '@mui/material'
 
-import CommonScreen from '../ui/CommonScreen'
+import ContainerLoggedScreen from '../ui/ContainerLoggedScreen'
 import commonSX from '../../theme/CommonSX'
 import { DistritosOficinas } from './DistritosOficinas'
 import { TipoTramite } from './TipoTramite'
@@ -18,15 +18,15 @@ const NewCitaScreen = () => {
     const handleBack = () => {
         setActiveStep( (prev) => prev - 1 );
     }
-    
+
     const styles = {
         btnNext:{ float: 'right', marginTop: 40 },
         btnBack: { marginTop: 40 },
         parrafo:{ fontSize: 14, fontWeight: 400 }
     }
-    
+
     return (
-        <CommonScreen>
+        <ContainerLoggedScreen>
             <Card sx={commonSX.card}>
                 <Typography align='center' sx={{ mb:5, fontWeight: 500 }} variant='h4'>
                     Registro de Citas
@@ -86,7 +86,7 @@ const NewCitaScreen = () => {
                     <Typography variant='h6' align='center' sx={{ mt:4 }}>Cita registrada con exito</Typography>
                 }
             </Card>
-        </CommonScreen>
+        </ContainerLoggedScreen>
     )
 }
 

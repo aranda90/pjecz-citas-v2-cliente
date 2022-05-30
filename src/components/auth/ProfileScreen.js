@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Grid, TextField, Typography } from '@mui/material'
+import { Grid, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
@@ -46,7 +46,7 @@ const ProfileScreen = () => {
 
     if (consultado) {
         return (
-            <Container sx={commonSX.container}>
+            <ContainerCardCenter>
                 <Typography variant='h4' sx={commonSX.title}>
                     Perfil
                 </Typography>
@@ -106,7 +106,7 @@ const ProfileScreen = () => {
                         />
                     </Grid>
                 </Grid>
-            </Container>
+            </ContainerCardCenter>
         )
     } else {
         return (
