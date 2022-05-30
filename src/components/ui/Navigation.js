@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AppBar, Toolbar, Typography, Container, Button } from '@mui/material'
+import { AppBar, Toolbar, Typography, Container } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
 import navigationSX from '../../theme/NavigationSX'

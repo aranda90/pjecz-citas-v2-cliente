@@ -3,6 +3,8 @@ import { Box, Button, Card, Typography, Step, StepLabel, Stepper } from '@mui/ma
 
 import CommonScreen from '../ui/CommonScreen'
 import commonSX from '../../theme/CommonSX'
+import { DistritosOficinas } from './DistritosOficinas'
+import { TipoTramite } from './TipoTramite'
 
 
 const NewCitaScreen = () => {
@@ -48,7 +50,7 @@ const NewCitaScreen = () => {
                     activeStep === 0 ?
                     (
                       <>
-                        <Typography variant='h6' align='center' sx={{ mt:4 }}>Aqui van los distritos y oficinas</Typography>
+                        <Typography variant='h6' align='center' sx={{ mt:4 }}><DistritosOficinas /></Typography>
                         {}
                         <Button onClick={handleNext} variant='outlined' style={ styles.btnNext } >
                           Siguiente
@@ -58,7 +60,7 @@ const NewCitaScreen = () => {
                     activeStep === 1 ?
                     (
                         <>
-                            <Typography variant='h6' align='center' sx={{ mt:4 }}>Aqui van los tramites </Typography>
+                            <Typography variant='h6' align='center' sx={{ mt:4 }}><TipoTramite /></Typography>
                             <Box sx={{ mb: 5 }}>
                             <Button onClick={handleBack} variant='outlined' style={styles.btnBack }>Anterior</Button>
                             <Button onClick={handleNext} variant='outlined' style={ styles.btnNext }>Siguiente</Button>
