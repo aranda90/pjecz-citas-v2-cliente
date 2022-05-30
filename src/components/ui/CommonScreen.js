@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Container, Typography } from '@mui/material'
+import { Container } from '@mui/material'
 
 import CitClienteContext from '../../context/citcliente/CitClienteContext'
 
@@ -13,28 +13,21 @@ const CommonScreen = (props) => {
     const { isLogged } = useContext(CitClienteContext)
 
     // Redirigir al login cuando NO haya iniciado sesion
-    //const token = window.localStorage.getItem('token')
-    //const navigate = useNavigate()
-    //useEffect(() => {
-    //    if (!token) {
-    //        navigate('/login')
-    //    }
-    //})
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (!isLogged) {
+            navigate('/login')
+        }
+    })
 
-    if (!isLogged) {
-        return (
-            <Container sx={commonSX.container}>
-                <Typography variant='h5' sx={commonSX.title}>
-                    No ha iniciado su sesion
-                </Typography>
-            </Container>
-        )
-    } else {
+    if (isLogged) {
         return (
             <Container sx={commonSX.container}>
                 {props.children}
             </Container>
         )
+    } else {
+        return null
     }
 
 }

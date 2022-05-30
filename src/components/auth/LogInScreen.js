@@ -23,7 +23,7 @@ const LoginScreen = () => {
 
     // Redirigir al inicio si ya esta logueado
     //const data = window.localStorage.getItem('token')
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
     //useEffect(() => {
     //    if (data) {
     //        navigate('/')
@@ -53,8 +53,8 @@ const LoginScreen = () => {
             if (response.status === 200) {
                 const { data } = response
                 window.localStorage.setItem('token', data.access_token)
-                getCitCliente()
-                // navigate('/')
+                setLogInCitCliente()
+                navigate('/')
             } else {
                 setIsError(true)
                 setErrorMessage(response.data.detail)

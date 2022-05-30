@@ -1,5 +1,7 @@
 import React, { useReducer } from "react"
 
+import { Profile } from '../../actions/AuthActions'
+
 import CitClienteContext from "./CitClienteContext"
 import CitClienteReducer from "./CitClienteReducer"
 
@@ -13,15 +15,31 @@ const CitClienteState = (props) => {
     const [state, dispatch] = useReducer(CitClienteReducer, initialState);
 
     const getCitCliente = async () => {
-        console.log('getCitCliente')
+        const response = await Profile()
+        dispatch({
+            type: 'GET_CIT_CLIENTE',
+            payload: {
+                isLogged: (response.status === 200) ? true : false,
+                username: (response.status === 200) ? response.data.username : null
+            }
+        })
     }
 
-    const setLogInCitCliente = async () => {
-        console.log('setLogInCitCliente')
+    const setLogInCitCliente = () => {
+        dispatch({
+            type: 'SET_LOG_IN_CIT_CLIENTE',
+            payload: {
+                isLogged: state.isLogged,
+                username: state.username
+            }
+        })
     }
 
-    const setLogOutCitCliente = async () => {
-        console.log('setLogOutCitCliente')
+    const setLogOutCitCliente = () => {
+        dispatch({
+            type: 'SET_LOG_OUT_CIT_CLIENTE',
+            payload: initialState
+        })
     }
 
     return(
