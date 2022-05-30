@@ -48,7 +48,7 @@ const NewCitaScreen = () => {
                     activeStep === 0 ?
                     (
                       <>
-                        <Typography variant='h6' align='center' sx={{ mt:4 }}>Aqui va el link para distritos</Typography>
+                        <Typography variant='h6' align='center' sx={{ mt:4 }}>Aqui van los distritos y oficinas</Typography>
                         {}
                         <Button onClick={handleNext} variant='outlined' style={ styles.btnNext } >
                           Siguiente
@@ -58,7 +58,7 @@ const NewCitaScreen = () => {
                     activeStep === 1 ?
                     (
                         <>
-                            <Typography variant='h6' align='center' sx={{ mt:4 }}>Aqui va el link para tramites </Typography>
+                            <Typography variant='h6' align='center' sx={{ mt:4 }}>Aqui van los tramites </Typography>
                             <Box sx={{ mb: 5 }}>
                             <Button onClick={handleBack} variant='outlined' style={styles.btnBack }>Anterior</Button>
                             <Button onClick={handleNext} variant='outlined' style={ styles.btnNext }>Siguiente</Button>
