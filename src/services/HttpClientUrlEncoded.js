@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = process.env.REACT_APP_URL_BASE
+axios.defaults.baseURL = process.env.REACT_APP_API_URL_BASE
 
 const headers = {
     'Content-Type': 'application/x-www-form-urlencoded'

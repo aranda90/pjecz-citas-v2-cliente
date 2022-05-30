@@ -6,7 +6,7 @@ Front-End hecho en React del Sistema de Citas V2
 
 Crear un archivo `.env` con las variables de entorno
 
-    REACT_APP_URL_BASE=http://127.0.0.1:8005
+    REACT_APP_API_URL_BASE=http://127.0.0.1:8005
 
 Para hacer la instalacion a partir de `package.json`
 
@@ -30,7 +30,7 @@ Es util crear un archivo `.bashrc` para cargar en Konsole
     echo
 
     echo "-- Variables de entorno"
-    echo "   REACT_APP_URL_BASE: $REACT_APP_URL_BASE"
+    echo "   REACT_APP_API_URL_BASE: $REACT_APP_API_URL_BASE"
     echo
 
     alias arrancar='npm start'
@@ -72,11 +72,15 @@ Para bajar, instalar y ejecutar
 
 ## Pasos para subir a produccion
 
-Para subir a Google Cloud
+Escriba el archivo `app.yaml` de no tenerlo
 
-1. Ejecute `npm run build`
-1. Escriba el archivo `app.yaml` de no tenerlo
-1. Suba a Google Cloud con `gcloud app deploy`
+CAMBIAR variable de entorno
+
+    REACT_APP_API_URL_BASE=https://citas-api-oauth2.justiciadigital.gob.mx
+
+Ejecute `npm run build`
+
+Carge **Google SDK** y suba a Google Cloud con `gcloud app deploy`
 
 ## Archivo app.yaml
 
@@ -84,6 +88,8 @@ Con este contenido
 
     runtime: nodejs16
     service: citas-cliente
+    env_variables:
+      REACT_APP_API_URL_BASE: https://citas-api-oauth2.justiciadigital.gob.mx
     handlers:
     # Serve all static files with url ending with a file extension
     - url: /(.*\..+)$

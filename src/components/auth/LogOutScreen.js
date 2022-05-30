@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Typography } from '@mui/material'
+
+import CitClienteContext from '../../context/citcliente/CitClienteContext'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
@@ -9,24 +11,28 @@ import { Link } from 'react-router-dom'
 
 const LogOutScreen = () => {
 
+    // Obtener el contexto del cliente
+    const { isLogged, setLogOutCitCliente } = useContext(CitClienteContext)
+
     // Revisar si ya esta logueado
-    const [isLogged, setIsLogged] = useState(false)
-    function checkStorage() {
-        if (window.localStorage.getItem('token')) {
-            setIsLogged(true)
-        } else {
-            setIsLogged(false)
-        }
-    }
-    useEffect(() => {
-        checkStorage()
-        return () => {}
-    }, [isLogged])
+    //const [isLogged, setIsLogged] = useState(false)
+    //function checkStorage() {
+    //    if (window.localStorage.getItem('token')) {
+    //        setIsLogged(true)
+    //    } else {
+    //        setIsLogged(false)
+    //    }
+    //}
+    //useEffect(() => {
+    //    checkStorage()
+    //    return () => {}
+    //}, [isLogged])
 
     // Salir de la sesion
     const logOut = () => {
         window.localStorage.removeItem('token')
-        setIsLogged(false)
+        setLogOutCitCliente()
+        //setIsLogged(false)
     }
 
     if (isLogged) {
@@ -51,9 +57,9 @@ const LogOutScreen = () => {
                 <Typography variant='h5' sx={commonSX.title}>
                     Esta fuera del sistema
                 </Typography>
-                <Link to='/login' className='link'>
+                <Link to='/' className='link'>
                     <Typography variant='body1'>
-                        Volver a ingresar
+                        Volver al inicio
                     </Typography>
                 </Link>
             </ContainerCardCenter>
