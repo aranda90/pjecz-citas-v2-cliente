@@ -1,5 +1,5 @@
-import { createContext } from "react";
+import { createContext } from "react"
 
-const CitClienteContext = createContext();
+const CitClienteContext = createContext()
 
-export default CitClienteContext;
+export default CitClienteContext
