@@ -26,11 +26,13 @@ const CitClienteState = (props) => {
         })
     }
 
-    const setLogInCitCliente = () => {
+    const setLogInCitCliente = async () => {
+        const response = await Profile()
         dispatch({
             type: 'SET_LOG_IN_CIT_CLIENTE',
             payload: {
-                isLogged: true
+                isLogged: (response.status === 200) ? true : false,
+                username: (response.status === 200) ? response.data.username : null
             }
         })
     }
@@ -38,9 +40,7 @@ const CitClienteState = (props) => {
     const setLogOutCitCliente = () => {
         dispatch({
             type: 'SET_LOG_OUT_CIT_CLIENTE',
-            payload: {
-                isLogged: false
-            }
+            payload: initialState
         })
     }
 

@@ -19,7 +19,7 @@ const cleanFormData = {
 const LoginScreen = () => {
 
     // Obtener el contexto del cliente
-    const { isLogged, username, getCitCliente } = useContext(CitClienteContext)
+    const { isLogged, username, setLogInCitCliente } = useContext(CitClienteContext)
 
     // Formulario
     const [formData, setFormValues] = useState({
@@ -39,12 +39,15 @@ const LoginScreen = () => {
     }
 
     // Enviar el formulario
+    //const navigate = useNavigate()
     const submitForm = () => {
         LogIn(formData).then((response) => {
             if (response.status === 200) {
                 const { data } = response
                 window.localStorage.setItem('token', data.access_token) // Guardar el token
-                getCitCliente()
+                setLogInCitCliente() // Actualizar contexto
+                console.log(isLogged, username)
+                //navigate('/') // Redirigir al listado de citas
             } else {
                 setIsError(true)
                 setErrorMessage(response.data.detail)

@@ -32,45 +32,50 @@ const NewCitaScreen = () => {
     const stepBody = (activeStep) => {
         switch (activeStep) {
             case 0:
-                <>
-                    <NewCitaStep0DistritoOficina />
-                    <Button onClick={handleNext} variant='outlined' style={styles.btnNext} >
-                        Siguiente
-                    </Button>
-                </>
-                break
+                return(
+                    <>
+                        <NewCitaStep0DistritoOficina />
+                        <Box sx={{ mb: 5 }}>
+                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                        </Box>
+                    </>
+                )
             case 1:
-                <>
-                    <NewCitaStep1Servicio />
-                    <Box sx={{ mb: 5 }}>
-                        <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                        <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
-                    </Box>
-                </>
-                break
+                return(
+                    <>
+                        <NewCitaStep1Servicio />
+                        <Box sx={{ mb: 5 }}>
+                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
+                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                        </Box>
+                    </>
+                )
             case 2:
-                <>
-                    <NewCitaStep2Fecha />
-                    <Box sx={{ mb: 5 }}>
-                        <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                        <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
-                    </Box>
-                </>
-                break
+                return(
+                    <>
+                        <NewCitaStep2Fecha />
+                        <Box sx={{ mb: 5 }}>
+                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
+                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                        </Box>
+                    </>
+                )
             case 3:
-                <>
-                    <NewCitaStep3Hora />
-                    <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                    <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
-                </>
-                break
+                return(
+                    <>
+                        <NewCitaStep3Hora />
+                        <Box sx={{ mb: 5 }}>
+                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
+                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                        </Box>
+                    </>
+                )
             default:
-                <>
-                    <NewCitaStep4Review />
-                    <Typography variant='h6' align='center' sx={{ mt: 4 }}>
-                        Cita registrada con exito
-                    </Typography>
-                </>
+                return(
+                    <>
+                        <NewCitaStep4Review />
+                    </>
+                )
         }
     }
 
