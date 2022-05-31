@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Card, Typography, Step, StepLabel, Stepper } from '@mui/material'
+import { Card, Typography, Step, StepLabel, Stepper } from '@mui/material'
 
 import ContainerLoggedScreen from '../ui/ContainerLoggedScreen'
 import commonSX from '../../theme/CommonSX'
@@ -24,8 +24,8 @@ const NewCitaScreen = () => {
     }
 
     const styles = {
-        btnNext: { float: 'right', marginTop: 40 },
-        btnBack: { marginTop: 40 },
+        btnNext: { float: 'right', marginTop: 40, marginBottom: 40 },
+        btnBack: { marginTop: 40, marginBottom: 40 },
         parrafo: { fontSize: 14, fontWeight: 400 }
     }
 
@@ -33,48 +33,23 @@ const NewCitaScreen = () => {
         switch (activeStep) {
             case 0:
                 return(
-                    <>
-                        <NewCitaStep0DistritoOficina />
-                        <Box sx={{ mb: 5 }}>
-                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
-                        </Box>
-                    </>
+                    <><NewCitaStep0DistritoOficina handleNext={ handleNext } styles={ styles } />  </>
                 )
             case 1:
                 return(
-                    <>
-                        <NewCitaStep1Servicio />
-                        <Box sx={{ mb: 5 }}>
-                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
-                        </Box>
-                    </>
+                    <><NewCitaStep1Servicio handleBack={ handleBack } handleNext={ handleNext } styles={ styles } /> </>                       
                 )
             case 2:
                 return(
-                    <>
-                        <NewCitaStep2Fecha />
-                        <Box sx={{ mb: 5 }}>
-                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
-                        </Box>
-                    </>
+                    <><NewCitaStep2Fecha handleBack={ handleBack } handleNext={ handleNext } styles={ styles } /></>
                 )
             case 3:
                 return(
-                    <>
-                        <NewCitaStep3Hora />
-                        <Box sx={{ mb: 5 }}>
-                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                            <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
-                        </Box>
-                    </>
+                    <><NewCitaStep3Hora handleBack={ handleBack } handleNext={ handleNext } styles={ styles } /> </> 
                 )
             default:
                 return(
-                    <>
-                        <NewCitaStep4Review />
-                    </>
+                    <><NewCitaStep4Review /></>
                 )
         }
     }
