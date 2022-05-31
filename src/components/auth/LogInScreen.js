@@ -59,7 +59,6 @@ const LoginScreen = () => {
     // Enviar el formulario
     //const navigate = useNavigate()
     const submitForm = () => {
-<<<<<<< HEAD
         if(captchaValido){
             LogIn(formData).then((response) => {
                 if (response.status === 200) {
@@ -78,20 +77,6 @@ const LoginScreen = () => {
         else{
             setCaptchaValido(false) ;
         }
-=======
-        LogIn(formData).then((response) => {
-            if (response.status === 200) {
-                const { data } = response
-                window.localStorage.setItem('token', data.access_token) // Guardar el token
-                setLogInCitCliente() // Actualizar contexto
-                //navigate('/') // Redirigir al listado de citas
-            } else {
-                setIsError(true)
-                setErrorMessage(response.data.detail)
-            }
-        })
-        setFormValues(cleanFormData)
->>>>>>> f031e1f8cac56a1b2fd0939cd9a88d294bbfb206
     }
 
     if (isLogged) {
