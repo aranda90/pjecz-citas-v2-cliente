@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Button, Card, Grid, TextField, Typography } from '@mui/material'
 
 import CitClienteContext from '../../context/citcliente/CitClienteContext'
@@ -19,7 +19,7 @@ const cleanFormData = {
 const LoginScreen = () => {
 
     // Obtener el contexto del cliente
-    const { isLogged, getCitCliente, setLogInCitCliente } = useContext(CitClienteContext)
+    const { isLogged, username, getCitCliente } = useContext(CitClienteContext)
 
     // Formulario
     const [formData, setFormValues] = useState({
@@ -39,14 +39,12 @@ const LoginScreen = () => {
     }
 
     // Enviar el formulario
-    const navigate = useNavigate()
     const submitForm = () => {
         LogIn(formData).then((response) => {
             if (response.status === 200) {
                 const { data } = response
                 window.localStorage.setItem('token', data.access_token) // Guardar el token
-                setLogInCitCliente()
-                navigate('/') // Redirigir a la pagina inicial
+                getCitCliente()
             } else {
                 setIsError(true)
                 setErrorMessage(response.data.detail)
@@ -55,7 +53,15 @@ const LoginScreen = () => {
         setFormValues(cleanFormData)
     }
 
-    if (isError) {
+    if (isLogged) {
+        return (
+            <ContainerCardCenter>
+                <Typography variant='h5' sx={commonSX.title}>
+                    Bienvenido {username}
+                </Typography>
+            </ContainerCardCenter>
+        )
+    } else if (isError) {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>

@@ -8,23 +8,21 @@ const CitClienteReducer = (state, action) => {
         case GET_CIT_CLIENTE:
             return {
                 ...state,
-                isLogged: true,
-                username: payload.username,
-            };
+                isLogged: payload.isLogged,
+                username: payload.username
+            }
         case SET_LOG_IN_CIT_CLIENTE:
             return {
                 ...state,
-                isLogged: true,
-                username: payload.username,
-            };
+                isLogged: payload.isLogged
+            }
         case SET_LOG_OUT_CIT_CLIENTE:
             return {
                 ...state,
-                isLogged: false,
-                username: null,
-            };
+                isLogged: payload.isLogged
+            }
         default:
-            return state;
+            return state
     }
 
 }

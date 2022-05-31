@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Grid, TextField, Typography } from '@mui/material'
+
+import CitClienteContext from '../../context/citcliente/CitClienteContext'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
@@ -10,14 +12,22 @@ import { Profile } from '../../actions/AuthActions'
 
 const ProfileScreen = () => {
 
+    // Obtener el contexto del cliente
+    const { isLogged } = useContext(CitClienteContext)
+
     // Revisar si hay token
-    const [haveToken, setHaveToken] = useState(false)
-    const token = window.localStorage.getItem('token')
-    useEffect(() => {
-        if (token) {
-            setHaveToken(true)
-        }
-    }, [token])
+    // const [isLogged, setIsLogged] = useState(false)
+    // function checkStorage() {
+    //     if (window.localStorage.getItem('token')) {
+    //         setIsLogged(true)
+    //     } else {
+    //         setIsLogged(false)
+    //     }
+    // }
+    // useEffect(() => {
+    //     checkStorage()
+    //     return () => {}
+    // }, [isLogged])
 
     // Consultar Perfil
     const [consultado, setConsultado] = useState(false)
@@ -33,7 +43,7 @@ const ProfileScreen = () => {
     })
     useEffect(() => {
         async function fetchData() {
-            if (haveToken) {
+            if (isLogged) {
                 const response = await Profile()
                 if (response.status === 200) {
                     setConsultado(true)
@@ -42,7 +52,7 @@ const ProfileScreen = () => {
             }
         }
         fetchData()
-    }, [haveToken])
+    }, [isLogged])
 
     if (consultado) {
         return (

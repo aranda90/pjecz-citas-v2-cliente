@@ -5,6 +5,7 @@ import { Profile } from '../../actions/AuthActions'
 import CitClienteContext from "./CitClienteContext"
 import CitClienteReducer from "./CitClienteReducer"
 
+
 const CitClienteState = (props) => {
 
     const initialState = {
@@ -29,8 +30,7 @@ const CitClienteState = (props) => {
         dispatch({
             type: 'SET_LOG_IN_CIT_CLIENTE',
             payload: {
-                isLogged: state.isLogged,
-                username: state.username
+                isLogged: true
             }
         })
     }
@@ -38,7 +38,9 @@ const CitClienteState = (props) => {
     const setLogOutCitCliente = () => {
         dispatch({
             type: 'SET_LOG_OUT_CIT_CLIENTE',
-            payload: initialState
+            payload: {
+                isLogged: false
+            }
         })
     }
 

@@ -9,7 +9,7 @@ const ListCitasScreen = () => {
 
     return (
         <ContainerLoggedScreen>
-            <Button variant="contained" href='../new' sx={{mb:5}}>Agendar Cita</Button>
+            <Button variant="contained" href='/new' sx={{mb:5}}>Agendar Cita</Button>
             <Card align='center' sx={commonSX.card}>
                 <Typography variant='h5' sx={commonSX.title}>
                     Citas programadas

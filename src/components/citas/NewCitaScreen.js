@@ -1,10 +1,14 @@
-import React, { useState }  from 'react'
+import React, { useState } from 'react'
 import { Box, Button, Card, Typography, Step, StepLabel, Stepper } from '@mui/material'
 
 import ContainerLoggedScreen from '../ui/ContainerLoggedScreen'
 import commonSX from '../../theme/CommonSX'
-import { DistritosOficinas } from './DistritosOficinas'
-import { TipoTramite } from './TipoTramite'
+
+import NewCitaStep0DistritoOficina from './NewCitaStep0DistritoOficina'
+import NewCitaStep1Servicio from './NewCitaStep1Servicio'
+import NewCitaStep2Fecha from './NewCitaStep2Fecha'
+import NewCitaStep3Hora from './NewCitaStep3Hora'
+import NewCitaStep4Review from './NewCitaStep4Review'
 
 
 const NewCitaScreen = () => {
@@ -12,23 +16,68 @@ const NewCitaScreen = () => {
     const [activeStep, setActiveStep] = useState(0);
 
     const handleNext = () => {
-        setActiveStep( (prev) => prev + 1 );
+        setActiveStep((prev) => prev + 1);
     }
 
     const handleBack = () => {
-        setActiveStep( (prev) => prev - 1 );
+        setActiveStep((prev) => prev - 1);
     }
 
     const styles = {
-        btnNext:{ float: 'right', marginTop: 40 },
+        btnNext: { float: 'right', marginTop: 40 },
         btnBack: { marginTop: 40 },
-        parrafo:{ fontSize: 14, fontWeight: 400 }
+        parrafo: { fontSize: 14, fontWeight: 400 }
+    }
+
+    const stepBody = (activeStep) => {
+        switch (activeStep) {
+            case 0:
+                <>
+                    <NewCitaStep0DistritoOficina />
+                    <Button onClick={handleNext} variant='outlined' style={styles.btnNext} >
+                        Siguiente
+                    </Button>
+                </>
+                break
+            case 1:
+                <>
+                    <NewCitaStep1Servicio />
+                    <Box sx={{ mb: 5 }}>
+                        <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
+                        <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                    </Box>
+                </>
+                break
+            case 2:
+                <>
+                    <NewCitaStep2Fecha />
+                    <Box sx={{ mb: 5 }}>
+                        <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
+                        <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                    </Box>
+                </>
+                break
+            case 3:
+                <>
+                    <NewCitaStep3Hora />
+                    <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
+                    <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                </>
+                break
+            default:
+                <>
+                    <NewCitaStep4Review />
+                    <Typography variant='h6' align='center' sx={{ mt: 4 }}>
+                        Cita registrada con exito
+                    </Typography>
+                </>
+        }
     }
 
     return (
         <ContainerLoggedScreen>
             <Card sx={commonSX.card}>
-                <Typography align='center' sx={{ mb:5, fontWeight: 500 }} variant='h4'>
+                <Typography align='center' sx={{ mb: 5, fontWeight: 500 }} variant='h4'>
                     Registro de Citas
                     <p style={styles.parrafo}>Llena los datos que se solicitan en cada paso</p>
                 </Typography>
@@ -46,45 +95,7 @@ const NewCitaScreen = () => {
                         <StepLabel>Confirmación de cita</StepLabel>
                     </Step>
                 </Stepper>
-                {
-                    activeStep === 0 ?
-                    (
-                      <>
-                        <Typography variant='h6' align='center' sx={{ mt:4 }}><DistritosOficinas /></Typography>
-                        {}
-                        <Button onClick={handleNext} variant='outlined' style={ styles.btnNext } >
-                          Siguiente
-                        </Button>
-                      </>
-                    ):
-                    activeStep === 1 ?
-                    (
-                        <>
-                            <Typography variant='h6' align='center' sx={{ mt:4 }}><TipoTramite /></Typography>
-                            <Box sx={{ mb: 5 }}>
-                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack }>Anterior</Button>
-                            <Button onClick={handleNext} variant='outlined' style={ styles.btnNext }>Siguiente</Button>
-                            </Box>
-                        </>
-                    ):
-                    activeStep === 2 ?
-                    (
-                        <>
-                            <Typography variant='h6' align='center' sx={{ mt:4 }}>Fecha y Hora</Typography>
-                            <Button onClick={handleBack} variant='outlined' style={styles.btnBack }>Anterior</Button>
-                            <Button onClick={handleNext} variant='outlined' style={ styles.btnNext }>Siguiente</Button>
-                        </>
-                    ):
-                    activeStep === 3 ?
-                    (
-                      <>
-                        <Typography variant='h6' align='center' sx={{ mt:4 }}>Aquí va la Confirmación de la cita</Typography>
-                        <Button onClick={handleBack} variant='outlined' style={styles.btnBack }>Anterior</Button>
-                        <Button onClick={handleNext} variant='outlined' style={ styles.btnNext }>Siguiente</Button>
-                      </>
-                    ):
-                    <Typography variant='h6' align='center' sx={{ mt:4 }}>Cita registrada con exito</Typography>
-                }
+                { stepBody(activeStep) }
             </Card>
         </ContainerLoggedScreen>
     )
