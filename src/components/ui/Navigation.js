@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { AppBar, Container, Toolbar, Typography } from '@mui/material'
-
 
 import MenuIcon from '@mui/icons-material/Menu'
 
@@ -24,13 +24,17 @@ const Navigation = () => {
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
                     <MenuIcon sx={navigationSX.menuIconMobile} />
-                    <Typography variant='h6' noWrap component='a' href='/' sx={navigationSX.systemNameMobile}>
-                        Citas
-                    </Typography>
+                    <Link to='/' className='app-bar-desktop-link'>
+                        <Typography variant='h6' noWrap sx={navigationSX.systemNameMobile}>
+                            Citas
+                        </Typography>
+                    </Link>
                     <MenuIcon sx={navigationSX.menuIconDesktop} />
-                    <Typography variant='h5' noWrap component='a' href='/' sx={navigationSX.systemNameDesktop}>
-                        Sistema de Citas
-                    </Typography>
+                    <Link to='/' className='app-bar-desktop-link'>
+                        <Typography variant='h5' noWrap sx={navigationSX.systemNameDesktop}>
+                            Sistema de Citas
+                        </Typography>
+                    </Link>
                     {isLogged ? <NavigationMain /> : <NavigationPublic />}
                     {isLogged ? <NavigationLogged username={username} /> : <NavigationAccess />}
                 </Toolbar>

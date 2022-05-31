@@ -1,21 +1,25 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Card, Typography } from '@mui/material'
 
-import CommonScreen from '../ui/CommonScreen'
+import ContainerLoggedScreen from '../ui/ContainerLoggedScreen'
 import commonSX from '../../theme/CommonSX'
+import '../../css/global.css'
 
 
 const ListCitasScreen = () => {
 
     return (
-        <CommonScreen>
-            <Button variant="contained" href='../new' sx={{mb:5}}>Agendar Cita</Button>
+        <ContainerLoggedScreen>
+            <Button component={Link} to='/new' variant="contained" sx={{mb:5}}>
+                Agendar Cita
+            </Button>
             <Card align='center' sx={commonSX.card}>
                 <Typography variant='h5' sx={commonSX.title}>
                     Citas programadas
                 </Typography>
             </Card>
-        </CommonScreen>
+        </ContainerLoggedScreen>
     )
 
 }
