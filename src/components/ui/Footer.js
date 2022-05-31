@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 const Footer = () => {
+
     return (
         <AppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0 }}>
             <Container maxWidth='md'>
@@ -28,6 +29,7 @@ const Footer = () => {
             </Container>
         </AppBar>
     )
+
 }
 
 export default Footer

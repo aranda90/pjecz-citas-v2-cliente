@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Typography } from '@mui/material'
 
 import CitClienteContext from '../../context/citcliente/CitClienteContext'
@@ -6,7 +7,6 @@ import CitClienteContext from '../../context/citcliente/CitClienteContext'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
-import { Link } from 'react-router-dom'
 
 
 const LogOutScreen = () => {
@@ -14,25 +14,10 @@ const LogOutScreen = () => {
     // Obtener el contexto del cliente
     const { isLogged, setLogOutCitCliente } = useContext(CitClienteContext)
 
-    // Revisar si ya esta logueado
-    //const [isLogged, setIsLogged] = useState(false)
-    //function checkStorage() {
-    //    if (window.localStorage.getItem('token')) {
-    //        setIsLogged(true)
-    //    } else {
-    //        setIsLogged(false)
-    //    }
-    //}
-    //useEffect(() => {
-    //    checkStorage()
-    //    return () => {}
-    //}, [isLogged])
-
     // Salir de la sesion
     const logOut = () => {
-        window.localStorage.removeItem('token')
+        window.localStorage.removeItem('token') // Eliminar el token
         setLogOutCitCliente()
-        //setIsLogged(false)
     }
 
     if (isLogged) {
