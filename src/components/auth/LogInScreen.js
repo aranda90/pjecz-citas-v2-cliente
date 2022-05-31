@@ -46,7 +46,6 @@ const LoginScreen = () => {
                 const { data } = response
                 window.localStorage.setItem('token', data.access_token) // Guardar el token
                 setLogInCitCliente() // Actualizar contexto
-                console.log(isLogged, username)
                 //navigate('/') // Redirigir al listado de citas
             } else {
                 setIsError(true)
