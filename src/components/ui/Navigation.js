@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AppBar, Container, Toolbar, Typography } from '@mui/material'
 
@@ -14,10 +14,14 @@ import NavigationMain from './NavigationMain'
 import NavigationLogged from './NavigationLogged'
 import NavigationPublic from './NavigationPublic'
 
+
 const Navigation = () => {
 
     // Obtener el contexto del cliente
-    const { isLogged, username } = useContext(CitClienteContext)
+    const { isLogged, username, getCitCliente } = useContext(CitClienteContext)
+    useEffect(() => {
+        getCitCliente()
+    }, [])
 
     return(
         <AppBar position='absolute'>

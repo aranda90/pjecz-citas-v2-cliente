@@ -10,8 +10,7 @@ import commonSX from '../../theme/CommonSX'
 const ContainerLoggedScreen = (props) => {
 
     // Obtener el contexto del cliente
-    const { isLogged, username } = useContext(CitClienteContext)
-    console.log(isLogged, username)
+    const { isLogged } = useContext(CitClienteContext)
 
     // Redirigir al login cuando NO haya iniciado sesion
     const navigate = useNavigate()

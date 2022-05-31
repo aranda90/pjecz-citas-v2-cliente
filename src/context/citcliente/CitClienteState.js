@@ -20,7 +20,7 @@ const CitClienteState = (props) => {
         dispatch({
             type: 'GET_CIT_CLIENTE',
             payload: {
-                isLogged: (response.status === 200) ? true : false,
+                isLogged: (response.status === 200),
                 username: (response.status === 200) ? response.data.username : null
             }
         })
@@ -31,7 +31,7 @@ const CitClienteState = (props) => {
         dispatch({
             type: 'SET_LOG_IN_CIT_CLIENTE',
             payload: {
-                isLogged: (response.status === 200) ? true : false,
+                isLogged: (response.status === 200),
                 username: (response.status === 200) ? response.data.username : null
             }
         })
@@ -40,7 +40,10 @@ const CitClienteState = (props) => {
     const setLogOutCitCliente = () => {
         dispatch({
             type: 'SET_LOG_OUT_CIT_CLIENTE',
-            payload: initialState
+            payload: {
+                isLogged: false,
+                username: null
+            }
         })
     }
 
@@ -50,7 +53,7 @@ const CitClienteState = (props) => {
             username: state.username,
             getCitCliente,
             setLogInCitCliente,
-            setLogOutCitCliente,
+            setLogOutCitCliente
         }}>
             {props.children}
         </CitClienteContext.Provider>

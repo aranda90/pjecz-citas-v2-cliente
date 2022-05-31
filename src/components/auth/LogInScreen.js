@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, Grid, TextField, Typography } from '@mui/material'
 
@@ -9,6 +9,7 @@ import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 import { LogIn } from '../../actions/AuthActions'
+import  ReCAPTCHA  from 'react-google-recaptcha'
 
 
 const cleanFormData = {
@@ -17,6 +18,23 @@ const cleanFormData = {
 }
 
 const LoginScreen = () => {
+
+    // funcion de evento onChange
+    const onchange = () => {
+        if(captcha.current.getValue()){
+            setCaptchaValido(true) ;    
+            console.log("google regreso un token y no es un robot") ;
+        }
+        else{
+            console.log("Detectado como robot") ;
+        }
+    }
+
+    // variable de estado para captcha
+    const [captchaValido, setCaptchaValido] = useState(null)
+    
+    // referencia al checkbox 'recaptcha'
+    const captcha = useRef(null)
 
     // Obtener el contexto del cliente
     const { isLogged, username, setLogInCitCliente } = useContext(CitClienteContext)
@@ -41,19 +59,24 @@ const LoginScreen = () => {
     // Enviar el formulario
     //const navigate = useNavigate()
     const submitForm = () => {
-        LogIn(formData).then((response) => {
-            if (response.status === 200) {
-                const { data } = response
-                window.localStorage.setItem('token', data.access_token) // Guardar el token
-                setLogInCitCliente() // Actualizar contexto
-                console.log(isLogged, username)
-                //navigate('/') // Redirigir al listado de citas
-            } else {
-                setIsError(true)
-                setErrorMessage(response.data.detail)
-            }
-        })
-        setFormValues(cleanFormData)
+        if(captchaValido){
+            LogIn(formData).then((response) => {
+                if (response.status === 200) {
+                    const { data } = response
+                    window.localStorage.setItem('token', data.access_token) // Guardar el token
+                    setLogInCitCliente() // Actualizar contexto
+                    console.log(isLogged, username)
+                    //navigate('/') // Redirigir al listado de citas
+                } else {
+                    setIsError(true)
+                    setErrorMessage(response.data.detail)
+                }
+            })
+            setFormValues(cleanFormData)
+        }
+        else{
+            setCaptchaValido(false) ;
+        }
     }
 
     if (isLogged) {
@@ -106,7 +129,14 @@ const LoginScreen = () => {
                         <Grid item xs={12}>
                             <Card variant='outlined'>
                                 <Typography variant='body1'>
-                                    No soy un robot
+                                    <div className='recaptcha'>
+                                        <ReCAPTCHA
+                                            ref={captcha}
+                                            sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
+                                            onChange={onchange} 
+                                        />
+                                    </div>
+                                    { captchaValido === false && <div style={{color:'red'}}>Seleccione el captcha para continuar</div>}
                                 </Typography>
                             </Card>
                         </Grid>
