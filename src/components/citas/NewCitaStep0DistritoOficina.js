@@ -22,8 +22,11 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles, props }) => {
         setOficina(e.target.value)
         console.log(e.target.value)
     }
+
     const guardarInformacion = () =>{
-        console.log("Hola estoy guardando")
+        if(oficina === 0){
+            return false;
+        }
         handleNext()
     }
 
@@ -56,7 +59,8 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles, props }) => {
         }
         fetchData()
     },[distrito])
-   
+    
+
     return (
         <>
             <Container sx={{ mt: 5 }}>
@@ -94,6 +98,7 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles, props }) => {
                                         name="oficina"
                                         value={oficina}
                                         onChange={(e) => { handleChangeOficina(e) }}
+                                        disabled={distrito === 0}
                                     >
                                         <MenuItem key={0} value={0}>Seleccionar una opción</MenuItem>
                                         {oficinas.map((oficina) =>
