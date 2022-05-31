@@ -13,8 +13,7 @@ import { Profile } from '../../actions/AuthActions'
 const ProfileScreen = () => {
 
     // Obtener el contexto del cliente
-    const { isLogged, username } = useContext(CitClienteContext)
-    console.log(isLogged, username)
+    const { isLogged } = useContext(CitClienteContext)
 
     // Revisar si hay token
     // const [isLogged, setIsLogged] = useState(false)
