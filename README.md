@@ -51,6 +51,7 @@ Luego los paquetes que se usan
     npm install react-router-dom --save
     npm install @mui/material @mui/icons-material @emotion/react @emotion/styled --save
     npm install @mdi/react @mdi/js --save
+    npm install react-google-recaptcha --save
 
 ## Requerimientos en Fedora Linux
 
