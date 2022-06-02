@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+
 import { Box, Button, Card, Typography, Step, StepLabel, Stepper } from '@mui/material'
 
-import ContainerLoggedScreen from '../ui/ContainerLoggedScreen'
 import commonSX from '../../theme/CommonSX'
 
 import NewCitaStep0DistritoOficina from './NewCitaStep0DistritoOficina'
@@ -9,7 +9,6 @@ import NewCitaStep1Servicio from './NewCitaStep1Servicio'
 import NewCitaStep2Fecha from './NewCitaStep2Fecha'
 import NewCitaStep3Hora from './NewCitaStep3Hora'
 import NewCitaStep4Review from './NewCitaStep4Review'
-
 
 const NewCitaScreen = () => {
 
@@ -79,30 +78,28 @@ const NewCitaScreen = () => {
         }
     }
 
-    return (
-        <ContainerLoggedScreen>
-            <Card sx={commonSX.card}>
-                <Typography align='center' sx={{ mb: 5, fontWeight: 500 }} variant='h4'>
-                    Registro de Citas
-                    <p style={styles.parrafo}>Llena los datos que se solicitan en cada paso</p>
-                </Typography>
-                <Stepper alternativeLabel activeStep={activeStep}>
-                    <Step>
-                        <StepLabel>Distrito y Oficinas</StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>Tipo de tramite</StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>Fecha y Hora</StepLabel>
-                    </Step>
-                    <Step>
-                        <StepLabel>Confirmación de cita</StepLabel>
-                    </Step>
-                </Stepper>
-                { stepBody(activeStep) }
-            </Card>
-        </ContainerLoggedScreen>
+    return (        
+        <Card sx={commonSX.card}>
+            <Typography align='center' sx={{ mb: 5, fontWeight: 500 }} variant='h4'>
+                Registro de Citas
+                <p style={styles.parrafo}>Llena los datos que se solicitan en cada paso</p>
+            </Typography>
+            <Stepper alternativeLabel activeStep={activeStep}>
+                <Step>
+                    <StepLabel>Distrito y Oficinas</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Tipo de tramite</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Fecha y Hora</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Confirmación de cita</StepLabel>
+                </Step>
+            </Stepper>
+            { stepBody(activeStep) }
+        </Card>
     )
 }
 
