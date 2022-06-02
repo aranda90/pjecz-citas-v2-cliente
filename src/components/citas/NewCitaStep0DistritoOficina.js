@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
+
 import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
+
 import { GetDistritos, GetOficinas } from '../../actions/CitCitasActions'
+
+import { types } from '../../types/types'
 
 
 const NewCitaStep0DistritoOficina = ({ handleNext, styles, props }) => {
+
+    const dispatch = useDispatch();
+
+    const { distrito_id, oficina_id } = useSelector( state => state.citas );
 
     // Distrios
     const [distritos, setDistritos] = useState([])
@@ -24,9 +34,21 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles, props }) => {
     }
 
     const guardarInformacion = () =>{
-        if(oficina === 0){
+        
+        if( oficina === 0 && distrito === 0){
             return false;
         }
+
+        dispatch({
+            type: types.SET_PASO_0,
+            payload:{
+                distrito_id: distrito,
+                distrito: distritos.find( ( element ) => { return element.id === distrito; } ).nombre,
+                oficina_id: oficina,
+                oficina: oficinas.find( ( element ) => { return element.id === oficina; } ).descripcion,
+            }
+        })
+
         handleNext()
     }
 
@@ -59,7 +81,22 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles, props }) => {
         }
         fetchData()
     },[distrito])
+
+    useEffect(() => {
+      
+        if( distrito_id !== 0 ){    
+            setDistrito( distrito_id );
+        }
+
+    }, [ distrito_id ])
     
+    useEffect(() => {
+      
+        if( oficina_id !== 0 && oficinas.length !== 0 ){    
+            setOficina( oficina_id );
+        }
+
+    }, [ oficina_id, oficinas ])
 
     return (
         <>
