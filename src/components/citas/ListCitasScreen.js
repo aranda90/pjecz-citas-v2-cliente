@@ -12,7 +12,7 @@ const ListCitasScreen = () => {
 
     return (
         <>
-            <Button component={Link} to='/new' variant="contained" sx={{mb:5}}>
+            <Button component={Link} to='/new' variant="contained" sx={{  mb: 4 }}>
                 Agendar Cita
             </Button>
             <Card align='center' sx={commonSX.card}>

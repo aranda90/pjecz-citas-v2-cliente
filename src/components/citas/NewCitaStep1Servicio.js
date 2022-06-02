@@ -1,8 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
+
 import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { GetOficinaServicio } from '../../actions/CitCitasActions'
+import { types } from '../../types/types'
+
 
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
+    const dispatch = useDispatch()
+    const { oficina_id, servicio_id } = useSelector(state => state.citas)
+
+    //servicios
+    const [servicios, setServicios] = useState([])
+    const [servicio, setServicio] = useState(0)
+
+    const handleChangeServicio = (e) => {
+        setServicio(e.target.value)
+        console.log(e.target.value)
+    }
+
+    const guardarInformacion = () => {
+
+        if(servicio === 0){
+            return false;
+        }
+
+        dispatch({
+            type: types.SET_PASO_1,
+            payload:{
+                servicio_id: servicio,
+                servicio: servicios.find((element) => { return element.id === servicio }).cit_servicio_descripcion,
+            }
+        })
+
+        handleNext()
+    }
+
+    useEffect(() => {
+        async function fetchData(){
+            setServicios([])
+            setServicio(0)
+
+            const response = await GetOficinaServicio(oficina_id)
+            if(response.status === 200){
+                setServicios(response.data.items)
+            }
+            console.log(response)
+        }
+        fetchData()
+    },[oficina_id])
+
+    useEffect(() => {
+        if(servicio_id !== 0){
+            setServicio(servicio_id)
+        }
+    },[servicio_id])
+    
     return (
         <>
             <Container sx={{ mt: 5, mb: 2 }}>
@@ -12,15 +67,21 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="tamite_tipo">Tipo de tramite</InputLabel>
+                                    <InputLabel id="servicio">Tipo de tramite</InputLabel>
                                     <Select
-                                        id="tamite_tipo"
-                                        labelId="tamite_tipo"
+                                        id="servicio"
+                                        labelId="servicio"
                                         label="Tipo de tramite"
-                                        name="tamite_tipo"
+                                        name="servicio"
+                                        value={servicio}
+                                        onChange={(e) => { handleChangeServicio(e) }}
                                     >
-                                        <MenuItem>Seleccionar opcion</MenuItem>
-                                        <MenuItem>Seleccionar opcion 1</MenuItem>
+                                        <MenuItem key={0} value={0}>Seleccionar una opción</MenuItem>
+                                        {servicios.map((servicio) =>
+                                            <MenuItem key={servicio.id} value={servicio.id}>
+                                                {servicio.cit_servicio_descripcion}
+                                            </MenuItem>
+                                        )}
                                     </Select>
                                 </FormControl>
                             </Grid>
@@ -104,7 +165,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
             <Box sx={{ mb: 5 }}>
                 <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                <Button onClick={ guardarInformacion } variant='outlined' style={styles.btnNext}>Siguiente</Button>
             </Box>
 
         </>

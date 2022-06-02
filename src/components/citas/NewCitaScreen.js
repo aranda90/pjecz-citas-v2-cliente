@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Card, Typography, Step, StepLabel, Stepper } from '@mui/material'
+import { Card, Typography, Step, StepLabel, Stepper } from '@mui/material'
 
 import commonSX from '../../theme/CommonSX'
 

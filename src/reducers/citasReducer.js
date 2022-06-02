@@ -19,7 +19,12 @@ export const citasReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 ...action.payload
-            }          
+            }
+        case types.SET_PASO_1:
+            return {
+                ...state,
+                ...action.payload
+            }        
         default:
             return state;
     }

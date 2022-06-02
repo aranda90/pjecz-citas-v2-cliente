@@ -70,3 +70,18 @@ export const GetOficinaServicio = (oficina_id) => {
         }
     })
 }
+
+export const GetServicios = () => {
+    return new Promise((resolve, reject) => {
+        const token = window.localStorage.getItem('token')
+        if (token) {
+            HttpClientToken.get('/v2/cit_servicios/', token)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch((error) => {
+                    resolve(error.response)
+                })
+        }
+    })
+}
