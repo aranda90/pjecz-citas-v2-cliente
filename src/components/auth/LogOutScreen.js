@@ -1,26 +1,40 @@
-import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react'
+
+import { Link, useNavigate } from 'react-router-dom'
+
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Button, Typography } from '@mui/material'
 
-import CitClienteContext from '../../context/citcliente/CitClienteContext'
-
 import ContainerCardCenter from '../ui/ContainerCardCenter'
+
 import commonSX from '../../theme/CommonSX'
+
 import '../../css/global.css'
 
+import { types } from '../../types/types'
 
 const LogOutScreen = () => {
 
-    // Obtener el contexto del cliente
-    const { isLogged, setLogOutCitCliente } = useContext(CitClienteContext)
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const { isAuthenticated } = useSelector( state => state.auth );
 
     // Salir de la sesion
     const logOut = () => {
-        window.localStorage.removeItem('token') // Eliminar el token
-        setLogOutCitCliente()
+
+        window.localStorage.clear() // Eliminar el token
+        
+        dispatch({
+            type: types.SET_LOG_OUT_CIT_CLIENTE,
+        });    
+
+        navigate('/');
     }
 
-    if (isLogged) {
+    if ( isAuthenticated ) {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>

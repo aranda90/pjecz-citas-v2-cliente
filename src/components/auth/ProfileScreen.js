@@ -1,33 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
 import { Grid, TextField, Typography } from '@mui/material'
 
-import CitClienteContext from '../../context/citcliente/CitClienteContext'
-
 import ContainerCardCenter from '../ui/ContainerCardCenter'
+
 import commonSX from '../../theme/CommonSX'
+
 import '../../css/global.css'
 
 import { Profile } from '../../actions/AuthActions'
 
-
 const ProfileScreen = () => {
-
-    // Obtener el contexto del cliente
-    const { isLogged } = useContext(CitClienteContext)
-
-    // Revisar si hay token
-    // const [isLogged, setIsLogged] = useState(false)
-    // function checkStorage() {
-    //     if (window.localStorage.getItem('token')) {
-    //         setIsLogged(true)
-    //     } else {
-    //         setIsLogged(false)
-    //     }
-    // }
-    // useEffect(() => {
-    //     checkStorage()
-    //     return () => {}
-    // }, [isLogged])
 
     // Consultar Perfil
     const [consultado, setConsultado] = useState(false)
@@ -41,18 +24,22 @@ const ProfileScreen = () => {
         email: '',
         username: '',
     })
+
     useEffect(() => {
+
         async function fetchData() {
-            if (isLogged) {
-                const response = await Profile()
-                if (response.status === 200) {
-                    setConsultado(true)
-                    setProfile(response.data)
-                }
+            
+            const response = await Profile()
+            if (response.status === 200) {
+                setConsultado(true)
+                setProfile(response.data)
             }
+            
         }
+
         fetchData()
-    }, [isLogged])
+
+    }, [ ])
 
     if (consultado) {
         return (

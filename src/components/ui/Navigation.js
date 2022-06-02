@@ -1,12 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
+
+import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom'
+
 import { AppBar, Container, Toolbar, Typography } from '@mui/material'
 
 import MenuIcon from '@mui/icons-material/Menu'
 
-import CitClienteContext from '../../context/citcliente/CitClienteContext'
-
 import navigationSX from '../../theme/NavigationSX'
+
 import '../../css/global.css'
 
 import NavigationAccess from './NavigationAccess'
@@ -14,14 +17,9 @@ import NavigationMain from './NavigationMain'
 import NavigationLogged from './NavigationLogged'
 import NavigationPublic from './NavigationPublic'
 
-
 const Navigation = () => {
-
-    // Obtener el contexto del cliente
-    const { isLogged, username, getCitCliente } = useContext(CitClienteContext)
-    useEffect(() => {
-        getCitCliente()
-    }, [])
+    
+    const { isAuthenticated, username } = useSelector( state => state.auth );
 
     return(
         <AppBar position='absolute'>
@@ -39,8 +37,8 @@ const Navigation = () => {
                             Sistema de Citas
                         </Typography>
                     </Link>
-                    {isLogged ? <NavigationMain /> : <NavigationPublic />}
-                    {isLogged ? <NavigationLogged username={username} /> : <NavigationAccess />}
+                    { isAuthenticated ? <NavigationMain /> : <NavigationPublic />}
+                    { isAuthenticated ? <NavigationLogged username={ username } /> : <NavigationAccess />}
                 </Toolbar>
             </Container>
         </AppBar>

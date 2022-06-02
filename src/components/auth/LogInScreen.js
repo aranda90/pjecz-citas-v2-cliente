@@ -1,16 +1,23 @@
-import React, { useContext, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
+
+import { useSelector, useDispatch } from 'react-redux';
+
 import ReCAPTCHA  from 'react-google-recaptcha'
+
 import { Link } from 'react-router-dom'
+
 import { Button, Grid, TextField, Typography } from '@mui/material'
 
-import CitClienteContext from '../../context/citcliente/CitClienteContext'
-
 import ContainerCardCenter from '../ui/ContainerCardCenter'
+
 import commonSX from '../../theme/CommonSX'
+
 import '../../css/global.css'
 
 import { LogIn } from '../../actions/AuthActions'
+import { Profile } from '../../actions/AuthActions'
 
+import { types } from '../../types/types';
 
 const cleanFormData = {
     username: '',
@@ -18,6 +25,8 @@ const cleanFormData = {
 }
 
 const LoginScreen = () => {
+
+    const dispatch = useDispatch();
 
     // Variable de estado para captcha
     const [captchaValido, setCaptchaValido] = useState(null)
@@ -36,7 +45,7 @@ const LoginScreen = () => {
     }
 
     // Obtener el contexto del cliente
-    const { isLogged, username, setLogInCitCliente } = useContext(CitClienteContext)
+    const { isAuthenticated, username } = useSelector( state => state.auth );
 
     // Formulario
     const [formData, setFormValues] = useState({
@@ -59,13 +68,27 @@ const LoginScreen = () => {
     //const navigate = useNavigate()
     const submitForm = () => {
         if(captchaValido){
-            LogIn(formData).then((response) => {
+            LogIn(formData).then( async ( response ) => {
                 if (response.status === 200) {
-                    const { data } = response
-                    window.localStorage.setItem('token', data.access_token) // Guardar el token
-                    setLogInCitCliente() // Actualizar contexto
-                    console.log(isLogged, username)
-                    //navigate('/') // Redirigir al listado de citas
+                    
+                    const { data } = response     
+
+                    if( data.access_token ){
+
+                        window.localStorage.setItem('token', data.access_token) // Guardar el token
+                        
+                        const responseProfile = await Profile()
+            
+                        dispatch({
+                            type: types.SET_LOG_IN_CIT_CLIENTE,
+                            payload: {
+                                token: data.access_token,
+                                isAuthenticated: true,
+                                username: responseProfile.status === 200 ? responseProfile.data.username : ''
+                            }
+                        });    
+                    }           
+
                 } else {
                     setIsError(true)
                     setErrorMessage(response.data.detail)
@@ -78,11 +101,11 @@ const LoginScreen = () => {
         }
     }
 
-    if (isLogged) {
+    if ( isAuthenticated ) {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Bienvenido {username}
+                    Bienvenido { username }
                 </Typography>
             </ContainerCardCenter>
         )

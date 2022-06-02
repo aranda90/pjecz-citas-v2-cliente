@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 
-
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     return (
