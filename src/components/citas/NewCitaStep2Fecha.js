@@ -43,9 +43,9 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
             type: types.SET_PASO_2,
             payload:{
                 fecha_id: date,
-                {/*fecha: fechas.find((element) => { return element.id === date}).fecha*/}
             }
         })
+        {/*fecha: fechas.find((element) => { return element.id === date}).fecha*/}
         handleNext()
     }
     return (
