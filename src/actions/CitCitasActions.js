@@ -71,11 +71,17 @@ export const GetOficinaServicio = (oficina_id) => {
     })
 }
 
-export const GetServicios = () => {
+
+export const GetCitDiasDisponibles = (oficina_id) => {
     return new Promise((resolve, reject) => {
         const token = window.localStorage.getItem('token')
-        if (token) {
-            HttpClientToken.get('/v2/cit_servicios/', token)
+        if(token){
+            let ruta = '/v2/cit_dias_disponibles'
+            if(oficina_id !== null){
+                ruta = ruta + `?oficina_id=${oficina_id}`
+            }
+            console.log(ruta)
+            HttpClientToken.get(ruta, token)
                 .then(response => {
                     resolve(response)
                 })

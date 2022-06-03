@@ -8,7 +8,9 @@ const initialState = {
     oficina: '',
     servicio_id: 0,
     servicio: '',
-    expedientes: []
+    expedientes: [],
+    fecha_id: 0,
+    fecha: ''
 
 }
 
@@ -24,7 +26,12 @@ export const citasReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 ...action.payload
-            }        
+            }   
+        case types.SET_PASO_2:
+            return{
+                ...state,
+                ...action.payload
+            }    
         default:
             return state;
     }

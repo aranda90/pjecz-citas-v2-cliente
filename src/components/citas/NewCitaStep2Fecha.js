@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
@@ -6,15 +8,45 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from 'moment';
 
 import 'moment/locale/es-mx';
+import { types } from '../../types/types';
+import { GetCitDiasDisponibles } from '../../actions/CitCitasActions';
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
-
+    
+    const dispatch = useDispatch()
+    const { oficina_id, fecha_id } = useSelector(state => state.citas)
     const [date, setDate] = useState(new Date())
+    const [fechas, setFechas] = useState([])
     const arrayFechasInhabiles = ['2022-05-23', '2022-05-30'];
     const disableDates = (date) => {
         if(arrayFechasInhabiles.find(element => element === moment(new Date(date)).format('YYYY-MM-DD'))){
             return true
         }
+    }
+    useEffect(() => {
+        async function fetchData(){
+
+            setDate(0)
+            setFechas([])
+
+            const response = await GetCitDiasDisponibles(oficina_id)
+        }
+    })
+    console.log(`fecha seleccionada${date}, esta funcionando bien`)
+
+    const guardarInformacion = () => {
+        if(date === 0){
+            return false;
+        }
+
+        dispatch({
+            type: types.SET_PASO_2,
+            payload:{
+                fecha_id: date,
+                {/*fecha: fechas.find((element) => { return element.id === date}).fecha*/}
+            }
+        })
+        handleNext()
     }
     return (
         <>
@@ -32,11 +64,11 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                         minDate={ moment( new Date() ) }
                         onChange={ ( newDate ) => { setDate( newDate ) } } 
                         shouldDisableDate={ disableDates } 
-                        className='calendar'                               
+                        className='calendar'                             
                         />
 
+                        {/* <Button value="Mostrar fecha" onClick={() => {mostrarFecha()}}>Fecha</Button> */}
                     </LocalizationProvider>
-
                     </Grid>
 
                     <Grid item md={5} xs={12} sx={{ mt:3}}>
@@ -61,7 +93,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                 </Container>
             <Box sx={{ mb: 5 }}>
                 <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                <Button onClick={guardarInformacion} variant='outlined' style={styles.btnNext}>Siguiente</Button>
             </Box>
         </>
     )
