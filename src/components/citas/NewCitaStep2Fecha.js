@@ -17,8 +17,23 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     const { oficina_id, fecha_id } = useSelector(state => state.citas)
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
+    
+    const fechasdisponibles = []
+    fechas.map(x => fechasdisponibles.push(x.fecha))
+    
+    const arrayFechasCalendario = []
+    for(let x = 0; x < 90; x++){
+        let dia = moment(new Date).add(x,'days')
+        arrayFechasCalendario.push(dia.format('YYYY-MM-DD'))
+    }
+    
     const arrayFechasInhabiles = []
-    fechas.map((x) => { arrayFechasInhabiles.push(x.fecha) })
+    arrayFechasCalendario.forEach(function(fecha){
+        if(!fechasdisponibles.includes(fecha)){
+            arrayFechasInhabiles.push(fecha); 
+        }
+    })
+
     const disableDates = (date) => {
         if(arrayFechasInhabiles.find(element => element === moment(new Date(date)).format('YYYY-MM-DD'))){
             return true
@@ -67,7 +82,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                             minDate={ moment( new Date() ) }
                             maxDate={ moment( date ).add(90, 'days') }
                             onChange={ ( newDate ) => { setDate( newDate ) } }
-                             
+                            shouldDisableDate={ disableDates }
                             className='calendar'    
                                                      
                         />
