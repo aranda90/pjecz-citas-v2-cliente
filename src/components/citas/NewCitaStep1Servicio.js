@@ -23,17 +23,17 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const guardarInformacion = () => {
 
-        if(servicio === 0){
-            return false;
-        }
+        // if(servicio === 0){
+        //     return false;
+        // }
 
-        dispatch({
-            type: types.SET_PASO_1,
-            payload:{
-                servicio_id: servicio,
-                servicio: servicios.find((element) => { return element.id === servicio }).cit_servicio_descripcion,
-            }
-        })
+        // dispatch({
+        //     type: types.SET_PASO_1,
+        //     payload:{
+        //         servicio_id: servicio,
+        //         servicio: servicios.find((element) => { return element.id === servicio }).cit_servicio_descripcion,
+        //     }
+        // })
 
         handleNext()
     }

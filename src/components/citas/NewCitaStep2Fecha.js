@@ -17,21 +17,24 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     const { oficina_id, fecha_id } = useSelector(state => state.citas)
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
-    const arrayFechasInhabiles = ['2022-05-23', '2022-05-30'];
+    const arrayFechasInhabiles = []
+    fechas.map((x) => { arrayFechasInhabiles.push(x.fecha) })
     const disableDates = (date) => {
         if(arrayFechasInhabiles.find(element => element === moment(new Date(date)).format('YYYY-MM-DD'))){
             return true
         }
     }
+
     useEffect(() => {
         async function fetchData(){
-
-            setDate(0)
-            setFechas([])
-
             const response = await GetCitDiasDisponibles(oficina_id)
+            if(response.status === 200){
+                setFechas(response.data.items)
+            }
         }
-    })
+        fetchData()
+    },[oficina_id])
+
     console.log(`fecha seleccionada${date}, esta funcionando bien`)
 
     const guardarInformacion = () => {
@@ -60,11 +63,13 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                     <LocalizationProvider dateAdapter={ AdapterMoment }>
 
                         <CalendarPicker                                                         
-                        date={ moment(date) }
-                        minDate={ moment( new Date() ) }
-                        onChange={ ( newDate ) => { setDate( newDate ) } } 
-                        shouldDisableDate={ disableDates } 
-                        className='calendar'                             
+                            date={ moment(date) }
+                            minDate={ moment( new Date() ) }
+                            maxDate={ moment( date ).add(90, 'days') }
+                            onChange={ ( newDate ) => { setDate( newDate ) } }
+                             
+                            className='calendar'    
+                                                     
                         />
 
                         {/* <Button value="Mostrar fecha" onClick={() => {mostrarFecha()}}>Fecha</Button> */}
