@@ -8,62 +8,67 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from 'moment';
 
 import 'moment/locale/es-mx';
-import { types } from '../../types/types';
+//import { types } from '../../types/types';
 import { GetCitDiasDisponibles } from '../../actions/CitCitasActions';
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     
-    const dispatch = useDispatch()
+    //const dispatch = useDispatch()
     const { oficina_id, fecha_id } = useSelector(state => state.citas)
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
     
+    /* Código de get fechas api */
     const fechasdisponibles = []
     fechas.map(x => fechasdisponibles.push(x.fecha))
-    
     const arrayFechasCalendario = []
     for(let x = 0; x < 90; x++){
-        let dia = moment(new Date).add(x,'days')
+        let dia = moment(new Date()).add(x,'days')
         arrayFechasCalendario.push(dia.format('YYYY-MM-DD'))
     }
     
     const arrayFechasInhabiles = []
-    arrayFechasCalendario.forEach(function(fecha){
-        if(!fechasdisponibles.includes(fecha)){
-            arrayFechasInhabiles.push(fecha); 
+   
+    
+    arrayFechasCalendario.forEach(function(f){
+        if(! fechasdisponibles.includes(f)){
+           arrayFechasInhabiles.push(f)
         }
     })
-
+    
     const disableDates = (date) => {
         if(arrayFechasInhabiles.find(element => element === moment(new Date(date)).format('YYYY-MM-DD'))){
             return true
         }
+        console.log(arrayFechasInhabiles)
     }
+
 
     useEffect(() => {
         async function fetchData(){
             const response = await GetCitDiasDisponibles(oficina_id)
             if(response.status === 200){
                 setFechas(response.data.items)
+                console.log(response.data.items)
             }
         }
         fetchData()
     },[oficina_id])
 
-    console.log(`fecha seleccionada${date}, esta funcionando bien`)
+    //console.log(fechasdisponibles)
 
     const guardarInformacion = () => {
         if(date === 0){
             return false;
         }
 
-        dispatch({
-            type: types.SET_PASO_2,
-            payload:{
-                fecha_id: date,
-            }
-        })
-        {/*fecha: fechas.find((element) => { return element.id === date}).fecha*/}
+        // dispatch({
+        //     type: types.SET_PASO_2,
+        //     payload:{
+        //         fecha_id: date,
+        //         fecha: fechas.find((element) => { return element.id === date }).fecha,
+        //     }
+        // })
         handleNext()
     }
     return (
@@ -83,11 +88,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                             maxDate={ moment( date ).add(90, 'days') }
                             onChange={ ( newDate ) => { setDate( newDate ) } }
                             shouldDisableDate={ disableDates }
-                            className='calendar'    
-                                                     
+                            className='calendar'                          
                         />
-
-                        {/* <Button value="Mostrar fecha" onClick={() => {mostrarFecha()}}>Fecha</Button> */}
                     </LocalizationProvider>
                     </Grid>
 
