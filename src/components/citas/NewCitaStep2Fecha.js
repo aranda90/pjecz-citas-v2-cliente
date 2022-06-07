@@ -8,69 +8,69 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment from 'moment';
 
 import 'moment/locale/es-mx';
-//import { types } from '../../types/types';
+import { types } from '../../types/types';
 import { GetCitDiasDisponibles } from '../../actions/CitCitasActions';
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     
-    //const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const { oficina_id, fecha_id } = useSelector(state => state.citas)
+
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
+
+  
     
-    /* Código de get fechas api */
-    const fechasdisponibles = []
-    fechas.map(x => fechasdisponibles.push(x.fecha))
-    const arrayFechasCalendario = []
-    for(let x = 0; x < 90; x++){
-        let dia = moment(new Date()).add(x,'days')
-        arrayFechasCalendario.push(dia.format('YYYY-MM-DD'))
-    }
-    
-    const arrayFechasInhabiles = []
-   
-    
-    arrayFechasCalendario.forEach(function(f){
-        if(! fechasdisponibles.includes(f)){
-           arrayFechasInhabiles.push(f)
-        }
-    })
+  /* start fechas */
     
     const disableDates = (date) => {
-        if(arrayFechasInhabiles.find(element => element === moment(new Date(date)).format('YYYY-MM-DD'))){
-            return true
-        }
-        console.log(arrayFechasInhabiles)
-    }
 
+        const diaDisponible = fechas.find(element => element.fecha === moment(new Date(date)).format('YYYY-MM-DD'));
+
+        if( diaDisponible?.fecha || moment(new Date()).format('YYYY-MM-DD') === moment(new Date(date)).format('YYYY-MM-DD') ){
+            return false
+        }
+        else{
+            return true;
+        }
+        
+    }
 
     useEffect(() => {
         async function fetchData(){
             const response = await GetCitDiasDisponibles(oficina_id)
             if(response.status === 200){
                 setFechas(response.data.items)
-                console.log(response.data.items)
             }
         }
         fetchData()
     },[oficina_id])
 
-    //console.log(fechasdisponibles)
 
+    /* end fechas */
+   
     const guardarInformacion = () => {
         if(date === 0){
             return false;
         }
 
-        // dispatch({
-        //     type: types.SET_PASO_2,
-        //     payload:{
-        //         fecha_id: date,
-        //         fecha: fechas.find((element) => { return element.id === date }).fecha,
-        //     }
-        // })
+        dispatch({
+            type: types.SET_PASO_2,
+            payload:{
+                fecha_id: date,
+                fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha
+            }
+        })
+
         handleNext()
     }
+
+    useEffect(() => {
+        if(fecha_id !== 0){
+            setDate(fecha_id)
+        }
+    },[fecha_id])
+    
     return (
         <>
             <Container maxWidth='lg' sx={{ mt: 2 }}>
@@ -85,7 +85,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                         <CalendarPicker                                                         
                             date={ moment(date) }
                             minDate={ moment( new Date() ) }
-                            maxDate={ moment( date ).add(90, 'days') }
                             onChange={ ( newDate ) => { setDate( newDate ) } }
                             shouldDisableDate={ disableDates }
                             className='calendar'                          
@@ -98,13 +97,10 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
 
                             <Stack direction="row" spacing={2}>
 
-                            <Chip label='9:00 a.m' size="small"/>
-                                
-                            <Chip label='9:15 a.m' size="small"/>
-
-                            <Chip label='9:30 a.m' size="small"/>
-
-                            <Chip label='9:45 a.m' size="small"/>
+                                <Chip 
+                                    label='9:00 a.m' 
+                                    size="small"
+                                />
 
                             </Stack>
                         </Stack>

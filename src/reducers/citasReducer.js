@@ -10,7 +10,7 @@ const initialState = {
     servicio: '',
     expedientes: [],
     fecha_id: 0,
-    fecha: ''
+    fecha: '',
 
 }
 
