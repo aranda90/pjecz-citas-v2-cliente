@@ -97,14 +97,14 @@ export const GetHorasDisponibles = (filtros) => {
         const token = window.localStorage.getItem('token')
         if(token){
             let ruta = '/v2/cit_horas_disponibles'
-            if(filtros.oficina_id !== null){
+            if(filtros.oficina_id){
                 ruta = ruta + `?oficina_id=${filtros.oficina_id}`
             }
-            if(filtros.cit_servicio_id !== null){
+            if(filtros.cit_servicio_id){
                 ruta = ruta + `&cit_servicio_id=${filtros.cit_servicio_id}`
             }
-            if(filtros.fecha !== null){
-                ruta = ruta + `&fecha=${filtros.fecha}`
+            if(filtros.fecha){
+                ruta = ruta + `&fecha=${filtros.fecha_id}`
             }
             console.log(ruta)
             HttpClientToken.get(ruta, token)

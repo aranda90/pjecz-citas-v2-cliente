@@ -9,17 +9,18 @@ import moment from 'moment';
 
 import 'moment/locale/es-mx';
 import { types } from '../../types/types';
-import { GetCitDiasDisponibles } from '../../actions/CitCitasActions';
+import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions';
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     
     const dispatch = useDispatch()
-    const { oficina_id, fecha_id } = useSelector(state => state.citas)
-
+    const { oficina_id, fecha_id, servicio_id } = useSelector(state => state.citas)
+   
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
 
-  
+    const [hora, setHora] = useState(new Date().getHours())
+    const [horas, setHoras] = useState([])
     
   /* start fechas */
     
@@ -36,6 +37,13 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
         
     }
 
+    const handleChangeHours = (e) => {
+        setHora(e.target.values)
+        // console.log(e.target.values)
+        console.log('hora 1')
+    }
+
+    
     useEffect(() => {
         async function fetchData(){
             const response = await GetCitDiasDisponibles(oficina_id)
@@ -45,6 +53,16 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
         }
         fetchData()
     },[oficina_id])
+
+    useEffect(() => {
+        async function fetchData(){
+            const response = await GetHorasDisponibles()
+            if(response.status === 200){
+                setHoras(response.data.items)
+            }
+        }
+        fetchData()
+    },[])
 
 
     /* end fechas */
@@ -98,8 +116,9 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                             <Stack direction="row" spacing={2}>
 
                                 <Chip 
-                                    label='9:00 a.m' 
+                                    label={hora} 
                                     size="small"
+                                    onChange={(e) => {handleChangeHours(e)}}
                                 />
 
                             </Stack>
