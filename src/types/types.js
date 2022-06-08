@@ -5,5 +5,6 @@ export const types = {
     SET_PASO_0: 'SET_PASO_0',
     SET_PASO_1: 'SET_PASO_1',
     SET_PASO_2: 'SET_PASO_2',
+    SET_PASO_3: 'SET_PASO_3',
     
 }

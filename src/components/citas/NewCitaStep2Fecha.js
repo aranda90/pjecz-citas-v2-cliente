@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
+import { Box, Button, Chip, Container, Grid, ListItem, Paper, Stack } from '@mui/material'
+import FaceIcon from '@mui/icons-material/Face'
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import moment from 'moment';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import moment from 'moment'
 
-import 'moment/locale/es-mx';
-import { types } from '../../types/types';
-import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions';
+import 'moment/locale/es-mx'
+import { types } from '../../types/types'
+import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions'
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     
@@ -19,14 +20,14 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
 
-    const [hora, setHora] = useState(new Date().getHours())
+    const [hora, setHora] = useState(new Date())
     const [horas, setHoras] = useState([])
-    
-  /* start fechas */
+
+    /* start fechas */
     
     const disableDates = (date) => {
 
-        const diaDisponible = fechas.find(element => element.fecha === moment(new Date(date)).format('YYYY-MM-DD'));
+        const diaDisponible = fechas.find(element => element.fecha === moment(new Date(date)).format('YYYY-MM-DD'))
 
         if( diaDisponible?.fecha || moment(new Date()).format('YYYY-MM-DD') === moment(new Date(date)).format('YYYY-MM-DD') ){
             return false
@@ -35,12 +36,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
             return true;
         }
         
-    }
-
-    const handleChangeHours = (e) => {
-        setHora(e.target.values)
-        // console.log(e.target.values)
-        console.log('hora 1')
     }
 
     
@@ -54,26 +49,22 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
         fetchData()
     },[oficina_id])
 
-    useEffect(() => {
-        async function fetchData(){
-            const response = await GetHorasDisponibles()
-            if(response.status === 200){
-                setHoras(response.data.items)
-            }
-        }
-        fetchData()
-    },[])
-
-
     /* end fechas */
-   
+
+    const horaDisponible = (hora) => {
+        // const horaDisp = horas.find(element => element.hora === moment(new Date(hora).getTime()).format('HH:mm'))
+        // console.log(horaDisp)
+        //setHora((chips) => chips.filter((chip) => chip.key !== hora.key));
+    }
+
+    
     const guardarInformacion = () => {
         if(date === 0){
             return false;
         }
 
         dispatch({
-            type: types.SET_PASO_2,
+            type: types.SET_PASO_1,
             payload:{
                 fecha_id: date,
                 fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha
@@ -82,6 +73,30 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
 
         handleNext()
     }
+    useEffect(() => {
+
+        async function fetchData(){
+
+            const params = {
+                oficina_id: oficina_id, 
+                fecha: moment(new Date(date)).format('YYYY-MM-DD'), 
+                cit_servicio_id: servicio_id,
+            }
+            console.log(params)
+
+            await GetHorasDisponibles( params ).then( response => {
+                if(response.status === 200){
+                    setHoras(response.data.items)
+                    console.log(response.data.items)
+                }
+            });
+
+        }
+
+        fetchData()
+
+    },[ oficina_id, date, servicio_id])
+   
 
     useEffect(() => {
         if(fecha_id !== 0){
@@ -112,16 +127,9 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
 
                     <Grid item md={5} xs={12} sx={{ mt:3}}>
                         <Stack spacing={2} alignItems="center">
-
-                            <Stack direction="row" spacing={2}>
-
-                                <Chip 
-                                    label={hora} 
-                                    size="small"
-                                    onChange={(e) => {handleChangeHours(e)}}
-                                />
-
-                            </Stack>
+                            {horas.map((hora) =>
+                                <Chip key={hora.id}>{hora}</Chip>                           
+                            )}
                         </Stack>
                     </Grid>
                     <Grid item md={1} xs={12}></Grid>
