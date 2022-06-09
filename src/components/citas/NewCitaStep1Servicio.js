@@ -104,6 +104,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                 <Grid container spacing={2}>
                     <Grid item md={1} xs={12}></Grid>
                     <Grid item md={5} xs={12}>
+                        {/*if servicios.desripcion !== 'EXPEDIENTE VIRTUAL'*/}
                         <Grid item xs={12}>
                             <Typography sx={{ fontWeight: 500 }}>
                                 Expedientes / Folios

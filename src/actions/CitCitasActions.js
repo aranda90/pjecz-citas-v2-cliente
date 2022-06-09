@@ -96,7 +96,7 @@ export const GetHorasDisponibles = (filtros) => {
     return new Promise((resolve, reject) => {
         const token = window.localStorage.getItem('token')
         if(token){
-            const ruta = `/v2/cit_horas_disponibles?oficina_id=${filtros.oficina_id}&cit_servicio_id=${filtros.cit_servicio_id}&fecha=${filtros.fecha_id}`
+            const ruta = `/v2/cit_horas_disponibles?oficina_id=${filtros.oficina_id}&cit_servicio_id=${filtros.cit_servicio_id}&fecha=${filtros.fecha}`
             
             HttpClientToken.get(ruta, token)
             .then(response => {

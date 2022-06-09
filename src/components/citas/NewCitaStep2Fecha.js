@@ -51,35 +51,48 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
 
     /* end fechas */
 
-    const horaDisponible = (hora) => {
-        // const horaDisp = horas.find(element => element.hora === moment(new Date(hora).getTime()).format('HH:mm'))
-        // console.log(horaDisp)
-        //setHora((chips) => chips.filter((chip) => chip.key !== hora.key));
-    }
-
     
+    
+    const mostrarHorasDisponible = (horaAC) => {
+        const horaDisponible = horas.find(element => element.hora === moment(new Date(hora)).format('HH:mm'))
+        setHoras(h => horaDisponible?.filter((h) => h.hora !== horaAC.hora))
+        //setHora((horaad) => horaDisponible?.filter(h => h !== horaAC))
+        // if( horaDisponible?.hora || moment(new Date(hora)).format('HH:mm') ){
+        //     console.log(horaDisponible.hora)
+        //     //return false
+        // }
+        // else{
+        //     return true;
+        // }
+    }
+    console.log(mostrarHorasDisponible)
+
     const guardarInformacion = () => {
         if(date === 0){
             return false;
         }
-
+        
         dispatch({
             type: types.SET_PASO_1,
             payload:{
                 fecha_id: date,
-                fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha
+                fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha,
+                hora_id: hora,
+                hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm') }).hora
             }
         })
-
+        
         handleNext()
     }
+
+
     useEffect(() => {
 
         async function fetchData(){
 
             const params = {
                 oficina_id: oficina_id, 
-                fecha: moment(new Date(date)).format('YYYY-MM-DD'), 
+                fecha: moment(date).format('YYYY-MM-DD'),
                 cit_servicio_id: servicio_id,
             }
             console.log(params)
@@ -126,11 +139,28 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                     </Grid>
 
                     <Grid item md={5} xs={12} sx={{ mt:3}}>
-                        <Stack spacing={2} alignItems="center">
-                            {horas.map((hora) =>
-                                <Chip key={hora.id}>{hora}</Chip>                           
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                            {horas.map((h) =>
+                                <ListItem key={h}>
+                                    <Chip onClick={mostrarHorasDisponible} label={h.hora} color='default' />
+                                </ListItem>   
                             )}
-                        </Stack>
+                        </Stack> 
+                       {/*} <Stack direction="row" alignItems="center" spacing={2}>
+                           
+                            {horas.map((h) => 
+                             
+                                <ListItem key={h.key}>
+                                    <Chip
+                                        value={hora}
+                                        label={h.hora}
+                                        size="small"
+                                        onClick={(e) => { mostrarHorasDisponible(e) }}
+                                    />
+
+                                </ListItem>
+                            )}
+                        </Stack>*/}
                     </Grid>
                     <Grid item md={1} xs={12}></Grid>
                 </Grid>
