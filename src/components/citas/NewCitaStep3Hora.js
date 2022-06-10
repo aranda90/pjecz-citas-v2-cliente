@@ -7,7 +7,7 @@ import { Box, Button, Typography } from '@mui/material'
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
-    const { distrito, oficina, servicio, fecha } = useSelector( state => state.citas );
+    const { distrito, oficina, servicio, fecha, hora } = useSelector( state => state.citas );
 
     return (
         <>
@@ -21,6 +21,8 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                 { servicio } <br />
 
                 { fecha } <br />
+
+                { hora }
 
             </Typography>
 

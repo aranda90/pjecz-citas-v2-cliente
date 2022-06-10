@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Chip, Container, Divider, Grid, ListItem, Paper, Stack } from '@mui/material'
-import FaceIcon from '@mui/icons-material/Face';
+import { Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
+import { green, red, grey } from '@mui/material/colors'
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
@@ -11,12 +11,11 @@ import moment from 'moment'
 import 'moment/locale/es-mx'
 import { types } from '../../types/types'
 import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions'
-import { Today } from '@mui/icons-material';
 
-const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
+const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
     const dispatch = useDispatch()
-    const { oficina_id, fecha_id, servicio_id, hora_id } = useSelector(state => state.citas)
+    const { oficina_id,servicio_id ,fecha_id , hora_id } = useSelector(state => state.citas)
    
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
@@ -32,7 +31,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
 
         const diaDisponible = fechas.find(element => element.fecha === moment(new Date(date)).format('YYYY-MM-DD'))
 
-        if( diaDisponible?.fecha || moment(new Date()).format('YYYY-MM-DD') === moment(new Date(date)).format('YYYY-MM-DD') ){
+        if( diaDisponible?.fecha || moment(new Date()).format('YYYY-MM-DD') === moment(new Date(date)).format('YYYY-MM-DD')){
             return false
         }
         else{
@@ -53,11 +52,19 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
 
     /* end fechas */
 
+    // const colorForSelect = () => {
+    //     switch(estado){
+    //         case "seleccionado":
+    //             return green
+    //         case "inhabil":
+    //             return red
+    //         default:
+    //             return grey
+    //     }
+    // }
     
-    const handleClickHora = (e) =>  {
-        
-        console.info(e) 
-       
+    const handleClickHora = () =>  {
+        console.info('You clicked the Chip.');
     }
   
 
@@ -67,12 +74,12 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
         }
         
         dispatch({
-            type: types.SET_PASO_1,
+            type: types.SET_PASO_2,
             payload:{
                 fecha_id: date,
                 fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha,
                 hora_id: hora,
-                hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm') }).horas_minutos
+                hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm:00') })
             }
         })
         
@@ -150,7 +157,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                                 <Chip 
                                     key={h.horas_minutos}
                                     label={h.horas_minutos}
-                                    onClick={handleClickHora}
+                                    onClick={() => console.log('Seleccionate la hora ' + h.horas_minutos)}
+                                    //style={{backgroundColor: colorForSelect(estado)[300]}}
                                 />
                             )}
                         </Stack>

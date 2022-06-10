@@ -31,7 +31,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             type: types.SET_PASO_1,
             payload:{
                 servicio_id: servicio,
-                servicio: servicios.find((element) => { return element.id === servicio }).cit_servicio_descripcion,
+                servicio: servicios.find((element) => { return element.cit_servicio_id === servicio }).cit_servicio_descripcion,
             }
         })
 
@@ -78,7 +78,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                                     >
                                         <MenuItem key={0} value={0}>Seleccionar una opción</MenuItem>
                                         {servicios.map((servicio) =>
-                                            <MenuItem key={servicio.id} value={servicio.id}>
+                                            <MenuItem key={servicio.cit_servicio_id} value={servicio.cit_servicio_id}>
                                                 {servicio.cit_servicio_descripcion}
                                             </MenuItem>
                                         )}
