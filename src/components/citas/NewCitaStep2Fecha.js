@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Chip, Container, Grid, ListItem, Paper, Stack } from '@mui/material'
-import FaceIcon from '@mui/icons-material/Face'
+import { Box, Button, Chip, Container, Divider, Grid, ListItem, Paper, Stack } from '@mui/material'
+import FaceIcon from '@mui/icons-material/Face';
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
@@ -11,11 +11,12 @@ import moment from 'moment'
 import 'moment/locale/es-mx'
 import { types } from '../../types/types'
 import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions'
+import { Today } from '@mui/icons-material';
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     
     const dispatch = useDispatch()
-    const { oficina_id, fecha_id, servicio_id } = useSelector(state => state.citas)
+    const { oficina_id, fecha_id, servicio_id, hora_id } = useSelector(state => state.citas)
    
     const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
@@ -23,9 +24,11 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     const [hora, setHora] = useState(new Date())
     const [horas, setHoras] = useState([])
 
+
     /* start fechas */
     
     const disableDates = (date) => {
+        
 
         const diaDisponible = fechas.find(element => element.fecha === moment(new Date(date)).format('YYYY-MM-DD'))
 
@@ -35,7 +38,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
         else{
             return true;
         }
-        
     }
 
     
@@ -52,20 +54,12 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
     /* end fechas */
 
     
-    
-    const mostrarHorasDisponible = (horaAC) => {
-        const horaDisponible = horas.find(element => element.hora === moment(new Date(hora)).format('HH:mm'))
-        setHoras(h => horaDisponible?.filter((h) => h.hora !== horaAC.hora))
-        //setHora((horaad) => horaDisponible?.filter(h => h !== horaAC))
-        // if( horaDisponible?.hora || moment(new Date(hora)).format('HH:mm') ){
-        //     console.log(horaDisponible.hora)
-        //     //return false
-        // }
-        // else{
-        //     return true;
-        // }
+    const handleClickHora = (e) =>  {
+        
+        console.info(e) 
+       
     }
-    console.log(mostrarHorasDisponible)
+  
 
     const guardarInformacion = () => {
         if(date === 0){
@@ -78,7 +72,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                 fecha_id: date,
                 fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha,
                 hora_id: hora,
-                hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm') }).hora
+                hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm') }).horas_minutos
             }
         })
         
@@ -116,6 +110,12 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
             setDate(fecha_id)
         }
     },[fecha_id])
+
+    useEffect(() => {
+        if(hora_id !== 0){
+            setHora(hora_id)
+        }
+    },[hora_id])
     
     return (
         <>
@@ -138,29 +138,22 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                     </LocalizationProvider>
                     </Grid>
 
-                    <Grid item md={5} xs={12} sx={{ mt:3}}>
-                        <Stack direction="row" alignItems="center" spacing={1}>
-                            {horas.map((h) =>
-                                <ListItem key={h}>
-                                    <Chip onClick={mostrarHorasDisponible} label={h.hora} color='default' />
-                                </ListItem>   
-                            )}
-                        </Stack> 
-                       {/*} <Stack direction="row" alignItems="center" spacing={2}>
-                           
+                    <Grid item md={5} xs={12} sx={{ m:2}}>
+                        <Stack 
+                            alignItems='center' 
+                            flexDirection='row' 
+                            flexWrap='wrap' 
+                            spacing={1} 
+                        >
+                
                             {horas.map((h) => 
-                             
-                                <ListItem key={h.key}>
-                                    <Chip
-                                        value={hora}
-                                        label={h.hora}
-                                        size="small"
-                                        onClick={(e) => { mostrarHorasDisponible(e) }}
-                                    />
-
-                                </ListItem>
+                                <Chip 
+                                    key={h.horas_minutos}
+                                    label={h.horas_minutos}
+                                    onClick={handleClickHora}
+                                />
                             )}
-                        </Stack>*/}
+                        </Stack>
                     </Grid>
                     <Grid item md={1} xs={12}></Grid>
                 </Grid>
