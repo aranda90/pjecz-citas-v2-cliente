@@ -9,10 +9,12 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
     const { distrito, oficina, servicio, fecha, hora } = useSelector( state => state.citas );
 
+    console.log(hora)
+
     return (
         <>
             <Typography variant='h6' align='center' sx={{ mt: 4 }}>
-                Elija la hora <br />
+                Resumen de su cita <br />
 
                 { distrito } <br />
 
