@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
-import { green, red, grey } from '@mui/material/colors'
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
@@ -11,6 +10,8 @@ import moment from 'moment'
 import 'moment/locale/es-mx'
 import { types } from '../../types/types'
 import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions'
+
+import '../../css/global.css'
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
@@ -64,25 +65,17 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
     /* end fechas */
 
-    // const colorForSelect = () => {
-    //     switch(estado){
-    //         case "seleccionado":
-    //             return green
-    //         case "inhabil":
-    //             return red
-    //         default:
-    //             return grey
-    //     }
-    // }
-    
+      
     const handleClickHora = () =>  {
-        console.info('You clicked the Chip.');
+       let horaCal = new Date()
+       horaCal.getTime()
+       console.log(horaCal.getTime())
     }
     
     
 
     const guardarInformacion = () => {
-        if(date === 0){
+        if(hora === '' && date === '' ){
             return false;
         }
         
@@ -92,7 +85,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 fecha_id: date,
                 fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha,
                 hora_id: hora,
-                hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm:00') })
+                hora: horas.find((element) => {return element.horas_minutos === moment(new Date(hora)).format('HH:mm:ss') }),
             }
         })
         
@@ -167,11 +160,20 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                         >
                 
                             {horas.map((h) => 
+                                // <Button 
+                                //     className='Chipclick'
+                                //     key={h.horas_minutos}
+                                //     onClick={ ( newTime ) => { setHora( newTime ) } }
+                                // >
+                                //     {h.horas_minutos}
+                                // </Button>
                                 <Chip 
-                                    key={h.horas_minutos}
+                                    className='Chipclick'
+                                    clickable
                                     label={h.horas_minutos}
-                                    onClick={ () => { console.log(h.horas_minutos) } }
-                                    //style={{backgroundColor: colorForSelect(estado)[300]}}
+                                    key={h.horas_minutos}
+                                    onClick={ ( ) => { handleClickHora( )  }}
+                                    onChange={( newTime ) => { setHora( newTime ) }}
                                 />
                             )}
                         </Stack>

@@ -10,6 +10,10 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
     const { distrito, oficina, servicio, fecha, hora } = useSelector( state => state.citas );
 
     console.log(hora)
+    // useEffect(() => {
+        
+    // }, [])
+    
 
     return (
         <>
@@ -24,9 +28,10 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
                 { fecha } <br />
 
-                { hora }
+                { hora } <br/>
 
             </Typography>
+
 
             <Box sx={{ mb: 5 }}>
                 <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
