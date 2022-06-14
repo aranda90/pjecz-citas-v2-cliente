@@ -62,16 +62,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         fetchData()
     },[oficina_id])
     
-    /* end fechas */
-    
-    
-    const handleClickHora = (e) =>  {
-       
-    
-       console.log(e.target.value)
-    }
-    
-    
 
     const guardarInformacion = () => {
         if(hora === '' && date === '' ){
@@ -168,10 +158,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                                     clickable
                                     label={h.horas_minutos}
                                     key={h.horas_minutos}
-                                    onClick={() => {let hora = h.horas_minutos}}
-                                   // onSelected={ (  ) => { setHora( h.horas_minutos ) }}
-                                    value={h.horas_minutos}
-                                    //onChange={( newTime ) => { setHora( newTime ) }}
+                                    onClick={() => { setHora(h.horas_minutos) }}
                                 />
                             )}
                         </Stack>

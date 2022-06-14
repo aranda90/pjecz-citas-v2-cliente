@@ -109,6 +109,21 @@ export const GetHorasDisponibles = (filtros) => {
     })
 }
 
+export const NewCita = data => {
+    return new Promise((resolve, reject) => {
+        
+        HttpClient.post('/cit_citas/nueva/', data)
+            .then(response => {
+                if (response.status === 200) {
+                    resolve(response)
+                }
+            })
+            .catch((error) => {
+                resolve(error.response)
+            })
+    })
+}
+
 // export const GetHorasDisponibles = (filtros) => {
 //     return new Promise((resolve, reject) => {
 //         const token = window.localStorage.getItem('token')

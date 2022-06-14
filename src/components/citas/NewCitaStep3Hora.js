@@ -3,16 +3,28 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 import { Box, Button, Typography } from '@mui/material'
+import { NewCita } from '../../actions/CitCitasActions';
 
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
     const { distrito, oficina, servicio, fecha, hora } = useSelector( state => state.citas );
 
-    console.log(hora)
-    // useEffect(() => {
-        
-    // }, [])
+   const [datosCita, setDatosCita] = useState({
+       oficina_id: '',
+       cit_servicios_id: '',
+       fecha: '',
+       horas_minutos: '',
+       nota: '',
+    })
+
+    const onClickDatos = () => {
+
+        NewCita(datosCita).then( response => {
+            console.log(response)
+        })
+        setDatosCita(true)
+    }
     
 
     return (
