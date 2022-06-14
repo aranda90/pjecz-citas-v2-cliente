@@ -109,18 +109,24 @@ export const GetHorasDisponibles = (filtros) => {
     })
 }
 
-export const NewCita = data => {
+export const NewCit = (data) => {
+
+    console.log( data )
+
     return new Promise((resolve, reject) => {
-        
-        HttpClient.post('/cit_citas/nueva/', data)
-            .then(response => {
-                if (response.status === 200) {
-                    resolve(response)
-                }
-            })
-            .catch((error) => {
-                resolve(error.response)
-            })
+        const token = window.localStorage.getItem('token')
+        if(token){
+            const ruta = '/v2/cit_citas/nueva'
+            HttpClientToken.post(ruta, data, token)
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response)
+                    }
+                })
+                .catch((error) => {
+                    resolve(error.response)
+                })
+        }
     })
 }
 
