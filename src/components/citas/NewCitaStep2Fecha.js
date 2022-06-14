@@ -39,9 +39,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const [date, setDate] = useState(fechaminima())
     const [fechas, setFechas] = useState([])
     
-    const [hora, setHora] = useState(new Date())
+    const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
-    
     
     const disableDates = (fechacalendario) => {
         const diaDisponible = fechas.find(element => element.fecha === moment(fechacalendario).format("YYYY-MM-DD"))
@@ -51,7 +50,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             return true
         }
     }
-
+    
     
     useEffect(() => {
         async function fetchData(){
@@ -62,14 +61,14 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         }
         fetchData()
     },[oficina_id])
-
+    
     /* end fechas */
-
-      
-    const handleClickHora = () =>  {
-       let horaCal = new Date()
-       horaCal.getTime()
-       console.log(horaCal.getTime())
+    
+    
+    const handleClickHora = (e) =>  {
+       
+    
+       console.log(e.target.value)
     }
     
     
@@ -85,7 +84,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 fecha_id: date,
                 fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha,
                 hora_id: hora,
-                hora: horas.find((element) => {return element.horas_minutos === moment(new Date(hora)).format('HH:mm:ss') }),
+                hora: horas.find((element) => {return element.horas_minutos === hora }).horas_minutos,
+                //hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm:ss') }),
             }
         })
         
@@ -96,6 +96,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     useEffect(() => {
 
         async function fetchData(){
+            setHoras([])
+            setHora(0)
 
             const params = {
                 oficina_id: oficina_id, 
@@ -158,22 +160,18 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                             flexWrap='wrap' 
                             spacing={1} 
                         >
-                
+                            
                             {horas.map((h) => 
-                                // <Button 
-                                //     className='Chipclick'
-                                //     key={h.horas_minutos}
-                                //     onClick={ ( newTime ) => { setHora( newTime ) } }
-                                // >
-                                //     {h.horas_minutos}
-                                // </Button>
+                                
                                 <Chip 
                                     className='Chipclick'
                                     clickable
                                     label={h.horas_minutos}
                                     key={h.horas_minutos}
-                                    onClick={ ( ) => { handleClickHora( )  }}
-                                    onChange={( newTime ) => { setHora( newTime ) }}
+                                    onClick={() => {let hora = h.horas_minutos}}
+                                   // onSelected={ (  ) => { setHora( h.horas_minutos ) }}
+                                    value={h.horas_minutos}
+                                    //onChange={( newTime ) => { setHora( newTime ) }}
                                 />
                             )}
                         </Stack>
