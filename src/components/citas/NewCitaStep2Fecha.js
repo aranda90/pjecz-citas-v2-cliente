@@ -75,7 +75,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha,
                 hora_id: hora,
                 hora: horas.find((element) => {return element.horas_minutos === hora }).horas_minutos,
-                //hora: horas.find((element) => {return element.hora === moment(new Date(hora)).format('HH:mm:ss') }),
             }
         })
         
@@ -86,8 +85,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     useEffect(() => {
 
         async function fetchData(){
-            setHoras([])
-            setHora(0)
+            // setHoras([])
+            // setHora('')
 
             const params = {
                 oficina_id: oficina_id, 
@@ -110,17 +109,17 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     },[ oficina_id, date, servicio_id])
    
 
-    useEffect(() => {
-        if(fecha_id !== 0){
-            setDate(fecha_id)
-        }
-    },[fecha_id])
+    // useEffect(() => {
+    //     if(fecha_id !== 0){
+    //         setDate(fecha_id)
+    //     }
+    // },[fecha_id])
 
-    useEffect(() => {
-        if(hora_id !== 0){
-            setHora(hora_id)
-        }
-    },[hora_id])
+    // useEffect(() => {
+    //     if(hora_id !== 0){
+    //         setHora(hora_id)
+    //     }
+    // },[hora_id])
     
     return (
         <>
