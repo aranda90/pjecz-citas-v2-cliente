@@ -30,6 +30,7 @@
 }
 
 
+.Chipclick:active,
 .Chipclick:focus {
     color: #ececec;
     background-color: #004360;

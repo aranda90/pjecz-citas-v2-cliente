@@ -9,7 +9,7 @@ import { GetDistritos, GetOficinas } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
 
 
-const NewCitaStep0DistritoOficina = ({ handleNext, styles, props }) => {
+const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
 
     const dispatch = useDispatch();
 

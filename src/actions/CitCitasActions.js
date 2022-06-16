@@ -5,11 +5,27 @@ export const GetCitCitas = () => {
     return new Promise((resolve, eject) => {
         const token = window.localStorage.getItem('token')
         if (token) {
-            HttpClientToken.get(`/cit_citas`, token)
+            HttpClientToken.get(`/v2/cit_citas`, token)
+                .then(response => {
+                    resolve(response)
+                    console.log(response)
+                })
+                .catch(error => {
+                    resolve(error.response)
+                })
+        }
+    })
+}
+
+export const DeleteCitas = (cit_cita_id) => {
+    return new Promise((resolve, reject) => {
+        const token = window.localStorage.getItem('token')
+        if(token){
+            HttpClientToken.get(`/v2/cit_citas/cancelar/cit_cita_id=${cit_cita_id}`)
                 .then(response => {
                     resolve(response)
                 })
-                .catch(error => {
+                .catch((error) => {
                     resolve(error.response)
                 })
         }
@@ -116,10 +132,8 @@ export const NewCit = (params) => {
             const ruta = '/v2/cit_citas/nueva'
             HttpClientToken.post(ruta, params , token)
             .then(response => {
-                    
                     if (response.status === 200) {
                         resolve(response)
-                        console.log(response.json())
                     }
                 })
                 .catch((error) => {

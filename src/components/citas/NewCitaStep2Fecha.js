@@ -16,7 +16,7 @@ import '../../css/global.css'
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
     const dispatch = useDispatch()
-    const { oficina_id,servicio_id ,fecha_id , hora_id } = useSelector(state => state.citas)
+    const { oficina_id,servicio_id } = useSelector(state => state.citas)
     
     const fechaminima = () => {
         let d = new Date()
@@ -31,11 +31,21 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 d.setDate(d.getDate() + 2)
                 break
             default:
-                d.setDate(d.getDate() + 1)
+                d.setDate(d.getDate() + 1)      
         }
         return d
     }
     
+    // const fechaSeleccionada = () => {
+       
+    //     if(fechaminima()){
+    //         new Date()
+    //     }else{
+            
+    //     }
+    // }
+    // console.log(fechaSeleccionada())
+
     const [date, setDate] = useState(fechaminima())
     const [fechas, setFechas] = useState([])
     
@@ -50,7 +60,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             return true
         }
     }
-    
     
     useEffect(() => {
         async function fetchData(){
@@ -77,49 +86,30 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 hora: horas.find((element) => {return element.horas_minutos === hora }).horas_minutos,
             }
         })
-        
         handleNext()
     }
 
 
     useEffect(() => {
-
         async function fetchData(){
-            // setHoras([])
-            // setHora('')
-
+            setHoras([])
+            setHora('')
             const params = {
                 oficina_id: oficina_id, 
                 fecha: moment(date).format('YYYY-MM-DD'),
                 cit_servicio_id: servicio_id,
             }
-            console.log(params)
-
             await GetHorasDisponibles( params ).then( response => {
                 if(response.status === 200){
                     setHoras(response.data.items)
-                    console.log(response.data.items)
+                }else{
+
                 }
             });
-
         }
-
         fetchData()
-
     },[ oficina_id, date, servicio_id])
    
-
-    // useEffect(() => {
-    //     if(fecha_id !== 0){
-    //         setDate(fecha_id)
-    //     }
-    // },[fecha_id])
-
-    // useEffect(() => {
-    //     if(hora_id !== 0){
-    //         setHora(hora_id)
-    //     }
-    // },[hora_id])
     
     return (
         <>
@@ -133,7 +123,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     <LocalizationProvider dateAdapter={ AdapterMoment }>
 
                         <CalendarPicker                                                         
-                            date={ moment( date ) }
+                            date={ moment(date)}
                             minDate={ moment( fechaminima() ) }
                             onChange={ ( newDate ) => { setDate( newDate ) } }
                             shouldDisableDate={ disableDates }

@@ -14,6 +14,7 @@ const initialState = {
     hora_id: 0,
     hora: '',
     nota:'',
+    cit_cita_id: 0,
 
 }
 
