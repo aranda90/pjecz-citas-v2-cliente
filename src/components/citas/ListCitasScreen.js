@@ -15,6 +15,7 @@ const ListCitasScreen = () => {
     
     
     const [citaList, setCitaList] = useState([])
+    const [citaDelete, setCitaDelete] = useState([])
 
     useEffect(() => {
         async function fetchData(){
@@ -30,11 +31,17 @@ const ListCitasScreen = () => {
 
     useEffect(() => {
         async function fetchData(){
-            const response = await DeleteCitas(citaList.cit_cita_id)
+            const response = await DeleteCitas(citaList)
+            setCitaDelete(response.data.items)
             console.log(response)
         }
         fetchData()
-    })
+    },[citaList])
+
+    const handleClickDelete = (e) => {
+        setCitaDelete(e.target.value)
+        console.log(e.target.value)
+    }
     return (
         <>
             
@@ -46,7 +53,7 @@ const ListCitasScreen = () => {
                     display: 'flex',
                     flexWrap: 'wrap',
                     '& > :not(style)': {
-                    m: 3,
+                    m: 1,
                     width: 350,
                     height: 220,
                     },
@@ -54,7 +61,7 @@ const ListCitasScreen = () => {
             >
                 {citaList.map((lista) => 
 
-                    <Card align='center' sx={commonSX.card} style={{width:300}}>
+                    <Card align='center' sx={commonSX.card}>
                         <Typography variant='h5' sx={commonSX.title} >
                             Cita Programada {lista.id}
                         </Typography>
@@ -72,7 +79,7 @@ const ListCitasScreen = () => {
                             <b>Servicio: </b> {lista.cit_servicio_descripcion}
                         </Typography>
                         <div style={{float:'right', marginTop: 15, marginBottom:10}}>
-                            <Button color="error" size="small" variant="contained">
+                            <Button onClick={(e) => {return handleClickDelete(e)}} color="error" size="small" variant="contained" key={citaDelete} value={citaDelete}>
                                 Cancelar
                             </Button>
                         </div>

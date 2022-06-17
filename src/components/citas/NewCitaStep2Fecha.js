@@ -36,22 +36,30 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         return d
     }
     
-    // const fechaSeleccionada = () => {
-       
-    //     if(fechaminima()){
-    //         new Date()
-    //     }else{
-            
-    //     }
-    // }
-    // console.log(fechaSeleccionada())
-
+    
     const [date, setDate] = useState(fechaminima())
     const [fechas, setFechas] = useState([])
     
     const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
     
+    // const fechaSeleccionada = (f) => {
+    //     let fechasarr = []
+
+    //     fechas.map(function(fe){
+    //         fechasarr.push(fe.fecha)
+    //     })
+
+    //     if(fechasarr.find(e => e === moment(f).format("YYYY-MM-DD")) === undefined){
+    //         f.setDate(f.getDate()+1)
+    //         console.log("Fecha nueva "+moment(f).format("YYYY-MM-DD"))
+    //     }else{
+    //         console.log("Fecha "+moment(f).format("YYYY-MM-DD")+" correcta")
+    //     }
+    //     return f
+        
+    // }
+
     const disableDates = (fechacalendario) => {
         const diaDisponible = fechas.find(element => element.fecha === moment(fechacalendario).format("YYYY-MM-DD"))
         if(diaDisponible?.fecha || moment(fechaminima()).format("YYYY-MM-DD") === moment(fechacalendario).format("YYYY-MM-DD")){
@@ -123,7 +131,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     <LocalizationProvider dateAdapter={ AdapterMoment }>
 
                         <CalendarPicker                                                         
-                            date={ moment(date)}
+                            date={ moment( date )}
                             minDate={ moment( fechaminima() ) }
                             onChange={ ( newDate ) => { setDate( newDate ) } }
                             shouldDisableDate={ disableDates }

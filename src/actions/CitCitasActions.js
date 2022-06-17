@@ -21,9 +21,10 @@ export const DeleteCitas = (cit_cita_id) => {
     return new Promise((resolve, reject) => {
         const token = window.localStorage.getItem('token')
         if(token){
-            HttpClientToken.get(`/v2/cit_citas/cancelar/cit_cita_id=${cit_cita_id}`)
+            HttpClientToken.get(`/v2/cit_citas/cancelar?cit_cita_id=${cit_cita_id}`)
                 .then(response => {
                     resolve(response)
+                    console.log(response)
                 })
                 .catch((error) => {
                     resolve(error.response)
