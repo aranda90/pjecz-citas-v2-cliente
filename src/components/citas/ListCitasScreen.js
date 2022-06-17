@@ -2,20 +2,18 @@ import React, { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Box, Button, Card, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material'
 
 import commonSX from '../../theme/CommonSX'
 
 import '../../css/global.css'
 
-import { DeleteCitas, GetCitCitas } from '../../actions/CitCitasActions'
+import { GetCitCitas } from '../../actions/CitCitasActions'
+import CancelCitaScreen from './CancelCitaScreen'
 
 const ListCitasScreen = () => {
 
-    
-    
     const [citaList, setCitaList] = useState([])
-    const [citaDelete, setCitaDelete] = useState([])
 
     useEffect(() => {
         async function fetchData(){
@@ -29,19 +27,8 @@ const ListCitasScreen = () => {
         fetchData()
     },[])
 
-    useEffect(() => {
-        async function fetchData(){
-            const response = await DeleteCitas(citaList)
-            setCitaDelete(response.data.items)
-            console.log(response)
-        }
-        fetchData()
-    },[citaList])
+   
 
-    const handleClickDelete = (e) => {
-        setCitaDelete(e.target.value)
-        console.log(e.target.value)
-    }
     return (
         <>
             
@@ -53,36 +40,47 @@ const ListCitasScreen = () => {
                     display: 'flex',
                     flexWrap: 'wrap',
                     '& > :not(style)': {
-                    m: 1,
-                    width: 350,
-                    height: 220,
+                        m: 1,
+                        width: 250,
+                        height: 'auto',
                     },
                 }} 
             >
                 {citaList.map((lista) => 
 
-                    <Card align='center' sx={commonSX.card}>
-                        <Typography variant='h5' sx={commonSX.title} >
-                            Cita Programada {lista.id}
+                    <Card align='center' sx={commonSX.card} key={ lista.id }>
+                        <Typography >
+                            <br/>
+                            {lista.inicio}
                         </Typography>
+                        <CardHeader
+                            //avatar={<Avatar src='/static/images/logo.png'>P</Avatar>}
+                            title={"Cita " + lista.id }
+                            titleTypographyProps={{
+                                fontSize:30,
+                                fontWeight:500
+                            }}
+                        />
+                        <CardContent component="div">
+                            
+                            <Typography>
+                                <br/>
+                                <b>{lista.oficina_descripcion_corta} </b> <br/>
+                            </Typography>
+                            <Typography >
+                                <br/>
+                                {lista.cit_servicio_descripcion}
+                            </Typography>
+                            <Typography >
+                                <br/>
+                                {lista.estado}
+                            </Typography>
+                        </CardContent>
+                        
+                        <CardActions style={{float:'right'}}>
+                            <CancelCitaScreen Id={ lista.id } />
+                        </CardActions>
 
-                        <Typography style={{fontSize:16, marginRight:10}}>
-                           <b> Fecha: </b> {lista.inicio}
-                        </Typography>
-                        <Typography>
-                            <b>Oficina: </b> {lista.oficina_descripcion_corta}
-                        </Typography>
-                        <Typography >
-                            <b>Servicio: </b> {lista.cit_servicio_descripcion}
-                        </Typography>
-                        <Typography >
-                            <b>Servicio: </b> {lista.cit_servicio_descripcion}
-                        </Typography>
-                        <div style={{float:'right', marginTop: 15, marginBottom:10}}>
-                            <Button onClick={(e) => {return handleClickDelete(e)}} color="error" size="small" variant="contained" key={citaDelete} value={citaDelete}>
-                                Cancelar
-                            </Button>
-                        </div>
                     </Card>
                 )}
             </Box>

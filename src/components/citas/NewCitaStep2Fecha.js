@@ -16,7 +16,7 @@ import '../../css/global.css'
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
     const dispatch = useDispatch()
-    const { oficina_id,servicio_id } = useSelector(state => state.citas)
+    const { oficina_id, servicio_id, hora: horaRedux } = useSelector(state => state.citas)
     
     const fechaminima = () => {
         let d = new Date()
@@ -42,23 +42,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
     const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
-    
-    // const fechaSeleccionada = (f) => {
-    //     let fechasarr = []
-
-    //     fechas.map(function(fe){
-    //         fechasarr.push(fe.fecha)
-    //     })
-
-    //     if(fechasarr.find(e => e === moment(f).format("YYYY-MM-DD")) === undefined){
-    //         f.setDate(f.getDate()+1)
-    //         console.log("Fecha nueva "+moment(f).format("YYYY-MM-DD"))
-    //     }else{
-    //         console.log("Fecha "+moment(f).format("YYYY-MM-DD")+" correcta")
-    //     }
-    //     return f
-        
-    // }
 
     const disableDates = (fechacalendario) => {
         const diaDisponible = fechas.find(element => element.fecha === moment(fechacalendario).format("YYYY-MM-DD"))
@@ -97,7 +80,25 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         handleNext()
     }
 
+    const handleClickSelected = ( horaSelected ) => {
 
+        setHoras(
+            horas.map( ( element ) => {
+
+                if( element.horas_minutos === horaSelected ){
+                    element.selected = !element.selected
+                }
+                else{
+                    element.selected = false
+                }
+
+                return element
+            }
+        ))
+
+        setHora(horaSelected)
+    }
+  
     useEffect(() => {
         async function fetchData(){
             setHoras([])
@@ -109,14 +110,26 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             }
             await GetHorasDisponibles( params ).then( response => {
                 if(response.status === 200){
-                    setHoras(response.data.items)
+
+                    const horasData = response.data.items                 
+
+                    if( horasData ){
+                        setHoras(
+                            horasData.map( ( element ) => {
+                            return {
+                                ...element,
+                                selected: element.horas_minutos === horaRedux ? true : false
+                            }
+                        }))
+                    }
+
                 }else{
 
                 }
             });
         }
         fetchData()
-    },[ oficina_id, date, servicio_id])
+    },[ oficina_id, date, servicio_id, horaRedux ])
    
     
     return (
@@ -148,15 +161,23 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                             spacing={1} 
                         >
                             
-                            {horas.map((h) => 
-                                
-                                <Chip 
-                                    className='Chipclick'
-                                    clickable
-                                    label={h.horas_minutos}
-                                    key={h.horas_minutos}
-                                    onClick={() => { setHora(h.horas_minutos) }}
-                                />
+                            { horas.map((h) => 
+                                (
+                                    h.selected
+                                    ?
+                                        <Chip 
+                                            label={h.horas_minutos}
+                                            key={h.horas_minutos}
+                                            onClick={ () => { handleClickSelected( h.horas_minutos ) } }
+                                            color='primary'
+                                        />
+                                    :
+                                        <Chip 
+                                            label={h.horas_minutos}
+                                            key={h.horas_minutos}
+                                            onClick={ () => { handleClickSelected( h.horas_minutos ) } }
+                                        />
+                                )  
                             )}
                         </Stack>
                     </Grid>
