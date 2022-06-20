@@ -36,6 +36,16 @@ export const citasReducer = ( state = initialState, action ) => {
                 ...state,
                 ...action.payload
             }    
+        case types.SET_PASO_3:
+            return {
+                ...state,
+                ...action.payload
+            }
+        case types.DELETE_ITEM:
+            return{
+                ...state,
+                initialState : state.initialState.filter(element => element.cit_cita_id !== action.payload.cit_cita_id )
+            }
         default:
             return state;
     }

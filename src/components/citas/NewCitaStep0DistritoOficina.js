@@ -8,6 +8,10 @@ import { GetDistritos, GetOficinas } from '../../actions/CitCitasActions'
 
 import { types } from '../../types/types'
 
+// const cleanInputs = () => {
+//     distrito: '',
+//     oficina: '',
+// }
 
 const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
 

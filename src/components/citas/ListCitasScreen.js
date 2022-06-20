@@ -19,10 +19,8 @@ const ListCitasScreen = () => {
     useEffect(() => {
         async function fetchData(){
             const response = await GetCitCitas()
-            console.log(response)
             if(response.status === 200){
                 setCitaList(response.data.items)
-                console.log(response.data.items)
             }
         }
         fetchData()
@@ -31,7 +29,7 @@ const ListCitasScreen = () => {
     const format = (inicio) => {
         return moment(inicio).format("YYYY-MM-DD HH:mm")
     }
-    
+
 
     return (
         <>
@@ -39,6 +37,12 @@ const ListCitasScreen = () => {
             <Button component={Link} to='/new' variant="contained" sx={{m:4}}>
                 Agendar Cita
             </Button>
+            
+            {citaList.length === 0 && (
+                <Typography align='center' variant='h4'>
+                    No tiene citas agendadas
+                </Typography>
+            )}
             <Box
                 sx={{
                     display: 'flex',
@@ -50,6 +54,7 @@ const ListCitasScreen = () => {
                     },
                 }} 
             >
+               
                 {citaList.map((lista) => 
 
                     <Card align='center' sx={commonSX.card} key={ lista.id }>
