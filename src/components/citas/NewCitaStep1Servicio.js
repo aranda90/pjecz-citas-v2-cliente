@@ -92,7 +92,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                             <TextField
                                 id="indiaciones_tramite"
                                 label="Indicaciones del tramite"
-                                name="indiciaciones_tramite"
+                                name="indicaciones_tramite"
                                 multiline
                                 rows={4}
                                 placeholder="Favor de dar indicaciones del tramite"
