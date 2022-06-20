@@ -90,7 +90,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                     <Grid item md={5} xs={12}>
                         <Grid item xs={12}>
                             <TextField
-                                id="indiaciones_tramite"
+                                id="indicaciones_tramite"
                                 label="Indicaciones del tramite"
                                 name="indicaciones_tramite"
                                 multiline
