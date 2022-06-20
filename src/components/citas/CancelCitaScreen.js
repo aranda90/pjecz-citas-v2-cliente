@@ -15,7 +15,7 @@ const CancelCitaScreen = ({ Id  }) => {
             if(response){
 
                 if(response.status === 200){
-
+                    
                 }
 
                 setOpen( false )

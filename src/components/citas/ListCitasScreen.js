@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material'
 
 import commonSX from '../../theme/CommonSX'
 
@@ -10,6 +10,7 @@ import '../../css/global.css'
 
 import { GetCitCitas } from '../../actions/CitCitasActions'
 import CancelCitaScreen from './CancelCitaScreen'
+import moment from 'moment'
 
 const ListCitasScreen = () => {
 
@@ -27,7 +28,10 @@ const ListCitasScreen = () => {
         fetchData()
     },[])
 
-   
+    const format = (inicio) => {
+        return moment(inicio).format("YYYY-MM-DD HH:mm")
+    }
+    
 
     return (
         <>
@@ -51,7 +55,7 @@ const ListCitasScreen = () => {
                     <Card align='center' sx={commonSX.card} key={ lista.id }>
                         <Typography >
                             <br/>
-                            {lista.inicio}
+                            {format(lista.inicio)}
                         </Typography>
                         <CardHeader
                             //avatar={<Avatar src='/static/images/logo.png'>P</Avatar>}
