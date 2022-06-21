@@ -30,6 +30,11 @@ const ListCitasScreen = () => {
         return moment(inicio).format("YYYY-MM-DD HH:mm")
     }
 
+    const cancelCard = (id) => {
+        const filterCard = citaList.filter(citaList => citaList.id !== id)
+        console.log(filterCard)
+    }
+
 
     return (
         <>
@@ -39,7 +44,7 @@ const ListCitasScreen = () => {
             </Button>
             
             {citaList.length === 0 && (
-                <Typography align='center' variant='h4'>
+                <Typography align='center' variant='h4' sx={{mt:15}}>
                     No tiene citas agendadas
                 </Typography>
             )}
@@ -51,6 +56,7 @@ const ListCitasScreen = () => {
                         m: 1,
                         width: 250,
                         height: 'auto',
+                        marginBottom:6
                     },
                 }} 
             >
@@ -87,7 +93,7 @@ const ListCitasScreen = () => {
                         </CardContent>
                         
                         <CardActions style={{float:'right'}}>
-                            <CancelCitaScreen Id={ lista.id } />
+                            <CancelCitaScreen Id={ lista.id } cancelarCard={cancelCard(lista.id)} />
                         </CardActions>
 
                     </Card>

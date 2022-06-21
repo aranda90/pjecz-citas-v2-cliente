@@ -14,9 +14,9 @@ const initialState = {
     hora_id: 0,
     hora: '',
     nota:'',
-    cit_cita_id: 0,
-
+    cit_cita_id:0,
 }
+
 
 export const citasReducer = ( state = initialState, action ) => {
 
@@ -41,11 +41,8 @@ export const citasReducer = ( state = initialState, action ) => {
                 ...state,
                 ...action.payload
             }
-        case types.DELETE_ITEM:
-            return{
-                ...state,
-                initialState : state.initialState.filter(element => element.cit_cita_id !== action.payload.cit_cita_id )
-            }
+        case types.CLEAR_INPUTS:
+            return initialState
         default:
             return state;
     }

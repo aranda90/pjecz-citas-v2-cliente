@@ -1,12 +1,15 @@
 import React from 'react'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { NewCit } from '../../actions/CitCitasActions';
+import { types } from '../../types/types';
 
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
+
+    const dispatch = useDispatch();
 
     const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora } = useSelector( state => state.citas );
  
@@ -34,8 +37,15 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             }
 
         })
+        clearInputs()
     }
  
+    const clearInputs = () => {
+        dispatch({
+            type:types.CLEAR_INPUTS
+        })
+    }
+
     return (
         <>
             <Typography variant='h5' align='center' sx={{ mt: 4, mb:4 }}>

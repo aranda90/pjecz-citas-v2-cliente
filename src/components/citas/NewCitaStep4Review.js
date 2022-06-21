@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 
 import { Link } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ const NewCitaStep4Review = () => {
 
     return (
         <>
-            <Typography variant='h5' align='jusify' sx={{ mt: 5 }}>
+            <Typography variant='h5' align='justify' sx={{ mt: 5 }}>
                 <b>Su cita ha sido agendada correctamente. En unos minutos puede revisar su correo electrónico.</b>
             </Typography>
             <Typography align='justify' sx={{mt:5}}>

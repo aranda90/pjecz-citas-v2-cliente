@@ -6,6 +6,7 @@ export const types = {
     SET_PASO_1: 'SET_PASO_1',
     SET_PASO_2: 'SET_PASO_2',
     SET_PASO_3: 'SET_PASO_3',
-    DELETE_ITEM: 'DELETE_ITEM',
+    CANCEL_ITEM:'CANCEL_ITEM',
+    CLEAR_INPUTS: 'CLEAR_INPUTS',
     
 }
