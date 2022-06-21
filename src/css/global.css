@@ -28,3 +28,15 @@
 .link:hover {
     color: #004360;
 }
+
+
+.Chipclick:active,
+.Chipclick:focus {
+    color: #ececec;
+    background-color: #004360;
+}
+
+.Chipclick:hover {
+    color:#266ec0;
+}
+

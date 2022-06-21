@@ -2,27 +2,73 @@ import React from 'react'
 
 import { useSelector } from 'react-redux'
 
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
+import { NewCit } from '../../actions/CitCitasActions';
 
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
-    const { distrito, oficina } = useSelector( state => state.citas );
+    const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora } = useSelector( state => state.citas );
+ 
+    
+    const guardarInformacion = async () => {
 
+        const params = {
+            oficina_id: oficina_id,
+            cit_servicio_id: servicio_id,
+            fecha: fecha,
+            hora_minuto: hora,
+            nota: 'hola cita'
+        }
+
+        await NewCit(params).then( response => {
+            
+            if( response ){
+
+                if( response.status === 200){
+
+                    handleNext()
+                    console.log(response)
+
+                }
+            }
+
+        })
+    }
+ 
     return (
         <>
-            <Typography variant='h6' align='center' sx={{ mt: 4 }}>
-                Elija la hora <br />
-
-                { distrito } <br />
-
-                { oficina } <br />
-
+            <Typography variant='h5' align='center' sx={{ mt: 4, mb:4 }}>
+                Resumen de su cita 
             </Typography>
+            <Grid container align='justify'>
+                <Grid item sm={3} xs={12}></Grid>
+                <Grid item sm={6} xs={12}>
+
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Distrito:  { distrito}
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Oficina: {oficina }               
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Servicio: {servicio }
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Fecha: {fecha}
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Hora: {hora.slice(0,-3)}
+                    </Typography>
+                
+                </Grid>
+                <Grid item sm={3} xs={12}></Grid>
+                
+            </Grid>
 
             <Box sx={{ mb: 5 }}>
                 <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                <Button onClick={guardarInformacion} variant='outlined' style={styles.btnNext}>Confirmar Cita</Button>
             </Box>
         </>
     )

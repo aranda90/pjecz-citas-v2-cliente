@@ -1,21 +1,137 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import moment from 'moment';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import moment from 'moment'
 
-import 'moment/locale/es-mx';
+import 'moment/locale/es-mx'
+import { types } from '../../types/types'
+import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions'
 
-const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
+import '../../css/global.css'
 
-    const [date, setDate] = useState(new Date())
-    const arrayFechasInhabiles = ['2022-05-23', '2022-05-30'];
-    const disableDates = (date) => {
-        if(arrayFechasInhabiles.find(element => element === moment(new Date(date)).format('YYYY-MM-DD'))){
+const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
+    
+    const dispatch = useDispatch()
+    const { oficina_id, servicio_id, hora: horaRedux } = useSelector(state => state.citas)
+    
+    const fechaminima = () => {
+        let d = new Date()
+        switch(d.getDay()){
+            case 5:
+                d.setDate(d.getDate() + 4)
+                break
+            case 6:
+                d.setDate(d.getDate() + 3)
+                break
+            case 0:
+                d.setDate(d.getDate() + 2)
+                break
+            default:
+                d.setDate(d.getDate() + 1)      
+        }
+        return d
+    }
+    
+    
+    const [date, setDate] = useState(fechaminima())
+    const [fechas, setFechas] = useState([])
+    
+    const [hora, setHora] = useState('')
+    const [horas, setHoras] = useState([])
+
+    const disableDates = (fechacalendario) => {
+        const diaDisponible = fechas.find(element => element.fecha === moment(fechacalendario).format("YYYY-MM-DD"))
+        if(diaDisponible?.fecha || moment(fechaminima()).format("YYYY-MM-DD") === moment(fechacalendario).format("YYYY-MM-DD")){
+            return false
+        }else{
             return true
         }
     }
+    
+    useEffect(() => {
+        async function fetchData(){
+            const response = await GetCitDiasDisponibles(oficina_id)
+            if(response.status === 200){
+                setFechas(response.data.items)
+            }
+        }
+        fetchData()
+    },[oficina_id])
+    
+
+    const guardarInformacion = () => {
+        if(hora === '' && date === '' ){
+            return false;
+        }
+        
+        dispatch({
+            type: types.SET_PASO_2,
+            payload:{
+                fecha_id: date,
+                fecha: fechas.find((element) => {return element.fecha === moment(new Date(date)).format('YYYY-MM-DD') }).fecha,
+                hora_id: hora,
+                hora: horas.find((element) => {return element.horas_minutos === hora }).horas_minutos,
+            }
+        })
+        handleNext()
+    }
+
+    const handleClickSelected = ( horaSelected ) => {
+
+        setHoras(
+            horas.map( ( element ) => {
+
+                if( element.horas_minutos === horaSelected ){
+                    element.selected = !element.selected
+                }
+                else{
+                    element.selected = false
+                }
+
+                return element
+            }
+        ))
+
+        setHora(horaSelected)
+    }
+  
+    useEffect(() => {
+        async function fetchData(){
+            setHoras([])
+            setHora('')
+            const params = {
+                oficina_id: oficina_id, 
+                fecha: moment(date).format('YYYY-MM-DD'),
+                cit_servicio_id: servicio_id,
+            }
+            await GetHorasDisponibles( params ).then( response => {
+                if(response.status === 200){
+
+                    const horasData = response.data.items                 
+
+                    if( horasData ){
+                        setHoras(
+                            horasData.map( ( element ) => {
+                            return {
+                                ...element,
+                                selected: element.horas_minutos === horaRedux ? true : false
+                            }
+                        }))
+                    }
+
+                }else{
+
+                }
+            });
+        }
+        fetchData()
+    },[ oficina_id, date, servicio_id, horaRedux ])
+   
+    
     return (
         <>
             <Container maxWidth='lg' sx={{ mt: 2 }}>
@@ -28,31 +144,41 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                     <LocalizationProvider dateAdapter={ AdapterMoment }>
 
                         <CalendarPicker                                                         
-                        date={ moment(date) }
-                        minDate={ moment( new Date() ) }
-                        onChange={ ( newDate ) => { setDate( newDate ) } } 
-                        shouldDisableDate={ disableDates } 
-                        className='calendar'                               
+                            date={ moment( date )}
+                            minDate={ moment( fechaminima() ) }
+                            onChange={ ( newDate ) => { setDate( newDate ) } }
+                            shouldDisableDate={ disableDates }
+                            className='calendar'                          
                         />
-
                     </LocalizationProvider>
-
                     </Grid>
 
-                    <Grid item md={5} xs={12} sx={{ mt:3}}>
-                        <Stack spacing={2} alignItems="center">
-
-                            <Stack direction="row" spacing={2}>
-
-                            <Chip label='9:00 a.m' size="small"/>
-                                
-                            <Chip label='9:15 a.m' size="small"/>
-
-                            <Chip label='9:30 a.m' size="small"/>
-
-                            <Chip label='9:45 a.m' size="small"/>
-
-                            </Stack>
+                    <Grid item md={5} xs={12} sx={{ m:2}}>
+                        <Stack 
+                            alignItems='center' 
+                            flexDirection='row' 
+                            flexWrap='wrap' 
+                            spacing={1} 
+                        >
+                            
+                            { horas.map((h) => 
+                                (
+                                    h.selected
+                                    ?
+                                        <Chip 
+                                            label={h.horas_minutos.slice(0,-3)}
+                                            key={h.horas_minutos}
+                                            onClick={ () => { handleClickSelected( h.horas_minutos ) } }
+                                            color='primary'
+                                        />
+                                    :
+                                        <Chip 
+                                            label={h.horas_minutos.slice(0, -3)}
+                                            key={h.horas_minutos}
+                                            onClick={ () => { handleClickSelected( h.horas_minutos ) } }
+                                        />
+                                )  
+                            )}
                         </Stack>
                     </Grid>
                     <Grid item md={1} xs={12}></Grid>
@@ -61,7 +187,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles }) => {
                 </Container>
             <Box sx={{ mb: 5 }}>
                 <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                <Button onClick={handleNext} variant='outlined' style={styles.btnNext}>Siguiente</Button>
+                <Button onClick={guardarInformacion} variant='outlined' style={styles.btnNext}>Siguiente</Button>
             </Box>
         </>
     )
