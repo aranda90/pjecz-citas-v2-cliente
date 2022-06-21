@@ -8,7 +8,7 @@ import { NewCit } from '../../actions/CitCitasActions';
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
-    const { oficina_id, oficina, servicio_id, servicio, fecha, hora } = useSelector( state => state.citas );
+    const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora } = useSelector( state => state.citas );
  
     
     const guardarInformacion = async () => {
@@ -38,24 +38,32 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
  
     return (
         <>
-            <Typography variant='h6' align='center' sx={{ mt: 4 }}>
+            <Typography variant='h5' align='center' sx={{ mt: 4, mb:4 }}>
                 Resumen de su cita 
-
             </Typography>
-            <Grid align='center'>
-                <Typography>
-                    {oficina }- { oficina_id}
-                </Typography>
-                <Typography>
-                    {servicio }- { servicio_id}
-                </Typography>
-                <Typography>
-                    {fecha}
-                </Typography>
-                <Typography>
-                    {hora}
-                </Typography>
-               
+            <Grid container align='justify'>
+                <Grid item sm={3} xs={12}></Grid>
+                <Grid item sm={6} xs={12}>
+
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Distrito:  { distrito}
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Oficina: {oficina }               
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Servicio: {servicio }
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Fecha: {fecha}
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        Hora: {hora.slice(0,-3)}
+                    </Typography>
+                
+                </Grid>
+                <Grid item sm={3} xs={12}></Grid>
+                
             </Grid>
 
             <Box sx={{ mb: 5 }}>

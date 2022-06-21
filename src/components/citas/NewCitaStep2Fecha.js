@@ -166,14 +166,14 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                                     h.selected
                                     ?
                                         <Chip 
-                                            label={h.horas_minutos}
+                                            label={h.horas_minutos.slice(0,-3)}
                                             key={h.horas_minutos}
                                             onClick={ () => { handleClickSelected( h.horas_minutos ) } }
                                             color='primary'
                                         />
                                     :
                                         <Chip 
-                                            label={h.horas_minutos}
+                                            label={h.horas_minutos.slice(0, -3)}
                                             key={h.horas_minutos}
                                             onClick={ () => { handleClickSelected( h.horas_minutos ) } }
                                         />
