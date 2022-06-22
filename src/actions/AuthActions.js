@@ -37,7 +37,7 @@ export const Profile = () => {
 
 export const NewAccount = data => {
     return new Promise((resolve, reject) => {
-        HttpClient.post('/cit_clientes_registros', data)
+        HttpClient.post('/v2/nueva_cuenta/solicitar', data)
             .then(response => {
                 if (response.status === 200) {
                     resolve(response)
@@ -51,7 +51,7 @@ export const NewAccount = data => {
 
 export const NewAccountConfirm = data => {
     return new Promise((resolve, reject) => {
-        HttpClient.post('/cit_clientes_registros_confirm', data)
+        HttpClient.post('/v2/nueva_cuenta/concluir', data)
             .then(response => {
                 if (response.status === 200) {
                     resolve(response)

@@ -46,9 +46,14 @@ const NewAccountScreen = () => {
         })
     }
 
-    const submitForm = () => {
-        NewAccount(formData).then( response => {
-            console.log(response)
+    const submitForm = async () => {
+        await NewAccount(formData).then( response => {
+            if( response ){
+
+                if( response.status === 200){
+                    console.log(response)
+                }
+            }
         })
         setFormValues(cleanFormData)
         setFormSent(true)
