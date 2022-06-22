@@ -32,7 +32,7 @@ const ListCitasScreen = () => {
 
     const cancelCard = (id) => {
         const filterCard = citaList.filter(citaList => citaList.id !== id)
-        console.log(filterCard)
+        setCitaList(filterCard)
     }
 
 
@@ -58,18 +58,17 @@ const ListCitasScreen = () => {
                         height: 'auto',
                         marginBottom:6
                     },
+                    marginBottom:5
                 }} 
             >
                
                 {citaList.map((lista) => 
 
                     <Card align='center' sx={commonSX.card} key={ lista.id }>
-                        <Typography >
-                            <br/>
+                        <Typography sx={{mt:3}}>
                             {format(lista.inicio)}
                         </Typography>
                         <CardHeader
-                            //avatar={<Avatar src='/static/images/logo.png'>P</Avatar>}
                             title={"Cita " + lista.id }
                             titleTypographyProps={{
                                 fontSize:30,
@@ -93,7 +92,7 @@ const ListCitasScreen = () => {
                         </CardContent>
                         
                         <CardActions style={{float:'right'}}>
-                            <CancelCitaScreen Id={ lista.id } cancelarCard={cancelCard(lista.id)} />
+                            <CancelCitaScreen Id={ lista.id } cancelCard={cancelCard} />
                         </CardActions>
 
                     </Card>

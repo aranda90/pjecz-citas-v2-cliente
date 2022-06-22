@@ -14,7 +14,6 @@ const initialState = {
     hora_id: 0,
     hora: '',
     nota:'',
-    cit_cita_id:0,
 }
 
 
@@ -41,7 +40,7 @@ export const citasReducer = ( state = initialState, action ) => {
                 ...state,
                 ...action.payload
             }
-        case types.CLEAR_INPUTS:
+        case types.CLEAN_INPUTS:
             return initialState
         default:
             return state;

@@ -31,18 +31,17 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                 if( response.status === 200){
 
                     handleNext()
-                    console.log(response)
 
                 }
+                
             }
-
+            cleanInputs()
         })
-        clearInputs()
     }
  
-    const clearInputs = () => {
+    const cleanInputs = () => {
         dispatch({
-            type:types.CLEAR_INPUTS
+            type:types.CLEAN_INPUTS
         })
     }
 
@@ -51,6 +50,11 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             <Typography variant='h5' align='center' sx={{ mt: 4, mb:4 }}>
                 Resumen de su cita 
             </Typography>
+            {NewCit.length === 0 && (
+                <Typography align='center' variant='h4' sx={{mt:15}}>
+                    Llego al limite para agendar citas
+                </Typography>
+            )}
             <Grid container align='justify'>
                 <Grid item sm={3} xs={12}></Grid>
                 <Grid item sm={6} xs={12}>
