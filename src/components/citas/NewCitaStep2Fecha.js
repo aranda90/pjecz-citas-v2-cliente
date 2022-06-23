@@ -126,7 +126,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 }else{
 
                 }
-            });
+            })
         }
         fetchData()
     },[ oficina_id, date, servicio_id, horaRedux ])

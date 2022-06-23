@@ -6,11 +6,13 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Typography } f
 
 import commonSX from '../../theme/CommonSX'
 
-import '../../css/global.css'
-
 import { GetCitCitas } from '../../actions/CitCitasActions'
+
 import CancelCitaScreen from './CancelCitaScreen'
+
 import moment from 'moment'
+
+import '../../css/global.css'
 
 const ListCitasScreen = () => {
 

@@ -11,7 +11,7 @@ const NewCitaStep4Review = () => {
             <Typography variant='h5' align='justify' sx={{ mt: 5, pl:5, pr:5 }}>
                 <b>Su cita ha sido agendada correctamente. En unos minutos puede revisar su correo electrónico.</b>
             </Typography>
-            <Typography align='justify' sx={{ mt:5, p:5 }}>
+            <Typography align='justify' sx={{ mt:3, pl:5, pr:5 }}>
                
                 Le agradecemos utilizar nuestro Sistema de citas en línea, le sugerimos acudir a nuestra sede con 10 minutos de anticipación para brindarle un mejor servicio. 
                 <br /><br/>

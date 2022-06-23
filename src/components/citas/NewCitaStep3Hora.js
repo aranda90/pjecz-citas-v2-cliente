@@ -1,19 +1,40 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Box, Button, Grid, Typography } from '@mui/material'
-import { NewCit } from '../../actions/CitCitasActions';
-import { types } from '../../types/types';
+
+import ReCAPTCHA  from 'react-google-recaptcha'
+
+import { NewCit } from '../../actions/CitCitasActions'
+
+import { types } from '../../types/types'
 
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora } = useSelector( state => state.citas );
- 
+    const tab = '\u00A0'
+
+    const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora } = useSelector( state => state.citas )
     
+    // variables de estado para captcha
+    const [captchaValido, setCaptachaValido] = useState(null)
+
+    // Referencia al checkbox 'recaptcha'
+    const captcha = useRef(null)
+
+    // Funcion de evento onChange
+    const onChangeCaptcha = () => {
+        if(captcha.current.getValue()){
+            setCaptachaValido(true)
+            console.log("google regreso un token y no es un robot")
+        }else{
+            console.log("Detectado como robot")
+        }
+    }
+
     const guardarInformacion = async () => {
 
         const params = {
@@ -29,13 +50,16 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             if( response ){
 
                 if( response.status === 200){
+                   if(captchaValido){
 
-                    handleNext()
-
+                        handleNext()
+                        cleanInputs()
+                    }else{
+                          setCaptachaValido(false)
+                    }
                 }
                 
             }
-            cleanInputs()
         })
     }
  
@@ -47,39 +71,46 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
     return (
         <>
-            <Typography variant='h5' align='center' sx={{ mt: 4, mb:4 }}>
-                Resumen de su cita 
+            <Typography variant='h5' align='center' sx={{ mt:6, mb:4, fontFamily:'serif' }}>
+                <b>Resumen de su cita</b> 
             </Typography>
-            {NewCit.length === 0 && (
-                <Typography align='center' variant='h4' sx={{mt:15}}>
-                    Llego al limite para agendar citas
-                </Typography>
-            )}
             <Grid container align='justify'>
-                <Grid item sm={3} xs={12}></Grid>
+                <Grid item sm={4} xs={12}></Grid>
                 <Grid item sm={6} xs={12}>
 
                     <Typography variant='h6' sx={{mt:2,mb:2}}>
-                        Distrito:  { distrito}
+                        <b>Distrito:</b> {tab}{ distrito}
                     </Typography>
                     <Typography variant='h6' sx={{mt:2,mb:2}}>
-                        Oficina: {oficina }               
+                        <b>Oficina:</b> {tab}{oficina }               
                     </Typography>
                     <Typography variant='h6' sx={{mt:2,mb:2}}>
-                        Servicio: {servicio }
+                        <b>Servicio:</b>{tab}{servicio }
                     </Typography>
                     <Typography variant='h6' sx={{mt:2,mb:2}}>
-                        Fecha: {fecha}
-                    </Typography>
-                    <Typography variant='h6' sx={{mt:2,mb:2}}>
-                        Hora: {hora.slice(0,-3)}
+                        <b>Fecha:</b> {fecha} {tab}{tab}{tab}{tab}{tab}{tab}{tab}{tab} <b>Hora:</b> {hora.slice(0,-3)}
                     </Typography>
                 
                 </Grid>
-                <Grid item sm={3} xs={12}></Grid>
+                <Grid item sm={2} xs={12}></Grid>
                 
             </Grid>
+           <Grid container align='center' sx={{mt:5}}>
+                <Grid item sm={3} xs={12}></Grid>
+                <Grid item sm={6} xs={12}>
 
+                    <Typography component={'span'} variant={'body2'}>
+                        <ReCAPTCHA
+                            ref={captcha}
+                            sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
+                            onChange={onChangeCaptcha}
+                        />
+                        { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
+                    </Typography>
+
+                </Grid>
+                <Grid item sm={3} xs={12}></Grid>
+            </Grid>
             <Box sx={{ mb: 5 }}>
                 <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
                 <Button onClick={guardarInformacion} variant='outlined' style={styles.btnNext}>Confirmar Cita</Button>

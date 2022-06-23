@@ -24,7 +24,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
     const guardarInformacion = () => {
 
         if(servicio === 0){
-            return false;
+            return false
         }
 
         dispatch({
