@@ -75,8 +75,8 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                 <b>Resumen de su cita</b> 
             </Typography>
             <Grid container align='justify'>
-                <Grid item sm={4} xs={12}></Grid>
-                <Grid item sm={6} xs={12}>
+                <Grid item sm={3} xs={12}></Grid>
+                <Grid item sm={7} xs={12}>
 
                     <Typography variant='h6' sx={{mt:2,mb:2}}>
                         <b>Distrito:</b> {tab}{ distrito}
@@ -84,7 +84,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     <Typography variant='h6' sx={{mt:2,mb:2}}>
                         <b>Oficina:</b> {tab}{oficina }               
                     </Typography>
-                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                    <Typography variant='h6' sx={{mt:2,mb:2}} align='left'>
                         <b>Servicio:</b>{tab}{servicio }
                     </Typography>
                     <Typography variant='h6' sx={{mt:2,mb:2}}>

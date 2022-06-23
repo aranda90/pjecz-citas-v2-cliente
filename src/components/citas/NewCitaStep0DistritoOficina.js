@@ -25,12 +25,10 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
 
     const handleChangeDistrito = (e) => {
         setDistrito(e.target.value)
-        console.log(e.target.value)
     }
 
     const handleChangeOficina = (e) => {
         setOficina(e.target.value)
-        console.log(e.target.value)
     }
 
     const guardarInformacion = () =>{
@@ -59,7 +57,6 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
             if(response.status === 200){
                 setDistritos(response.data.items)
             }
-            console.log(response)
         }
         fetchData()
     },[])
@@ -75,7 +72,6 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                 if(response.status === 200){
                     setOficinas(response.data.items)
                 }
-                console.log(response)
             }
 
         }

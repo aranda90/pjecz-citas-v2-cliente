@@ -18,7 +18,6 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const handleChangeServicio = (e) => {
         setServicio(e.target.value)
-        console.log(e.target.value)
     }
 
     const guardarInformacion = () => {
@@ -47,7 +46,6 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             if(response.status === 200){
                 setServicios(response.data.items)
             }
-            console.log(response)
         }
         fetchData()
     },[oficina_id])

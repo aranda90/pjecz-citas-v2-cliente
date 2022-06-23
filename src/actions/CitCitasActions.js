@@ -8,7 +8,6 @@ export const GetCitCitas = () => {
             HttpClientToken.get(`/v2/cit_citas`, token)
                 .then(response => {
                     resolve(response)
-                    console.log(response)
                 })
                 .catch(error => {
                     resolve(error.response)
@@ -26,7 +25,6 @@ export const DeleteCitas = (cit_cita_id) => {
             HttpClientToken.get(ruta, token)
                 .then(response => {
                     resolve(response)
-                    console.log(response)
                 })
                 .catch((error) => {
                     resolve(error.response)
@@ -58,7 +56,6 @@ export const GetOficinas = (distrito_id) => {
             if(distrito_id !== null){ 
                 ruta = ruta + `?distrito_id=${distrito_id}`
             }
-            console.log(ruta)
             HttpClientToken.get(ruta, token)
                 .then( response => {
                     resolve(response)
@@ -78,7 +75,6 @@ export const GetOficinaServicio = (oficina_id) => {
             if(oficina_id !== null){
                 ruta = ruta + `?oficina_id=${oficina_id}`
             }
-            console.log(ruta)
             HttpClientToken.get(ruta, token)
                 .then(response => {
                     resolve(response)
@@ -99,7 +95,6 @@ export const GetCitDiasDisponibles = (oficina_id) => {
             if(oficina_id !== null){
                 ruta = ruta + `?oficina_id=${oficina_id}`
             }
-            console.log(ruta)
             HttpClientToken.get(ruta, token)
                 .then(response => {
                     resolve(response)
