@@ -14,19 +14,28 @@ import moment from 'moment'
 
 import '../../css/global.css'
 
+import { useDispatch } from 'react-redux'
+import { types } from '../../types/types'
+
+
 const ListCitasScreen = () => {
 
     const [citaList, setCitaList] = useState([])
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function fetchData(){
             const response = await GetCitCitas()
             if(response.status === 200){
-                setCitaList(response.data.items)
+                setCitaList(response.data.items)     
+            }else if(response.status === 401){                
+                window.localStorage.clear();
+                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
             }
         }
         fetchData()
-    },[])
+    },[ dispatch ])
 
     const format = (inicio) => {
         return moment(inicio).format("YYYY-MM-DD HH:mm")
@@ -36,7 +45,6 @@ const ListCitasScreen = () => {
         const filterCard = citaList.filter(citaList => citaList.id !== id)
         setCitaList(filterCard)
     }
-
 
     return (
         <>
@@ -102,7 +110,6 @@ const ListCitasScreen = () => {
             </Box>
         </>
     )
-
 }
 
 export default ListCitasScreen
