@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { Container } from '@mui/material';
+import { Container } from '@mui/material'
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
-import { types } from '../../types/types';
+import { types } from '../../types/types'
 
 import Footer from '../ui/Footer'
 
@@ -16,9 +16,9 @@ import { Profile } from '../../actions/AuthActions'
 
 export const CitasScreen = () => {
 
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch()
 
-    const token = window.localStorage.getItem('token');    
+    const token = window.localStorage.getItem('token')  
 
     async function Obtenerusuario(){
 

@@ -6,11 +6,13 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, Typography } f
 
 import commonSX from '../../theme/CommonSX'
 
-import '../../css/global.css'
-
 import { GetCitCitas } from '../../actions/CitCitasActions'
+
 import CancelCitaScreen from './CancelCitaScreen'
+
 import moment from 'moment'
+
+import '../../css/global.css'
 
 const ListCitasScreen = () => {
 
@@ -30,6 +32,11 @@ const ListCitasScreen = () => {
         return moment(inicio).format("YYYY-MM-DD HH:mm")
     }
 
+    const cancelCard = (id) => {
+        const filterCard = citaList.filter(citaList => citaList.id !== id)
+        setCitaList(filterCard)
+    }
+
 
     return (
         <>
@@ -39,7 +46,7 @@ const ListCitasScreen = () => {
             </Button>
             
             {citaList.length === 0 && (
-                <Typography align='center' variant='h4'>
+                <Typography align='center' variant='h4' sx={{mt:15}}>
                     No tiene citas agendadas
                 </Typography>
             )}
@@ -51,19 +58,19 @@ const ListCitasScreen = () => {
                         m: 1,
                         width: 250,
                         height: 'auto',
+                        marginBottom:6
                     },
+                    marginBottom:5
                 }} 
             >
                
                 {citaList.map((lista) => 
 
                     <Card align='center' sx={commonSX.card} key={ lista.id }>
-                        <Typography >
-                            <br/>
+                        <Typography sx={{mt:3}}>
                             {format(lista.inicio)}
                         </Typography>
                         <CardHeader
-                            //avatar={<Avatar src='/static/images/logo.png'>P</Avatar>}
                             title={"Cita " + lista.id }
                             titleTypographyProps={{
                                 fontSize:30,
@@ -87,7 +94,7 @@ const ListCitasScreen = () => {
                         </CardContent>
                         
                         <CardActions style={{float:'right'}}>
-                            <CancelCitaScreen Id={ lista.id } />
+                            <CancelCitaScreen Id={ lista.id } cancelCard={cancelCard} />
                         </CardActions>
 
                     </Card>

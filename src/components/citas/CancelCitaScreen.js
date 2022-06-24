@@ -4,7 +4,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 
 import { DeleteCitas } from '../../actions/CitCitasActions'
 
-const CancelCitaScreen = ({ Id  }) => {
+const CancelCitaScreen = ({ Id, cancelCard  }) => {
 
     const [open, setOpen] = useState(false)
   
@@ -15,17 +15,17 @@ const CancelCitaScreen = ({ Id  }) => {
             if(response){
 
                 if(response.status === 200){
-                
+                    cancelCard(Id)
                 }
-
+                
                 setOpen( false )
-
+                
                 console.log(response)
             }
+           
         })       
 
     }
-
 
 
     return (  

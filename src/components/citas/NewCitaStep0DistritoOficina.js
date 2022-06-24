@@ -8,16 +8,12 @@ import { GetDistritos, GetOficinas } from '../../actions/CitCitasActions'
 
 import { types } from '../../types/types'
 
-// const cleanInputs = () => {
-//     distrito: '',
-//     oficina: '',
-// }
 
 const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const { distrito_id, oficina_id } = useSelector( state => state.citas );
+    const { distrito_id, oficina_id } = useSelector( state => state.citas )
 
     // Distrios
     const [distritos, setDistritos] = useState([])
@@ -29,18 +25,16 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
 
     const handleChangeDistrito = (e) => {
         setDistrito(e.target.value)
-        console.log(e.target.value)
     }
 
     const handleChangeOficina = (e) => {
         setOficina(e.target.value)
-        console.log(e.target.value)
     }
 
     const guardarInformacion = () =>{
         
         if( oficina === 0 && distrito === 0){
-            return false;
+            return false
         }
 
         dispatch({
@@ -63,7 +57,6 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
             if(response.status === 200){
                 setDistritos(response.data.items)
             }
-            console.log(response)
         }
         fetchData()
     },[])
@@ -79,7 +72,6 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                 if(response.status === 200){
                     setOficinas(response.data.items)
                 }
-                console.log(response)
             }
 
         }
@@ -89,7 +81,7 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
     useEffect(() => {
       
         if( distrito_id !== 0 ){    
-            setDistrito( distrito_id );
+            setDistrito( distrito_id )
         }
 
     }, [ distrito_id ])
@@ -97,11 +89,12 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
     useEffect(() => {
       
         if( oficina_id !== 0 && oficinas.length !== 0 ){    
-            setOficina( oficina_id );
+            setOficina( oficina_id )
         }
 
     }, [ oficina_id, oficinas ])
 
+   
     return (
         <>
             <Container sx={{ mt: 5 }}>

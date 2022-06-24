@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 
 import ReCAPTCHA  from 'react-google-recaptcha'
 
@@ -37,15 +37,15 @@ const LoginScreen = () => {
     // Funcion de evento onChange
     const onchange = () => {
         if (captcha.current.getValue()) {
-            setCaptchaValido(true) ;
-            console.log("google regreso un token y no es un robot") ;
+            setCaptchaValido(true)
+            console.log("google regreso un token y no es un robot")
         } else {
-            console.log("Detectado como robot") ;
+            console.log("Detectado como robot")
         }
     }
 
     // Obtener el contexto del cliente
-    const { isAuthenticated, username } = useSelector( state => state.auth );
+    const { isAuthenticated, username } = useSelector( state => state.auth )
 
     // Formulario
     const [formData, setFormValues] = useState({
@@ -97,7 +97,7 @@ const LoginScreen = () => {
             setFormValues(cleanFormData)
         }
         else{
-            setCaptchaValido(false) ;
+            setCaptchaValido(false)
         }
     }
 

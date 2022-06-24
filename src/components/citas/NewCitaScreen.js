@@ -11,14 +11,14 @@ import NewCitaStep4Review from './NewCitaStep4Review'
 
 const NewCitaScreen = () => {
 
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(0)
 
     const handleNext = () => {
-        setActiveStep((prev) => prev + 1);
+        setActiveStep((prev) => prev + 1)
     }
 
     const handleBack = () => {
-        setActiveStep((prev) => prev - 1);
+        setActiveStep((prev) => prev - 1)
     }
 
     const styles = {
