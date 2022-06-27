@@ -46,6 +46,7 @@ export const CitasScreen = () => {
             <Navigation />
 
             <Outlet />
+            <h1 align='center' style={{marginTop:15}}>Bienvenido al sistema de citas</h1>
 
             <Footer />
 

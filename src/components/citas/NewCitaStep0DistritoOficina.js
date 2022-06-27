@@ -47,6 +47,8 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
             }
         })
 
+        
+
         handleNext()
     }
 
@@ -56,10 +58,13 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
             const response = await GetDistritos()
             if(response.status === 200){
                 setDistritos(response.data.items)
+            }else if(response.status === 401){                
+                window.localStorage.clear()
+                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE })
             }
         }
         fetchData()
-    },[])
+    },[ dispatch ])
 
     // Oficinas
     useEffect(() => {
@@ -71,12 +76,15 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                 const response = await GetOficinas(distrito)
                 if(response.status === 200){
                     setOficinas(response.data.items)
+                }else if(response.status === 401){                
+                    window.localStorage.clear()
+                    dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE })
                 }
             }
 
         }
         fetchData()
-    },[distrito])
+    },[distrito,dispatch])
 
     useEffect(() => {
       
