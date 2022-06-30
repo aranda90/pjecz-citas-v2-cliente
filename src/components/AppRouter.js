@@ -41,7 +41,7 @@ const AppRouter = () => {
 
             <Routes>
                
-                <Route path='/' element={ <CitasScreen /> } >
+                <Route path='/' element={ <CitasScreen />  } >
                 
                     <Route path='/citas' element={ <PrivateRoute> <ListCitasScreen /> </PrivateRoute>  } />
                     <Route path='/new' element={ <PrivateRoute> <NewCitaScreen /> </PrivateRoute> } />
