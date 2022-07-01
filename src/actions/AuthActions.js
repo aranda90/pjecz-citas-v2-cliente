@@ -65,7 +65,7 @@ export const NewAccountConfirm = data => {
 
 export const RecoverAccount = data => {
     return new Promise((resolve, reject) => {
-        HttpClient.post('/cit_clientes_recuperaciones', data)
+        HttpClient.post('/v2/recuperar_contrasena/solicitar', data)
             .then(response => {
                 if (response.status === 200) {
                     resolve(response)
@@ -80,7 +80,7 @@ export const RecoverAccount = data => {
 
 export const RecoverAccountConfirm = data => {
     return new Promise((resolve, reject) => {
-        HttpClient.post('/cit_clientes_recuperaciones_confirm', data)
+        HttpClient.post('/v2/recuperar_contrasena/concluir', data)
             .then(response => {
                 if (response.status === 200) {
                     resolve(response)
