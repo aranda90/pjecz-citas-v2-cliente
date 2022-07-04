@@ -9,13 +9,14 @@ export const InicioScreen = () => {
             <Grid item md='5' xs='12'>
                 <Box sx={{mt:20, mb: 10, display:'flex', flexDirection:'column', pl:5}}>
 
-                    <Typography variant='h3' component='h2' gutterBottom>
+                    <Typography variant='h4' gutterBottom>
                         Bienvenido al  sistema de citas
                     </Typography>
                     
                     <Typography variant='body1' >
-                        Esta es una nueva versión de nuestro sistema de citas. <br/>
-                        para poder acceder o crear una cuenta nueva da clic en el botón ingresar
+                        Esta es una nueva versión de nuestro sistema. <br/>
+                         
+                        Para poder acceder o crear una cuenta nueva da clic en el botón ingresar y comenzar a agendar tus citas.
                     </Typography>
                 </Box>
             </Grid>

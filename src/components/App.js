@@ -6,9 +6,9 @@ import { ThemeProvider } from '@mui/material'
 
 import InstitutionalTheme from '../theme/InstitutionalTheme'
 
-import { store } from '../store/store';
+import { store } from '../store/store'
 
-import AppRouter from './AppRouter';
+import AppRouter from './AppRouter'
 
 const App = () => {
       
@@ -18,7 +18,7 @@ const App = () => {
             <ThemeProvider theme={InstitutionalTheme}>
 
                 <AppRouter />
-            
+
             </ThemeProvider>
 
         </Provider>

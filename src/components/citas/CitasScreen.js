@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Container, Grid, Typography } from '@mui/material'
+import { Container } from '@mui/material'
 
 import { useDispatch } from 'react-redux'
 
@@ -13,7 +13,6 @@ import Footer from '../ui/Footer'
 import Navigation from '../ui/Navigation'
 
 import { Profile } from '../../actions/AuthActions'
-import { InicioScreen } from './InicioScreen'
 
 
 export const CitasScreen = () => {
@@ -46,11 +45,8 @@ export const CitasScreen = () => {
         <Container sx={{ mt: 12 }}>
 
             <Navigation />
-
-            <InicioScreen />    
-                   
+   
             <Outlet />
-            
 
             <Footer />
 
