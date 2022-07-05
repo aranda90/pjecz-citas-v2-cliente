@@ -16,7 +16,7 @@ export const InicioScreen = () => {
                     <Typography variant='body1' >
                         Esta es una nueva versión de nuestro sistema. <br/>
                          
-                        Para poder acceder o crear una cuenta nueva da clic en el botón ingresar y comenzar a agendar tus citas.
+                        Para poder acceder o crear una cuenta nueva da clic en el botón ingresar y comienza a agendar tus citas.
                     </Typography>
                 </Box>
             </Grid>
