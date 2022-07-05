@@ -5,8 +5,8 @@ export const InicioScreen = () => {
   return (
     <>
         <Grid sx={{mt:20, display:'flex', flexDirection:'row'}}>
-            <Grid item md='1' xs='12'></Grid>
-            <Grid item md='5' xs='12'>
+            <Grid item sm={1} xs={12}></Grid>
+            <Grid item sm={5} xs={12}>
                 <Box sx={{mt:20, mb: 10, display:'flex', flexDirection:'column', pl:5}}>
 
                     <Typography variant='h4' gutterBottom>
@@ -16,14 +16,14 @@ export const InicioScreen = () => {
                     <Typography variant='body1' >
                         Esta es una nueva versión de nuestro sistema. <br/>
                          
-                        Para poder acceder o crear una cuenta nueva da clic en el botón ingresar y comienza a agendar tus citas.
+                        Para poder acceder o crear una cuenta nueva da click en el botón ingresar y comienza a agendar tus citas.
                     </Typography>
                 </Box>
             </Grid>
-            <Grid item md='4' xs='12'>
+            <Grid item sm={4} xs={12}>
                 <img src='../assets/imges/inicioCitas.png' alt=''  />
             </Grid>
-            <Grid item md='2' xs='12'></Grid>
+            <Grid item sm={2} xs={12}></Grid>
 
         </Grid>
     </>
