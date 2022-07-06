@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Grid, TextField, Typography } from '@mui/material'
 
@@ -7,6 +7,7 @@ import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 import { RecoverAccountConfirm } from '../../actions/AuthActions'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 
 const cleanFormData = {
@@ -15,6 +16,22 @@ const cleanFormData = {
 }
 
 const RecoverAccountConfirmScreen = () => {
+
+    // variables de estado para captcha
+    const [captchaValido, setCaptachaValido] = useState(null)
+
+    // Referencia al checkbox 'recaptcha'
+    const captcha = useRef(null)
+
+    // Funcion de evento onChange
+    const onChangeCaptcha = () => {
+        if(captcha.current.getValue()){
+            setCaptachaValido(true)
+            console.log("google regreso un token y no es un robot")
+        }else{
+            console.log("Detectado como robot")
+        }
+    }
 
     const [formData, setFormValues] = useState({
         password: '',
@@ -34,7 +51,11 @@ const RecoverAccountConfirmScreen = () => {
 
     const submitForm = () => {
         RecoverAccountConfirm(formData).then( response => {
-            console.log(response)
+            if(captchaValido){
+                console.log(response)
+            }else{
+                setCaptachaValido(false)
+            }
         })
         setFormValues(cleanFormData)
         setFormSent(true)
@@ -83,6 +104,18 @@ const RecoverAccountConfirmScreen = () => {
                                 onChange={handleChange}
                                 value={formData.password2}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+
+                            <Typography component={'span'} variant={'body2'}>
+                                <ReCAPTCHA
+                                    ref={captcha}
+                                    sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
+                                    onChange={onChangeCaptcha}
+                                />
+                                { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
+                            </Typography>
+
                         </Grid>
                         <Grid item xs={12}>
                             <Button

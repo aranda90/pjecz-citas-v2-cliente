@@ -14,6 +14,7 @@ import Navigation from '../ui/Navigation'
 
 import { Profile } from '../../actions/AuthActions'
 
+
 export const CitasScreen = () => {
 
     const dispatch = useDispatch()
@@ -44,7 +45,7 @@ export const CitasScreen = () => {
         <Container sx={{ mt: 12 }}>
 
             <Navigation />
-
+   
             <Outlet />
 
             <Footer />

@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Card, Checkbox, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material'
+import { Button,  Checkbox, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 import { NewAccount } from '../../actions/AuthActions'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 
 const cleanFormData = {
@@ -22,6 +23,22 @@ const cleanFormData = {
 }
 
 const NewAccountScreen = () => {
+
+    // variables de estado para captcha
+    const [captchaValido, setCaptachaValido] = useState(null)
+
+    // Referencia al checkbox 'recaptcha'
+    const captcha = useRef(null)
+
+    // Funcion de evento onChange
+    const onChangeCaptcha = () => {
+        if(captcha.current.getValue()){
+            setCaptachaValido(true)
+            console.log("google regreso un token y no es un robot")
+        }else{
+            console.log("Detectado como robot")
+        }
+    }
 
     const [formData, setFormValues] = useState({
         nombres: '',
@@ -47,16 +64,21 @@ const NewAccountScreen = () => {
     }
 
     const submitForm = async () => {
-        await NewAccount(formData).then( response => {
-            if( response ){
+        if(captchaValido){
+            await NewAccount(formData).then( response => {
+                if( response ){
 
-                if( response.status === 200){
-                    console.log(response)
+                    if( response.status === 200){
+                        console.log(response)
+                    }
                 }
-            }
-        })
-        setFormValues(cleanFormData)
-        setFormSent(true)
+            
+            })
+            setFormValues(cleanFormData)
+            setFormSent(true)
+        }else{
+            setCaptachaValido(false)
+        }
     }
 
     if (formSent) {
@@ -198,11 +220,16 @@ const NewAccountScreen = () => {
                             </FormGroup>
                         </Grid>
                         <Grid item md={12} xs={12}>
-                            <Card variant='outlined'>
-                                <Typography variant='body1'>
-                                    No soy un robot
-                                </Typography>
-                            </Card>
+
+                            <Typography component={'span'} variant={'body2'}>
+                                <ReCAPTCHA
+                                    ref={captcha}
+                                    sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
+                                    onChange={onChangeCaptcha}
+                                />
+                                { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
+                            </Typography>
+
                         </Grid>
                         <Grid item md={12} xs={12}>
                             <Button

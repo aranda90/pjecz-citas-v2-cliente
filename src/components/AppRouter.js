@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
@@ -19,7 +19,8 @@ import RecoverAccountConfirmScreen from './auth/RecoverAccountConfirmScreen'
 import PrivacyTermsScreen from './static/PrivacyTermsScreen'
 import UseTermsScreen from './static/UseTermsScreen'
 
-import { CitasScreen } from './citas/CitasScreen';
+import { CitasScreen } from './citas/CitasScreen'
+import { InicioScreen } from './citas/InicioScreen'
 
 const AppRouter = () => {       
 
@@ -41,9 +42,10 @@ const AppRouter = () => {
 
             <Routes>
                
-                <Route path='/' element={ <CitasScreen /> } >
+                <Route path='/' element={ <CitasScreen />  }  >
                 
-                    <Route path='/citas' element={ <PrivateRoute> <ListCitasScreen /> </PrivateRoute> } />   
+                    <Route path='/' element={ <InicioScreen /> } index />
+                    <Route path='/citas' element={ <PrivateRoute> <ListCitasScreen /> </PrivateRoute>  } />
                     <Route path='/new' element={ <PrivateRoute> <NewCitaScreen /> </PrivateRoute> } />
                     <Route path='/cancel' element={ <CancelCitaScreen /> } />
                     <Route path='/login' element={ <LogInScreen /> } />
