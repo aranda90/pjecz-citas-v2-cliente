@@ -17,7 +17,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
     const tab = '\u00A0'
 
-    const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora } = useSelector( state => state.citas )
+    const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora, nota } = useSelector( state => state.citas )
     
     // variables de estado para captcha
     const [captchaValido, setCaptachaValido] = useState(null)
@@ -42,7 +42,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             cit_servicio_id: servicio_id,
             fecha: fecha,
             hora_minuto: hora,
-            nota: 'hola cita'
+            nota: nota,
         }
 
         await NewCit(params).then( response => {
@@ -89,6 +89,9 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     </Typography>
                     <Typography variant='h6' sx={{mt:2,mb:2}}>
                         <b>Fecha:</b> {fecha} {tab}{tab}{tab}{tab}{tab}{tab}{tab}{tab} <b>Hora:</b> {hora.slice(0,-3)}
+                    </Typography>
+                    <Typography variant='h6' sx={{mt:2,mb:2}}>
+                        <b>Nota:</b> {nota}
                     </Typography>
                 
                 </Grid>

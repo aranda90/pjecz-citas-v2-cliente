@@ -10,11 +10,13 @@ import { types } from '../../types/types'
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const dispatch = useDispatch()
-    const { oficina_id, servicio_id } = useSelector(state => state.citas)
+    const { oficina_id, servicio_id, nota : notaRedux } = useSelector(state => state.citas)
 
     //servicios
     const [servicios, setServicios] = useState([])
     const [servicio, setServicio] = useState(0)
+
+    const [nota, setNota] = useState([])
 
     const handleChangeServicio = (e) => {
         setServicio(e.target.value)
@@ -31,6 +33,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             payload:{
                 servicio_id: servicio,
                 servicio: servicios.find((element) => { return element.cit_servicio_id === servicio }).cit_servicio_descripcion,
+                nota: nota.find((element) => { return element.nota === notaRedux }).nota,
             }
         })
 
@@ -91,6 +94,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                                 id="indicaciones_tramite"
                                 label="Indicaciones del tramite"
                                 name="indicaciones_tramite"
+                                value={nota}
                                 multiline
                                 rows={4}
                                 placeholder="Favor de dar indicaciones del tramite"

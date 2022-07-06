@@ -91,3 +91,17 @@ export const RecoverAccountConfirm = data => {
             })
     })
 }
+
+export const UpdatePassConfirm = data => {
+    return new Promise((resolve, reject) => {
+        HttpClient.post('/v2/', data)
+            .then(response => {
+                if (response.status === 200) {
+                    resolve(response)
+                }
+            })
+            .catch((error) => {
+                resolve(error.response)
+            })
+    })
+}

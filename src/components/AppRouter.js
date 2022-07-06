@@ -21,6 +21,7 @@ import UseTermsScreen from './static/UseTermsScreen'
 
 import { CitasScreen } from './citas/CitasScreen'
 import { InicioScreen } from './citas/InicioScreen'
+import UpdatePasswordScreen from './auth/UpdatePasswordScreen'
 
 const AppRouter = () => {       
 
@@ -55,6 +56,7 @@ const AppRouter = () => {
                     <Route path='/profile' element={ <ProfileScreen /> } />
                     <Route path='/recover_account' element={ <RecoverAccountScreen /> } />
                     <Route path='/recover_account_confirm' element={ <RecoverAccountConfirmScreen /> } />
+                    <Route path='/update' element={ <UpdatePasswordScreen /> } /> 
                     <Route path='/privacy_terms' element={ <PrivacyTermsScreen /> } />
                     <Route path='/use_terms' element={ <UseTermsScreen /> } />
 
