@@ -63,6 +63,7 @@ export const NewAccountConfirm = data => {
     })
 }
 
+
 export const RecoverAccount = data => {
     return new Promise((resolve, reject) => {
         HttpClient.post('/v2/recuperar_contrasena/solicitar', data)

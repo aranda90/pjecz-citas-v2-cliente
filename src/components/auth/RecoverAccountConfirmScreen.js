@@ -36,6 +36,8 @@ const RecoverAccountConfirmScreen = () => {
     const [formData, setFormValues] = useState({
         password: '',
         password2: '',
+        hashid: '',
+        cadena_validar:'',
     })
     const [formSent, setFormSent] = useState(false)
 
@@ -87,7 +89,7 @@ const RecoverAccountConfirmScreen = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contrasena"
+                                label="Cambiar contraseña"
                                 type="password"
                                 fullWidth
                                 name='password'
@@ -97,7 +99,7 @@ const RecoverAccountConfirmScreen = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contrasena"
+                                label="Confirmar contraseña"
                                 type="password"
                                 fullWidth
                                 name='password2'

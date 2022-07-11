@@ -220,7 +220,6 @@ const NewAccountScreen = () => {
                             </FormGroup>
                         </Grid>
                         <Grid item md={12} xs={12}>
-
                             <Typography component={'span'} variant={'body2'}>
                                 <ReCAPTCHA
                                     ref={captcha}
@@ -229,7 +228,6 @@ const NewAccountScreen = () => {
                                 />
                                 { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
                             </Typography>
-
                         </Grid>
                         <Grid item md={12} xs={12}>
                             <Button

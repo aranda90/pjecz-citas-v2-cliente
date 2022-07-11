@@ -130,7 +130,7 @@ const LoginScreen = () => {
         )
     } else {
         return (
-            <ContainerCardCenter>
+            <ContainerCardCenter sx={{mb:15}}>
                 <Typography variant='h5' sx={commonSX.title}>
                     Ingresar al Sistema de Citas
                 </Typography>
