@@ -6,7 +6,7 @@ import ReCAPTCHA  from 'react-google-recaptcha'
 
 import { Link } from 'react-router-dom'
 
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import {  Button, Divider, Grid, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 
@@ -115,14 +115,22 @@ const LoginScreen = () => {
                 <Typography variant='h5' sx={commonSX.title}>
                     Error al tratar de ingresar
                 </Typography>
-                <Typography variant='body1'>
+                <Typography variant='body1' gutterBottom>
                     {errorMessage}
                 </Typography>
+                <br/>
+                <Divider orientation='horizontal' flexItem sx={{mb:3}} />
+                <Typography variant='body2' sx={{mb:2, fontSize:12}}>
+                    Actualizar contraseña en caso de que ya haya usado nuestro anterior sistema.
+                </Typography>
+                <Button color='primary' variant='contained' component={Link} to='/update'>
+                    Actualizar Contraseña
+                </Button>
             </ContainerCardCenter>
         )
     } else {
         return (
-            <ContainerCardCenter>
+            <ContainerCardCenter sx={{mb:15}}>
                 <Typography variant='h5' sx={commonSX.title}>
                     Ingresar al Sistema de Citas
                 </Typography>

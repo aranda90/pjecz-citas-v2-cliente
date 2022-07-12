@@ -52,6 +52,8 @@ const NewAccountScreen = () => {
         email2: '',
     })
     const [formSent, setFormSent] = useState(false)
+    const [error, setError] = useState('')
+
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -64,25 +66,39 @@ const NewAccountScreen = () => {
     }
 
     const submitForm = async () => {
-        if(captchaValido){
-            await NewAccount(formData).then( response => {
-                if( response ){
+      
+       if(captchaValido){
+            if(formData.email !== formData.email2){
+                setError('Los correos no coinciden, revise nuevamente')
+            }else if(formData.telefono !== formData.telefono2){
+                setError('Los numeros telefonicos no coinciden, revise nuevamente')
 
-                    if( response.status === 200){
-                        console.log(response)
+            }else if(formData.curp !== formData.curp2){
+                setError('Las CURP no coinciden, revise nuevamente')
+            }else{
+
+                await NewAccount(formData).then( response => {
+                    if( response ){
+                        
+                        if( response.status === 200){
+                            console.log(response)
+                            setFormSent(true)
+                        }
+                        if(response.status === 406){
+                            setError(response.data.detail)
+                        }
                     }
-                }
-            
-            })
-            setFormValues(cleanFormData)
-            setFormSent(true)
+                })
+                setFormValues(cleanFormData)
+            }
         }else{
             setCaptachaValido(false)
+            
         }
     }
 
     if (formSent) {
-        return (
+        return (  
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
                     Se ha enviado su solicitud para crear una cuenta
@@ -95,7 +111,7 @@ const NewAccountScreen = () => {
                         Regresar al inicio
                     </Link>
                 </Typography>
-            </ContainerCardCenter>
+            </ContainerCardCenter>    
         )
     } else {
         return (
@@ -212,15 +228,16 @@ const NewAccountScreen = () => {
                                 <FormControlLabel
                                     control={<Checkbox />}
                                     label='Aviso de privacidad'
+                                    name='aviso'
                                 />
                                 <FormControlLabel
                                     control={<Checkbox />}
                                     label='Términos y condiciones de uso'
+                                    name='terminos'
                                 />
                             </FormGroup>
                         </Grid>
                         <Grid item md={12} xs={12}>
-
                             <Typography component={'span'} variant={'body2'}>
                                 <ReCAPTCHA
                                     ref={captcha}
@@ -229,8 +246,10 @@ const NewAccountScreen = () => {
                                 />
                                 { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
                             </Typography>
-
                         </Grid>
+                        {
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
+                        }
                         <Grid item md={12} xs={12}>
                             <Button
                                 variant='contained'

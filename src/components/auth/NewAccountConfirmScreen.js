@@ -1,26 +1,54 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import React, { useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { Button, Grid, Input, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 import { NewAccountConfirm } from '../../actions/AuthActions'
-
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const cleanFormData = {
     password: '',
-    password2: '',
+    password2: ''
 }
 
 const NewAccountConfirmScreen = () => {
 
+    let {search} = useLocation()
+    let parametros = new URLSearchParams(search)
+    let hashid = parametros.get('hashid')
+    let cadena_validar = parametros.get('cadena_validar')
+
+    // variables de estado para captcha
+    const [captchaValido, setCaptachaValido] = useState(null)
+
+    // Referencia al checkbox 'recaptcha'
+    const captcha = useRef(null)
+
+    // Funcion de evento onChange
+    const onChangeCaptcha = () => {
+        if(captcha.current.getValue()){
+            setCaptachaValido(true)
+            console.log("google regreso un token y no es un robot")
+        }else{
+            console.log("Detectado como robot")
+        }
+    }
+
+       
     const [formData, setFormValues] = useState({
         password: '',
         password2: '',
+        hashid: hashid,
+        cadena_validar:cadena_validar,
     })
+    
     const [formSent, setFormSent] = useState(false)
+
+    const [error, setError] = useState('')
+      
 
     const handleChange = (evento) => {
         const { name, value } = evento.target
@@ -32,41 +60,61 @@ const NewAccountConfirmScreen = () => {
         })
     }
 
-    const submitForm = () => {
-        NewAccountConfirm(formData).then( response => {
-            console.log(response)
-        })
-        setFormValues(cleanFormData)
-        setFormSent(true)
+    const submitForm = async() => {
+        if(formData.password !== formData.password2){
+            setError('Las Contraseñas no coiniciden, escribir nuevamente')
+        }else if(captchaValido){
+            
+                
+                await NewAccountConfirm(formData).then( response => {
+                    if( response ){
+                        
+                        if( response.status === 200){
+                            console.log(response)
+                        }
+                       
+                        setError('La contraseña no es correcta')
+                    }
+                
+                })
+                setFormValues(cleanFormData)
+                setFormSent(true)
+
+        }else{
+            setCaptachaValido(false)
+            setError('')
+        }
+        
     }
 
-    if (formSent) {
-        return (
+    if (formSent) {       
+        return(
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Ha creado su cuenta
+                    Ha creado su cuenta correctamente
                 </Typography>
                 <Typography variant='body1'>
                     Tome nota de su contrasena y guardela en un lugar seguro.
                 </Typography>
                 <Typography variant='body1'>
-                    <Link to='/' className='link'>
-                        Regresar al inicio
+                    <Link to='/login' className='link'>
+                        Iniciar Sesión
                     </Link>
                 </Typography>
             </ContainerCardCenter>
         )
-    } else {
+    
+    }else {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Validar mi correo electronico y definir mi contrasena
+                    Validar mi correo electronico y definir mi contraseña
                 </Typography>
                 <form onSubmit={(e) => e.preventDefault()}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contrasena"
+                                label="Crear Contrasena"
                                 type="password"
                                 fullWidth
                                 name='password'
@@ -76,7 +124,7 @@ const NewAccountConfirmScreen = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contrasena"
+                                label="Confirmar Contrasena"
                                 type="password"
                                 fullWidth
                                 name='password2'
@@ -84,6 +132,19 @@ const NewAccountConfirmScreen = () => {
                                 value={formData.password2}
                             />
                         </Grid>
+                        <Grid item md={12} xs={12}>
+                            <Typography component={'span'} variant={'body2'}>
+                                <ReCAPTCHA
+                                    ref={captcha}
+                                    sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
+                                    onChange={onChangeCaptcha}
+                                    />
+                                { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
+                            </Typography>
+                        </Grid>
+                        {
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
+                        }
                         <Grid item xs={12}>
                             <Button
                                 variant='contained'
@@ -102,6 +163,16 @@ const NewAccountConfirmScreen = () => {
                             </Typography>
                         </Grid>
                     </Grid>
+                    <Input
+                        type="hidden"
+                        value={hashid}
+                        name="hashid"
+                    />
+                    <Input
+                        type="hidden"
+                        value={cadena_validar}
+                        name="cadena_validar"
+                    />
                 </form>
             </ContainerCardCenter>
         )

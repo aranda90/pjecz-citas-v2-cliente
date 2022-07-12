@@ -10,14 +10,18 @@ import { types } from '../../types/types'
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const dispatch = useDispatch()
-    const { oficina_id, servicio_id } = useSelector(state => state.citas)
-
+    const { oficina_id, servicio_id, nota_id,nota } = useSelector(state => state.citas)
+    console.log(nota_id, nota)
     //servicios
     const [servicios, setServicios] = useState([])
     const [servicio, setServicio] = useState(0)
 
+    const [notas, setNotas] = useState(nota)
+
     const handleChangeServicio = (e) => {
         setServicio(e.target.value)
+        console.log(e.target.value)
+
     }
 
     const guardarInformacion = () => {
@@ -31,6 +35,8 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             payload:{
                 servicio_id: servicio,
                 servicio: servicios.find((element) => { return element.cit_servicio_id === servicio }).cit_servicio_descripcion,
+                nota_id:notas,
+                nota:notas,
             }
         })
 
@@ -45,16 +51,20 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             const response = await GetOficinaServicio(oficina_id)
             if(response.status === 200){
                 setServicios(response.data.items)
+            }else if(response.status === 401){                
+                window.localStorage.clear()
+                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE })
             }
         }
         fetchData()
-    },[oficina_id])
+    },[oficina_id,dispatch])
 
     useEffect(() => {
         if(servicio_id !== 0){
             setServicio(servicio_id)
         }
     },[servicio_id])
+
     
     return (
         <>
@@ -91,6 +101,8 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                                 id="indicaciones_tramite"
                                 label="Indicaciones del tramite"
                                 name="indicaciones_tramite"
+                                value={notas}
+                                onChange={(e) => {setNotas(e.target.value)}}
                                 multiline
                                 rows={4}
                                 placeholder="Favor de dar indicaciones del tramite"
@@ -102,7 +114,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                 <Grid container spacing={2}>
                     <Grid item md={1} xs={12}></Grid>
                     <Grid item md={5} xs={12}>
-                        {/*if servicios.desripcion !== 'EXPEDIENTE VIRTUAL'*/}
+                        
                         <Grid item xs={12}>
                             <Typography sx={{ fontWeight: 500 }}>
                                 Expedientes / Folios

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import { Link, useLocation } from 'react-router-dom'
+import { Button, Grid, Input, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
@@ -16,6 +16,11 @@ const cleanFormData = {
 }
 
 const RecoverAccountConfirmScreen = () => {
+
+    let {search} = useLocation()
+    let parametros = new URLSearchParams(search)
+    let hashid = parametros.get('hashid')
+    let cadena_validar = parametros.get('cadena_validar')
 
     // variables de estado para captcha
     const [captchaValido, setCaptachaValido] = useState(null)
@@ -36,6 +41,8 @@ const RecoverAccountConfirmScreen = () => {
     const [formData, setFormValues] = useState({
         password: '',
         password2: '',
+        hashid: hashid,
+        cadena_validar:cadena_validar,
     })
     const [formSent, setFormSent] = useState(false)
 
@@ -87,7 +94,7 @@ const RecoverAccountConfirmScreen = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contrasena"
+                                label="Cambiar contraseña"
                                 type="password"
                                 fullWidth
                                 name='password'
@@ -97,7 +104,7 @@ const RecoverAccountConfirmScreen = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Contrasena"
+                                label="Confirmar contraseña"
                                 type="password"
                                 fullWidth
                                 name='password2'
@@ -135,6 +142,16 @@ const RecoverAccountConfirmScreen = () => {
                             </Typography>
                         </Grid>
                     </Grid>
+                    <Input
+                        type="hidden"
+                        value={hashid}
+                        name="hashid"
+                    />
+                    <Input
+                        type="hidden"
+                        value={cadena_validar}
+                        name="cadena_validar"
+                    />
                 </form>
             </ContainerCardCenter>
         )
