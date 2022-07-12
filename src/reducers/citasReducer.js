@@ -13,6 +13,7 @@ const initialState = {
     fecha: '',
     hora_id: 0,
     hora: '',
+    nota_id:0,
     nota:'',
 }
 

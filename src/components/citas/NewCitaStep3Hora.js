@@ -42,7 +42,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             cit_servicio_id: servicio_id,
             fecha: fecha,
             hora_minuto: hora,
-            nota: nota,
+            notas: nota,
         }
 
         await NewCit(params).then( response => {
