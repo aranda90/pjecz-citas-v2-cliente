@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Button, Grid, Hidden, Input, TextField, Typography } from '@mui/material'
+import { Button, Grid, Input, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
@@ -91,14 +91,14 @@ const NewAccountConfirmScreen = () => {
         return(
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Se ha creado correctamente la contraseña
+                    Ha creado su cuenta correctamente
                 </Typography>
                 <Typography variant='body1'>
-                    Guarde en un lugar seguro su contraseña
+                    Tome nota de su contrasena y guardela en un lugar seguro.
                 </Typography>
                 <Typography variant='body1'>
-                    <Link to='/' className='link'>
-                        Regresar al inicio
+                    <Link to='/login' className='link'>
+                        Iniciar Sesión
                     </Link>
                 </Typography>
             </ContainerCardCenter>
