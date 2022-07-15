@@ -67,20 +67,19 @@ const UpdatePasswordScreen = () => {
             setError('Las Contraseñas no coiniciden, escribir nuevamente')
         }else if(captchaValido){
             await UpdatePassConfirm(formData).then( response => {
-                console.log(formData)
                 if(response){
                     if(response.status === 200){
                         console.log(response)
-                        setFormSent(true)
-
+                        
                     }else {
-
+                        
                         setError(response.data.detail)
                     }
                 }
-            
+                
             })
             setFormValues(cleanFormData)
+            setFormSent(true)
         }else{
             setCaptachaValido(false)
         }
