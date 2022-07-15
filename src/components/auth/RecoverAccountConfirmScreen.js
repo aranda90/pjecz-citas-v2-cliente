@@ -72,15 +72,15 @@ const RecoverAccountConfirmScreen = () => {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Ha cambiado su contrasena
+                    Ha cambiado su contraseña
                 </Typography>
                 <Typography variant='body1'>
-                    Tome nota de su nueva contrasena y guardela en un lugar seguro.
+                    Tome nota de su nueva contraseña y guardela en un lugar seguro.
                 </Typography>
                 <Typography variant='body1'>
-                    <Link to='/' className='link'>
+                    <Button component={Link} to='/' variant='contained'>
                         Regresar al inicio
-                    </Link>
+                    </Button>
                 </Typography>
             </ContainerCardCenter>
         )
@@ -88,7 +88,7 @@ const RecoverAccountConfirmScreen = () => {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Cambiar mi contrasena
+                    Cambiar mi contraseña
                 </Typography>
                 <form onSubmit={(e) => e.preventDefault()}>
                     <Grid container spacing={2}>
@@ -131,7 +131,7 @@ const RecoverAccountConfirmScreen = () => {
                                 type='submit'
                                 onClick={submitForm}
                             >
-                                Cambiar mi contrasena
+                                Cambiar mi contraseña
                             </Button>
                         </Grid>
                         <Grid item xs={12}>

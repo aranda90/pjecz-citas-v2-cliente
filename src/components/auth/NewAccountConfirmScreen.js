@@ -97,9 +97,9 @@ const NewAccountConfirmScreen = () => {
                     Tome nota de su contrasena y guardela en un lugar seguro.
                 </Typography>
                 <Typography variant='body1'>
-                    <Link to='/login' className='link'>
+                    <Button component={Link} to='/login' variant='contained'>
                         Iniciar Sesión
-                    </Link>
+                    </Button>
                 </Typography>
             </ContainerCardCenter>
         )
