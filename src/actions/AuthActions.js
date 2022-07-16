@@ -63,6 +63,21 @@ export const NewAccountConfirm = data => {
     })
 }
 
+export const UpdatePassConfirm = data => {
+    return new Promise((resolve, reject) => {
+        HttpClient.post('/v2/cit_clientes/actualizar_contrasena', data)
+            .then(response => {
+                if (response.status === 200) {
+                    resolve(response)
+                    console.log(response)
+                }
+            })
+            .catch((error) => {
+                resolve(error.response)
+            })
+    })
+}
+
 
 export const RecoverAccount = data => {
     return new Promise((resolve, reject) => {
@@ -90,19 +105,5 @@ export const RecoverAccountConfirm = data => {
             .catch((error) => {
                 resolve(error.response)
             })
-    })
-}
-
-export const UpdatePassConfirm = data => {
-    return new Promise((resolve, reject) => {
-        HttpClient.post('/v2/', data)
-            .then(response => {
-                if (response.status === 200) {
-                    resolve(response)
-                }
-            })
-            .catch((error) => {
-                resolve(error.response)
-            })
-    })
-}
+        })
+    }

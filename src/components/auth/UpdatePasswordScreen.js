@@ -1,10 +1,10 @@
-import { Button, Grid, TextField, Typography } from '@mui/material'
-
 import React, { useRef, useState } from 'react'
 
-import ReCAPTCHA from 'react-google-recaptcha'
-
 import { Link } from 'react-router-dom'
+
+import { Button, Grid, TextField, Typography } from '@mui/material'
+
+import ReCAPTCHA from 'react-google-recaptcha'
 
 import { UpdatePassConfirm } from '../../actions/AuthActions'
 
@@ -13,12 +13,16 @@ import commonSX from '../../theme/CommonSX'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 
 const cleanFormData = {
-    updatepassword: '',
-    updatepassword2: '',
-    updatepassword3: '',
+    contrasena_anterior: '',
+    contrasena_nueva: '',
+    contrasena_nueva2: '',
 }
 
 const UpdatePasswordScreen = () => {
+
+    
+    // const {  username } = useSelector( state => state.auth )
+    // console.log(username)
 
     // variables de estado para captcha
     const [captchaValido, setCaptachaValido] = useState(null)
@@ -37,12 +41,15 @@ const UpdatePasswordScreen = () => {
     }
 
     const [formData, setFormValues] = useState({
-        updatepassword: '',
-        updatepassword2: '',
-        updatepassword3: '',
+        contrasena_anterior: '',
+        contrasena_nueva: '',
+        contrasena_nueva2: '',
+        email: '',
     })
 
     const [formSent, setFormSent] = useState(false)
+
+    const [error, setError] = useState('')
 
 
     const handleChange = (evento) => {
@@ -55,18 +62,28 @@ const UpdatePasswordScreen = () => {
         })
     }
 
-    const submitForm = () => {
-       UpdatePassConfirm(formData).then( response => {
-            if(captchaValido){
-                console.log(response)
-            }else{
-                setCaptachaValido(false)
-            }
-        })
-        setFormValues(cleanFormData)
-        setFormSent(true)
+    const submitForm = async() => {
+        if(formData.updatepassword2 !== formData.updatepassword3){
+            setError('Las Contraseñas no coiniciden, escribir nuevamente')
+        }else if(captchaValido){
+            await UpdatePassConfirm(formData).then( response => {
+                if(response){
+                    if(response.status === 200){
+                        console.log(response)
+                        
+                    }else {
+                        
+                        setError(response.data.detail)
+                    }
+                }
+                
+            })
+            setFormValues(cleanFormData)
+            setFormSent(true)
+        }else{
+            setCaptachaValido(false)
+        }
     }
-
     if (formSent) {
         return (
             <ContainerCardCenter>
@@ -77,9 +94,9 @@ const UpdatePasswordScreen = () => {
                     Tome nota de su nueva contraseña y guardela en un lugar seguro.
                 </Typography>
                 <Typography variant='body1'>
-                    <Link to='/login' className='link'>
+                    <Button component={Link} to='/login' variant='contained'>
                         Regresar al inicio
-                    </Link>
+                    </Button>
                 </Typography>
             </ContainerCardCenter>
         )
@@ -87,70 +104,83 @@ const UpdatePasswordScreen = () => {
         return (
             <>
             <ContainerCardCenter>
-                        <Typography variant='h5' sx={commonSX.title}>
-                            Actualizar mi contraseña
-                        </Typography>
-                        <form onSubmit={(e) => e.preventDefault()}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        label="Contraseña actual"
-                                        type="password"
-                                        fullWidth
-                                        name='password'
-                                        onChange={handleChange}
-                                        placeholder="Escribir contraseña que tiene actualmente"
-                                        value={formData.updatepassword}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        label="Nueva contraseña"
-                                        type="password"
-                                        fullWidth
-                                        name='password2'
-                                        onChange={handleChange}
-                                        placeholder="Escribir una nueva contraseña"
-                                        value={formData.updatepassword2}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        label="Confirmar nueva contraseña"
-                                        type="password"
-                                        fullWidth
-                                        name='password2'
-                                        onChange={handleChange}
-                                        placeholder="Confirmar su nueva contraseña"
-                                        value={formData.updatepassword3}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
+                <Typography variant='h5' sx={commonSX.title}>
+                    Actualizar mi contraseña
+                </Typography>
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Correo electrónico"
+                                name='email'
+                                placeholder="Escribe tu correo electrónico"
+                                type="text"
+                                onChange={handleChange}
+                                value={formData.email}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Contraseña actual"
+                                name='contrasena_anterior'
+                                placeholder="Escribir contraseña que tiene actualmente"
+                                type="password"
+                                onChange={handleChange}
+                                value={formData.contrasena_anterior}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Nueva contraseña"
+                                type="password"
+                                fullWidth
+                                name='contrasena_nueva'
+                                placeholder="Escribir una nueva contraseña"
+                                onChange={handleChange}
+                                value={formData.contrasena_nueva}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Confirmar nueva contraseña"
+                                type="password"
+                                fullWidth
+                                name='contrasena_nueva2'
+                                placeholder="Confirmar su nueva contraseña"
+                                onChange={handleChange}
+                                value={formData.contrasena_nueva2}
+                            />
+                        </Grid>
+                        {
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
+                        }
+                        <Grid item xs={12}>
 
-                                    <Typography component={'span'} variant={'body2'}>
-                                        <ReCAPTCHA
-                                            ref={captcha}
-                                            sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
-                                            onChange={onChangeCaptcha}
-                                        />
-                                        { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
-                                    </Typography>
+                            <Typography component={'span'} variant={'body2'}>
+                                <ReCAPTCHA
+                                    ref={captcha}
+                                    sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
+                                    onChange={onChangeCaptcha}
+                                />
+                                { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
+                            </Typography>
 
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Button
-                                        variant='contained'
-                                        fullWidth
-                                        type='submit'
-                                        onClick={submitForm}
-                                    >
-                                        Actualizar mi contraseña
-                                    </Button>
-                                </Grid>
-                            
-                            </Grid>
-                        </form>
-                    </ContainerCardCenter>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                variant='contained'
+                                fullWidth
+                                type='submit'
+                                onClick={submitForm}
+                            >
+                                Actualizar mi contraseña
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </ContainerCardCenter>
             </>
         )
     }

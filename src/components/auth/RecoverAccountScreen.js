@@ -73,9 +73,9 @@ const RecoverAccountScreen = () => {
                     Dentro de poco recibira un mensaje en su correo electronico.
                 </Typography>
                 <Typography variant='body1'>
-                    <Link to='/' className='link'>
+                    <Button component={Link} to='/' variant='contained'>
                         Regresar al inicio
-                    </Link>
+                    </Button >
                 </Typography>
             </ContainerCardCenter>
         )
