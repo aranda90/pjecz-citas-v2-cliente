@@ -66,62 +66,35 @@ const LoginScreen = () => {
 
     // Enviar el formulario
     //const navigate = useNavigate()
-    const submitForm = async () => {
+    const submitForm = () => {
         if(captchaValido){
-            // await LogIn(formData).then( async ( response ) => {
-            //     if (response.status === 200) {
+            LogIn(formData).then( async ( response ) => {
+                if (response.status === 200) {
                     
-            //         const { data } = response     
+                    const { data } = response     
 
-            //         if( data.access_token ){
+                    if( data.access_token ){
 
-            //             window.localStorage.setItem('token', data.access_token) // Guardar el token
+                        window.localStorage.setItem('token', data.access_token) // Guardar el token
                         
-            //             const responseProfile = await Profile()
+                        const responseProfile = await Profile()
             
-            //             dispatch({
-            //                 type: types.SET_LOG_IN_CIT_CLIENTE,
-            //                 payload: {
-            //                     token: data.access_token,
-            //                     isAuthenticated: true,
-            //                     username: responseProfile.status === 200 ? responseProfile.data.username : ''
-            //                 }
-            //             });    
-            //         }           
+                        dispatch({
+                            type: types.SET_LOG_IN_CIT_CLIENTE,
+                            payload: {
+                                token: data.access_token,
+                                isAuthenticated: true,
+                                username: responseProfile.status === 200 ? responseProfile.data.username : ''
+                            }
+                        });    
+                    }           
 
-            //     } else {
-            //         setErrorMessage(response.data.detail)
-            //     }
-            // })
-            // setIsError(true)
-            // setFormValues(cleanFormData)
-
-            const response = await LogIn(formData);
-
-            if (response.status === 200) {
-                
-                const { data } = response     
-
-                if( data.access_token ){
-
-                    window.localStorage.setItem('token', data.access_token) // Guardar el token
-                    
-                    const responseProfile = await Profile()
-        
-                    dispatch({
-                        type: types.SET_LOG_IN_CIT_CLIENTE,
-                        payload: {
-                            token: data.access_token,
-                            isAuthenticated: true,
-                            username: responseProfile.status === 200 ? responseProfile.data.username : ''
-                        }
-                    });    
-                }           
-
-            } else {
-                setErrorMessage(response.data.detail)
-            }
-
+                } else {
+                    setIsError(true)
+                    setErrorMessage(response.data.detail)
+                }
+            })
+            setFormValues(cleanFormData)
         }
         else{
             setCaptchaValido(false)
@@ -161,7 +134,7 @@ const LoginScreen = () => {
                 <Typography variant='h5' sx={commonSX.title}>
                     Ingresar al Sistema de Citas
                 </Typography>
-                <div >
+                <form onSubmit={(e) => e.preventDefault()}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -197,6 +170,7 @@ const LoginScreen = () => {
                             <Button
                                 variant='contained'
                                 fullWidth
+                                type='submit'
                                 onClick={submitForm}
                             >
                                 Ingresar
@@ -217,7 +191,7 @@ const LoginScreen = () => {
                             </Typography>
                         </Grid>
                     </Grid>
-                </div>
+                </form>
             </ContainerCardCenter>
         )
     }
