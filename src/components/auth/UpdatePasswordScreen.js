@@ -63,7 +63,7 @@ const UpdatePasswordScreen = () => {
     }
 
     const submitForm = async() => {
-        if(formData.updatepassword2 !== formData.updatepassword3){
+        if(formData.contrasena_nueva !== formData.contrasena_nueva2){
             setError('Las Contraseñas no coiniciden, escribir nuevamente')
         }else if(captchaValido){
             await UpdatePassConfirm(formData).then( response => {

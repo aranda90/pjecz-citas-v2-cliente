@@ -90,11 +90,11 @@ const LoginScreen = () => {
                     }           
 
                 } else {
-                    setIsError(true)
                     setErrorMessage(response.data.detail)
                 }
             })
             setFormValues(cleanFormData)
+            setIsError(true)
         }
         else{
             setCaptchaValido(false)

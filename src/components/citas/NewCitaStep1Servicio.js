@@ -99,75 +99,14 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                         <Grid item xs={12}>
                             <TextField
                                 id="indicaciones_tramite"
-                                label="Indicaciones del tramite"
+                                label="Indicaciones del tramite y agregar expedientes si se requiere"
                                 name="indicaciones_tramite"
                                 value={notas}
                                 onChange={(e) => {setNotas(e.target.value)}}
                                 multiline
                                 rows={4}
-                                placeholder="Favor de dar indicaciones del tramite"
+                                placeholder="Favor de dar indicaciones del tramite y agregar expedientes si se requiere"
                                 style={{ width: '100%' }}
-                            />
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item md={1} xs={12}></Grid>
-                    <Grid item md={5} xs={12}>
-                        
-                        <Grid item xs={12}>
-                            <Typography sx={{ fontWeight: 500 }}>
-                                Expedientes / Folios
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="outlined-textarea"
-                                label="Expediente Ej. F350/2022"
-                                placeholder="Expedientes"
-                                name='expediente_uno'
-                                variant='standard'
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="outlined-textarea"
-                                label="Expediente Ej. E250/2022"
-                                placeholder="Expedientes"
-                                name='expediente_dos'
-                                variant='standard'
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="outlined-textarea"
-                                label="Expediente Ej. F50/2022"
-                                placeholder="Expedientes"
-                                name='expediente_tres'
-                                variant='standard'
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="outlined-textarea"
-                                label="Expediente Ej. E70/2022"
-                                placeholder="Expedientes"
-                                name='expediente_cuatro'
-                                variant='standard'
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="outlined-textarea"
-                                label="Expediente Ej. F30/2022"
-                                placeholder="Expedientes"
-                                name='expediente_cinco'
-                                variant='standard'
                             />
                         </Grid>
                     </Grid>

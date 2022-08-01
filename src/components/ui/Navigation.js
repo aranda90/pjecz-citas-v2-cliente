@@ -32,6 +32,7 @@ const Navigation = () => {
                         </Typography>
                     </Link>
                     <MenuIcon sx={navigationSX.menuIconDesktop} />
+                    <img src='../assets/imges/logo.png' alt='' style={{aling:'center'}} />
                     <Link to='/' className='app-bar-desktop-link'>
                         <Typography variant='h5' noWrap sx={navigationSX.systemNameDesktop}>
                             Sistema de Citas
