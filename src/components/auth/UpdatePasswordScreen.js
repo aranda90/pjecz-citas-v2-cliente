@@ -74,12 +74,12 @@ const UpdatePasswordScreen = () => {
                     }else {
                         
                         setError(response.data.detail)
+                        setFormSent(true)
                     }
                 }
                 
             })
             setFormValues(cleanFormData)
-            setFormSent(true)
         }else{
             setCaptachaValido(false)
         }
