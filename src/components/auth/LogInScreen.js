@@ -67,15 +67,14 @@ const LoginScreen = () => {
         if(captchaValido){
             LogIn(formData).then( async ( response ) => {
                 if (response.status === 200) {
-                    
                     const { data } = response     
-
+                    
                     if( data.access_token ){
-
+                        
                         window.localStorage.setItem('token', data.access_token) // Guardar el token
                         
                         const responseProfile = await Profile()
-            
+                        
                         dispatch({
                             type: types.SET_LOG_IN_CIT_CLIENTE,
                             payload: {
@@ -85,12 +84,12 @@ const LoginScreen = () => {
                             }
                         });    
                     }           
-
+                    
                 } else {
-                    setIsError(true)
                     setErrorMessage(response.data.detail)
                 }
             })
+            setIsError(true)
             setFormValues(cleanFormData)
         }
         else{
@@ -116,7 +115,7 @@ const LoginScreen = () => {
                     <Typography variant='body1' gutterBottom>
                         {errorMessage}
                     </Typography>
-                    <Button color='primary' variant='contained' component={Link} to='/login'>
+                    <Button color='primary' variant='contained' component={Link} to='/'>
                         Volver a ingresar
                     </Button>
                 </ContainerCardCenter>

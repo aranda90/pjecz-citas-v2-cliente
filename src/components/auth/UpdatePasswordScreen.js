@@ -172,7 +172,6 @@ const UpdatePasswordScreen = () => {
                             <Button
                                 variant='contained'
                                 fullWidth
-                                type='submit'
                                 onClick={submitForm}
                             >
                                 Actualizar mi contraseña
