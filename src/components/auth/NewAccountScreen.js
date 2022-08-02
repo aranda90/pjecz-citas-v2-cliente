@@ -34,9 +34,6 @@ const NewAccountScreen = () => {
     const onChangeCaptcha = () => {
         if(captcha.current.getValue()){
             setCaptachaValido(true)
-            console.log("google regreso un token y no es un robot")
-        }else{
-            console.log("Detectado como robot")
         }
     }
 
@@ -108,7 +105,7 @@ const NewAccountScreen = () => {
                 </Typography>
                 <Typography variant='body1'>
                     <Button component={Link} to='/' variant='contained'>
-                        Regresar al inicio
+                        Volver a ingresar
                     </Button>
                 </Typography>
             </ContainerCardCenter>    

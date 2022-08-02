@@ -29,9 +29,6 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
     const onChangeCaptcha = () => {
         if(captcha.current.getValue()){
             setCaptachaValido(true)
-            console.log("google regreso un token y no es un robot")
-        }else{
-            console.log("Detectado como robot")
         }
     }
 

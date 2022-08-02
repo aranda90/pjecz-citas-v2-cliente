@@ -31,9 +31,6 @@ const NewAccountConfirmScreen = () => {
     const onChangeCaptcha = () => {
         if(captcha.current.getValue()){
             setCaptachaValido(true)
-            console.log("google regreso un token y no es un robot")
-        }else{
-            console.log("Detectado como robot")
         }
     }
 
@@ -111,10 +108,13 @@ const NewAccountConfirmScreen = () => {
                     Validar mi correo electronico y definir mi contraseña
                 </Typography>
                 <form onSubmit={(e) => e.preventDefault()}>
+                    <Grid item xs={12}>
+                        <span style={{color:'#8B1818', fontSize:14}}>La contraseña debe tener de 8 a 24 caracteres, comenzando con una letra y contener por lo menos una mayúscula y un número</span>
+                    </Grid>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Crear Contrasena"
+                                label="Crear Contraseña"
                                 type="password"
                                 fullWidth
                                 name='password'
@@ -124,7 +124,7 @@ const NewAccountConfirmScreen = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Confirmar Contrasena"
+                                label="Confirmar Contraseña"
                                 type="password"
                                 fullWidth
                                 name='password2'

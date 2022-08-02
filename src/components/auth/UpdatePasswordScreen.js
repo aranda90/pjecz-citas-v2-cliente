@@ -34,9 +34,6 @@ const UpdatePasswordScreen = () => {
     const onChangeCaptcha = () => {
         if(captcha.current.getValue()){
             setCaptachaValido(true)
-            console.log("google regreso un token y no es un robot")
-        }else{
-            console.log("Detectado como robot")
         }
     }
 
@@ -74,11 +71,11 @@ const UpdatePasswordScreen = () => {
                     }else {
                         
                         setError(response.data.detail)
-                        setFormSent(true)
                     }
                 }
                 
             })
+            setFormSent(true)
             setFormValues(cleanFormData)
         }else{
             setCaptachaValido(false)
@@ -95,7 +92,7 @@ const UpdatePasswordScreen = () => {
                 </Typography>
                 <Typography variant='body1'>
                     <Button component={Link} to='/login' variant='contained'>
-                        Regresar al inicio
+                        Volver a ingresar
                     </Button>
                 </Typography>
             </ContainerCardCenter>
@@ -125,11 +122,14 @@ const UpdatePasswordScreen = () => {
                                 fullWidth
                                 label="Contraseña actual"
                                 name='contrasena_anterior'
-                                placeholder="Escribir contraseña que tiene actualmente"
+                                placeholder="Escribir contraseña que usa actualmente"
                                 type="password"
                                 onChange={handleChange}
                                 value={formData.contrasena_anterior}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <span style={{color:'#8B1818', fontSize:14}}>La contraseña debe tener de 8 a 24 caracteres, comenzando con una letra y contener por lo menos una mayúscula y un número</span>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -137,7 +137,7 @@ const UpdatePasswordScreen = () => {
                                 type="password"
                                 fullWidth
                                 name='contrasena_nueva'
-                                placeholder="Escribir una nueva contraseña"
+                                placeholder="Escribir una nueva contraseña "
                                 onChange={handleChange}
                                 value={formData.contrasena_nueva}
                             />
@@ -172,7 +172,6 @@ const UpdatePasswordScreen = () => {
                             <Button
                                 variant='contained'
                                 fullWidth
-                                type='submit'
                                 onClick={submitForm}
                             >
                                 Actualizar mi contraseña

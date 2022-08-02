@@ -38,10 +38,7 @@ const LoginScreen = () => {
     const onchange = () => {
         if (captcha.current.getValue()) {
             setCaptchaValido(true)
-            console.log("google regreso un token y no es un robot")
-        } else {
-            console.log("Detectado como robot")
-        }
+        } 
     }
 
     // Obtener el contexto del cliente
@@ -70,15 +67,14 @@ const LoginScreen = () => {
         if(captchaValido){
             LogIn(formData).then( async ( response ) => {
                 if (response.status === 200) {
-                    
                     const { data } = response     
-
+                    
                     if( data.access_token ){
-
+                        
                         window.localStorage.setItem('token', data.access_token) // Guardar el token
                         
                         const responseProfile = await Profile()
-            
+                        
                         dispatch({
                             type: types.SET_LOG_IN_CIT_CLIENTE,
                             payload: {
@@ -88,12 +84,12 @@ const LoginScreen = () => {
                             }
                         });    
                     }           
-
+                    
                 } else {
-                    setIsError(true)
                     setErrorMessage(response.data.detail)
                 }
             })
+            setIsError(true)
             setFormValues(cleanFormData)
         }
         else{
@@ -111,22 +107,28 @@ const LoginScreen = () => {
         )
     } else if (isError) {
         return (
-            <ContainerCardCenter>
+            <>
+                <ContainerCardCenter>
+                    <Typography variant='h5' sx={commonSX.title}>
+                        Error al tratar de ingresar
+                    </Typography>
+                    <Typography variant='body1' gutterBottom>
+                        {errorMessage}
+                    </Typography>
+                    <Button color='primary' variant='contained' component={Link} to='/'>
+                        Volver a ingresar
+                    </Button>
+                </ContainerCardCenter>
+
+                <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Error al tratar de ingresar
-                </Typography>
-                <Typography variant='body1' gutterBottom>
-                    {errorMessage}
-                </Typography>
-                <br/>
-                <Divider orientation='horizontal' flexItem sx={{mb:3}} />
-                <Typography variant='body2' sx={{mb:2, fontSize:12}}>
-                    Actualizar contraseña en caso de que ya haya usado nuestro anterior sistema.
+                    Si su contraseña es de la versión anterior debe actualizarla
                 </Typography>
                 <Button color='primary' variant='contained' component={Link} to='/update'>
                     Actualizar Contraseña
                 </Button>
-            </ContainerCardCenter>
+                </ContainerCardCenter>
+            </>
         )
     } else {
         return (
@@ -145,6 +147,9 @@ const LoginScreen = () => {
                                 value={formData.username}
                                 onChange={handleChange}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <span style={{color:'#8B1818', fontSize:14}}>La contraseña debe tener de 8 a 24 caracteres, comenzando con una letra y contener por lo menos una mayúscula y un número</span>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField

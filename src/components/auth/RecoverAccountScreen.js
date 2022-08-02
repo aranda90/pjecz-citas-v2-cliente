@@ -27,9 +27,6 @@ const RecoverAccountScreen = () => {
        const onChangeCaptcha = () => {
            if(captcha.current.getValue()){
                setCaptachaValido(true)
-               console.log("google regreso un token y no es un robot")
-           }else{
-               console.log("Detectado como robot")
            }
        }
 
@@ -74,7 +71,7 @@ const RecoverAccountScreen = () => {
                 </Typography>
                 <Typography variant='body1'>
                     <Button component={Link} to='/' variant='contained'>
-                        Regresar al inicio
+                        Volver a ingresar
                     </Button >
                 </Typography>
             </ContainerCardCenter>
@@ -96,6 +93,9 @@ const RecoverAccountScreen = () => {
                                 onChange={handleChange}
                                 value={formData.email}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <span style={{color:'#8B1818', fontSize:14}}>La contraseña debe tener de 8 a 24 caracteres, comenzando con una letra y contener por lo menos una mayúscula y un número</span>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
