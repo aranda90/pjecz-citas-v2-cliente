@@ -36,6 +36,9 @@ const RecoverAccountScreen = () => {
     })
     const [formSent, setFormSent] = useState(false)
 
+    const [error, setError] = useState('')
+
+
     const handleChange = (evento) => {
         const { name, value } = evento.target
         
@@ -48,16 +51,23 @@ const RecoverAccountScreen = () => {
         
     }
 
-    const submitForm = () => {
-        RecoverAccount(formData).then( response => {
-            if(captchaValido){
-                console.log(response)
-            }else{
-                setCaptachaValido(false)
-            }
-        })
-        setFormValues(cleanFormData)
-        setFormSent(true)
+    const submitForm = async () => {
+        if(captchaValido){
+            await RecoverAccount(formData).then( response => {
+                if(response){
+                    if(response.status === 200){
+                        console.log(response)
+                        setFormSent(true)
+                    }
+                    if(response.status === 406){
+                        setError(response.data.detail)
+                    }
+                } 
+            })
+            setFormValues(cleanFormData)
+        }else{
+            setCaptachaValido(false)
+        }
     }
 
     if (formSent) {
@@ -95,9 +105,6 @@ const RecoverAccountScreen = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <span style={{color:'#8B1818', fontSize:14}}>La contraseña debe tener de 8 a 24 caracteres, comenzando con una letra y contener por lo menos una mayúscula y un número</span>
-                        </Grid>
-                        <Grid item xs={12}>
                             <TextField
                                 label="Correo electronico"
                                 type="email"
@@ -107,6 +114,9 @@ const RecoverAccountScreen = () => {
                                 value={formData.email2}
                             />
                         </Grid>
+                        {
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
+                        }
                         <Grid item xs={12}>
 
                             <Typography component={'span'} variant={'body2'}>

@@ -43,6 +43,9 @@ const RecoverAccountConfirmScreen = () => {
     })
     const [formSent, setFormSent] = useState(false)
 
+    const [error, setError] = useState('')
+
+
     const handleChange = (evento) => {
         const { name, value } = evento.target
         setFormValues((prevState) => {
@@ -53,16 +56,23 @@ const RecoverAccountConfirmScreen = () => {
         })
     }
 
-    const submitForm = () => {
-        RecoverAccountConfirm(formData).then( response => {
-            if(captchaValido){
-                console.log(response)
-            }else{
-                setCaptachaValido(false)
-            }
-        })
-        setFormValues(cleanFormData)
-        setFormSent(true)
+    const submitForm = async () => {
+        if(captchaValido){
+            await RecoverAccountConfirm(formData).then( response => {
+                if(response){
+                    if(response.status === 200){
+                        console.log(response)
+                        setFormSent(true)
+                    }
+                    if(response.status === 406){
+                        setError(response.data.detail)
+                    }
+                }
+            })
+            setFormValues(cleanFormData)
+        }else{
+            setCaptachaValido(false)
+        }
     }
 
     if (formSent) {
@@ -112,6 +122,9 @@ const RecoverAccountConfirmScreen = () => {
                                 value={formData.password2}
                             />
                         </Grid>
+                        {
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
+                        }
                         <Grid item xs={12}>
 
                             <Typography component={'span'} variant={'body2'}>

@@ -68,6 +68,7 @@ const UpdatePasswordScreen = () => {
                     if(response.status === 200){
                         console.log(response)
                         
+                        setFormSent(true)
                     }else {
                         
                         setError(response.data.detail)
@@ -75,7 +76,6 @@ const UpdatePasswordScreen = () => {
                 }
                 
             })
-            setFormSent(true)
             setFormValues(cleanFormData)
         }else{
             setCaptachaValido(false)
