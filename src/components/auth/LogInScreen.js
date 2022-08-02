@@ -116,7 +116,7 @@ const LoginScreen = () => {
                     <Typography variant='body1' gutterBottom>
                         {errorMessage}
                     </Typography>
-                    <Button color='primary' variant='contained' component={Link} to='/update'>
+                    <Button color='primary' variant='contained' component={Link} to='/login'>
                         Volver a ingresar
                     </Button>
                 </ContainerCardCenter>
