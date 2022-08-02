@@ -86,7 +86,7 @@ const LoginScreen = () => {
                     }           
                     
                 } else {
-                    setErrorMessage(response.data.detail)
+                    setErrorMessage(response.detail)
                 }
             })
             setIsError(true)
@@ -115,7 +115,7 @@ const LoginScreen = () => {
                     <Typography variant='body1' gutterBottom>
                         {errorMessage}
                     </Typography>
-                    <Button color='primary' variant='contained' component={Link} to='/'>
+                    <Button color='primary' variant='contained' component={Link}  to='/'>
                         Volver a ingresar
                     </Button>
                 </ContainerCardCenter>
