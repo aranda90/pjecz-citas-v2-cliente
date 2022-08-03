@@ -21,7 +21,7 @@ const navigationSX = {
         textDecoration: 'none',
     },
     pagesBoxDesktop: {
-        display: { xs: 'none', md: 'flex' },
+        display: { xs: 'flex', md: 'flex' },
         flexGrow: 1
     },
     pagesButtonDesktop: {
