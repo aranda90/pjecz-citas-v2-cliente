@@ -122,9 +122,6 @@ const RecoverAccountConfirmScreen = () => {
                                 value={formData.password2}
                             />
                         </Grid>
-                        {
-                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
-                        }
                         <Grid item xs={12}>
 
                             <Typography component={'span'} variant={'body2'}>
@@ -132,11 +129,14 @@ const RecoverAccountConfirmScreen = () => {
                                     ref={captcha}
                                     sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
                                     onChange={onChangeCaptcha}
-                                />
+                                    />
                                 { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
                             </Typography>
 
                         </Grid>
+                        {
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{error}</span> : null
+                        }
                         <Grid item xs={12}>
                             <Button
                                 variant='contained'

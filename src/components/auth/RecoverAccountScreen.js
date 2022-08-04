@@ -74,10 +74,10 @@ const RecoverAccountScreen = () => {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Se ha enviado su solicitud de recuperacion
+                    Se ha enviado tu solicitud de recuperación
                 </Typography>
                 <Typography variant='body1'>
-                    Dentro de poco recibira un mensaje en su correo electronico.
+                    Dentro de poco recibiras un correo electrónico.
                 </Typography>
                 <Typography variant='body1'>
                     <Button component={Link} to='/' variant='contained'>
@@ -90,13 +90,13 @@ const RecoverAccountScreen = () => {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Recuperar mi contrasena
+                    Recuperar mi contraseña
                 </Typography>
                 <form onSubmit={(e) => e.preventDefault()}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Correo electronico"
+                                label="Correo electrónico"
                                 type="email"
                                 fullWidth
                                 name='email'
@@ -106,7 +106,7 @@ const RecoverAccountScreen = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Correo electronico"
+                                label="Correo electrónico"
                                 type="email"
                                 fullWidth
                                 name='email2'
@@ -114,9 +114,6 @@ const RecoverAccountScreen = () => {
                                 value={formData.email2}
                             />
                         </Grid>
-                        {
-                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
-                        }
                         <Grid item xs={12}>
 
                             <Typography component={'span'} variant={'body2'}>
@@ -124,11 +121,14 @@ const RecoverAccountScreen = () => {
                                     ref={captcha}
                                     sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
                                     onChange={onChangeCaptcha}
-                                />
+                                    />
                                 { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
                             </Typography>
 
                         </Grid>
+                        {
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{error}</span> : null
+                        }
                         <Grid item xs={12}>
                             <Button
                                 variant='contained'

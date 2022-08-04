@@ -95,7 +95,7 @@ const ProfileScreen = () => {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            label="Correo electronico"
+                            label="Correo electrónico"
                             type="text"
                             fullWidth
                             aria-readonly

@@ -86,11 +86,11 @@ const LoginScreen = () => {
                     }           
                     
                 } else {
-                    setErrorMessage(response.detail)
+                    setErrorMessage(response.data.detail)
                 }
             })
-            setIsError(true)
             setFormValues(cleanFormData)
+            setIsError(true)
         }
         else{
             setCaptchaValido(false)
@@ -115,19 +115,19 @@ const LoginScreen = () => {
                     <Typography variant='body1' gutterBottom>
                         {errorMessage}
                     </Typography>
-                    <Button color='primary' variant='contained' component={Link}  to='/'>
+                    <Button color='primary' variant='contained' onClick={() => window.location.reload()}>
                         Volver a ingresar
                     </Button>
                 </ContainerCardCenter>
 
-                <ContainerCardCenter>
-                <Typography variant='h5' sx={commonSX.title}>
-                    Si su contraseña es de la versión anterior debe actualizarla
-                </Typography>
-                <Button color='primary' variant='contained' component={Link} to='/update'>
-                    Actualizar Contraseña
-                </Button>
-                </ContainerCardCenter>
+                {/* <ContainerCardCenter>
+                    <Typography variant='h5' sx={commonSX.title}>
+                        Si su contraseña es de la versión anterior debe actualizarla
+                    </Typography>
+                    <Button color='primary' variant='contained' component={Link} to='/update'>
+                        Actualizar Contraseña
+                    </Button>
+                </ContainerCardCenter> */}
             </>
         )
     } else {
@@ -140,7 +140,7 @@ const LoginScreen = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Correo electronico"
+                                label="Correo electrónico"
                                 type="email"
                                 fullWidth
                                 name="username"
@@ -184,7 +184,7 @@ const LoginScreen = () => {
                         <Grid item xs={12}>
                             <Typography variant='body1'>
                                 <Link to='/recover_account' className='link'>
-                                    Olvide mi contrasena
+                                    Olvide mi contraseña
                                 </Link>
                             </Typography>
                         </Grid>

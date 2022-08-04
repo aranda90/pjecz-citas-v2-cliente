@@ -75,16 +75,16 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <FormControl fullWidth>
-                                    <InputLabel id="servicio">Tipo de tramite</InputLabel>
+                                    <InputLabel id="servicio">Tipo de trámite</InputLabel>
                                     <Select
                                         id="servicio"
                                         labelId="servicio"
-                                        label="Tipo de tramite"
+                                        label="Tipo de trámite"
                                         name="servicio"
                                         value={servicio}
                                         onChange={(e) => { handleChangeServicio(e) }}
                                     >
-                                        <MenuItem key={0} value={0}>Seleccionar una opción</MenuItem>
+                                        <MenuItem key={0} value={0}>Selecciona una opción</MenuItem>
                                         {servicios.map((servicio) =>
                                             <MenuItem key={servicio.cit_servicio_id} value={servicio.cit_servicio_id}>
                                                 {servicio.cit_servicio_descripcion}
@@ -99,13 +99,13 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                         <Grid item xs={12}>
                             <TextField
                                 id="indicaciones_tramite"
-                                label="Indicaciones del tramite y agregar expedientes si se requiere"
+                                label="Indicaciones del trámite y agregar expedientes si se requiere"
                                 name="indicaciones_tramite"
                                 value={notas}
                                 onChange={(e) => {setNotas(e.target.value)}}
                                 multiline
                                 rows={4}
-                                placeholder="Favor de dar indicaciones del tramite y agregar expedientes si se requiere"
+                                placeholder="Favor de dar indicaciones del trámite y agregar expedientes si se requiere"
                                 style={{ width: '100%' }}
                             />
                         </Grid>

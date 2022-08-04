@@ -69,7 +69,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
     return (
         <>
             <Typography variant='h5' align='center' sx={{ mt:6, mb:4, fontFamily:'serif' }}>
-                <b>Resumen de su cita</b> 
+                <b>Revise que tu información sea correcta</b> 
             </Typography>
             <Grid container align='justify'>
                 <Grid item sm={3} xs={12}></Grid>
