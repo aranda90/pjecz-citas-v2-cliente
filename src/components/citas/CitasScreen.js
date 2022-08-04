@@ -33,6 +33,7 @@ export const CitasScreen = () => {
                 username: responseProfile.status === 200 ? responseProfile.data.username : ''
             }
         });    
+        window.localStorage.clear();
 
     }
     

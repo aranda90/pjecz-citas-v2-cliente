@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export const InicioScreen = () => {
     const { isAuthenticated } = useSelector( state => state.auth );
-
+    window.localStorage.clear();
   return (
     <>
         <Grid container sx={{mt:15, mb:'auto', display:'flex', flexDirection:'row'}}>

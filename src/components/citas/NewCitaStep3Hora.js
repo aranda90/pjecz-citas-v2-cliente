@@ -54,6 +54,9 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     }else{
                           setCaptachaValido(false)
                     }
+                }else if(response.status === 401){                
+                    window.localStorage.clear();
+                    dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
                 }
                 
             }

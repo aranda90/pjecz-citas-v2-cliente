@@ -68,14 +68,17 @@ const NewAccountConfirmScreen = () => {
                         
                         if( response.status === 200){
                             console.log(response)
+                            setFormSent(true)
+                        
+                        }else{
+
+                            setError(response.data.detail)
                         }
                        
-                        setError('La contraseña no es correcta')
                     }
                 
                 })
                 setFormValues(cleanFormData)
-                setFormSent(true)
 
         }else{
             setCaptachaValido(false)

@@ -49,7 +49,7 @@ const LoginScreen = () => {
         username: '',
         password: '',
     })
-    const [isError, setIsError] = useState(false)
+    //const [isError, setIsError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -90,7 +90,7 @@ const LoginScreen = () => {
                 }
             })
             setFormValues(cleanFormData)
-            setIsError(true)
+            //setIsError(true)
         }
         else{
             setCaptchaValido(false)
@@ -104,31 +104,6 @@ const LoginScreen = () => {
                     Bienvenido { username }
                 </Typography>
             </ContainerCardCenter>
-        )
-    } else if (isError) {
-        return (
-            <>
-                <ContainerCardCenter>
-                    <Typography variant='h5' sx={commonSX.title}>
-                        Error al tratar de ingresar
-                    </Typography>
-                    <Typography variant='body1' gutterBottom>
-                        {errorMessage}
-                    </Typography>
-                    <Button color='primary' variant='contained' onClick={() => window.location.reload()}>
-                        Volver a ingresar
-                    </Button>
-                </ContainerCardCenter>
-
-                {/* <ContainerCardCenter>
-                    <Typography variant='h5' sx={commonSX.title}>
-                        Si su contraseña es de la versión anterior debe actualizarla
-                    </Typography>
-                    <Button color='primary' variant='contained' component={Link} to='/update'>
-                        Actualizar Contraseña
-                    </Button>
-                </ContainerCardCenter> */}
-            </>
         )
     } else {
         return (
@@ -171,6 +146,9 @@ const LoginScreen = () => {
                                 { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
                             </Typography>
                         </Grid>
+                        {
+                            errorMessage ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{errorMessage}</span> : null
+                        }
                         <Grid item xs={12}>
                             <Button
                                 variant='contained'
