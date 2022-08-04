@@ -98,10 +98,10 @@ const NewAccountScreen = () => {
         return (  
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Se ha enviado su solicitud para crear una cuenta
+                    Se ha enviado tu solicitud para crear una cuenta
                 </Typography>
                 <Typography variant='body1'>
-                    Dentro de poco recibira un mensaje en su correo electronico.
+                    Dentro de poco recibiras un correo electrónico.
                 </Typography>
                 <Typography variant='body1'>
                     <Button component={Link} to='/' variant='contained'>
@@ -245,7 +245,7 @@ const NewAccountScreen = () => {
                             </Typography>
                         </Grid>
                         {
-                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px' }}>{error}</span> : null
+                            error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{error}</span> : null
                         }
                         <Grid item md={12} xs={12}>
                             <Button

@@ -63,7 +63,7 @@ const NewCitaScreen = () => {
                     <StepLabel>Distrito y Oficinas</StepLabel>
                 </Step>
                 <Step>
-                    <StepLabel>Tipo de tramite</StepLabel>
+                    <StepLabel>Tipo de trámite</StepLabel>
                 </Step>
                 <Step>
                     <StepLabel>Fecha y Hora</StepLabel>

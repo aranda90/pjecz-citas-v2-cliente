@@ -49,7 +49,7 @@ const LoginScreen = () => {
         username: '',
         password: '',
     })
-    const [isError, setIsError] = useState(false)
+    //const [isError, setIsError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -86,11 +86,13 @@ const LoginScreen = () => {
                     }           
                     
                 } else {
-                    setErrorMessage(response.detail)
+                    setErrorMessage(response.data.detail)
+                    window.localStorage.clear();
+
                 }
             })
-            setIsError(true)
             setFormValues(cleanFormData)
+            //setIsError(true)
         }
         else{
             setCaptchaValido(false)
@@ -105,31 +107,6 @@ const LoginScreen = () => {
                 </Typography>
             </ContainerCardCenter>
         )
-    } else if (isError) {
-        return (
-            <>
-                <ContainerCardCenter>
-                    <Typography variant='h5' sx={commonSX.title}>
-                        Error al tratar de ingresar
-                    </Typography>
-                    <Typography variant='body1' gutterBottom>
-                        {errorMessage}
-                    </Typography>
-                    <Button color='primary' variant='contained' component={Link}  to='/'>
-                        Volver a ingresar
-                    </Button>
-                </ContainerCardCenter>
-
-                <ContainerCardCenter>
-                <Typography variant='h5' sx={commonSX.title}>
-                    Si su contraseña es de la versión anterior debe actualizarla
-                </Typography>
-                <Button color='primary' variant='contained' component={Link} to='/update'>
-                    Actualizar Contraseña
-                </Button>
-                </ContainerCardCenter>
-            </>
-        )
     } else {
         return (
             <ContainerCardCenter sx={{mb:15}}>
@@ -140,10 +117,11 @@ const LoginScreen = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
-                                label="Correo electronico"
+                                label="Correo electrónico"
                                 type="email"
                                 fullWidth
                                 name="username"
+                                placeholder='Escribe tu correo electrónico'
                                 value={formData.username}
                                 onChange={handleChange}
                             />
@@ -157,6 +135,7 @@ const LoginScreen = () => {
                                 type="password"
                                 fullWidth
                                 name="password"
+                                placeholder='Escribe tu contraseña'
                                 value={formData.password}
                                 onChange={handleChange}
                             />
@@ -171,6 +150,9 @@ const LoginScreen = () => {
                                 { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
                             </Typography>
                         </Grid>
+                        {
+                            errorMessage ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{errorMessage}</span> : null
+                        }
                         <Grid item xs={12}>
                             <Button
                                 variant='contained'
@@ -184,7 +166,7 @@ const LoginScreen = () => {
                         <Grid item xs={12}>
                             <Typography variant='body1'>
                                 <Link to='/recover_account' className='link'>
-                                    Olvide mi contrasena
+                                    Olvide mi contraseña
                                 </Link>
                             </Typography>
                         </Grid>

@@ -68,14 +68,17 @@ const NewAccountConfirmScreen = () => {
                         
                         if( response.status === 200){
                             console.log(response)
+                            setFormSent(true)
+                        
+                        }else{
+
+                            setError(response.data.detail)
                         }
                        
-                        setError('La contraseña no es correcta')
                     }
                 
                 })
                 setFormValues(cleanFormData)
-                setFormSent(true)
 
         }else{
             setCaptachaValido(false)
@@ -91,7 +94,7 @@ const NewAccountConfirmScreen = () => {
                     Ha creado su cuenta correctamente
                 </Typography>
                 <Typography variant='body1'>
-                    Tome nota de su contrasena y guardela en un lugar seguro.
+                    Tome nota de su contraseña y guardela en un lugar seguro.
                 </Typography>
                 <Typography variant='body1'>
                     <Button component={Link} to='/login' variant='contained'>
@@ -105,7 +108,7 @@ const NewAccountConfirmScreen = () => {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Validar mi correo electronico y definir mi contraseña
+                    Validar mi correo electrónico y definir mi contraseña
                 </Typography>
                 <form onSubmit={(e) => e.preventDefault()}>
                     <Grid item xs={12}>
@@ -152,7 +155,7 @@ const NewAccountConfirmScreen = () => {
                                 type='submit'
                                 onClick={submitForm}
                             >
-                                Definir mi contrasena
+                                Definir mi contraseña
                             </Button>
                         </Grid>
                         <Grid item xs={12}>

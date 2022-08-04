@@ -57,10 +57,13 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             const response = await GetCitDiasDisponibles(oficina_id)
             if(response.status === 200){
                 setFechas(response.data.items)
+            }else if(response.status === 401){                
+                window.localStorage.clear();
+                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
             }
         }
         fetchData()
-    },[oficina_id])
+    },[oficina_id,dispatch])
     
 
     const guardarInformacion = () => {
@@ -78,6 +81,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             }
         })
         handleNext()
+        
+        window.localStorage.clear();
     }
 
     const handleClickSelected = ( horaSelected ) => {
@@ -123,13 +128,14 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                         }))
                     }
 
-                }else{
-
+                }else if(response.status === 401){                
+                    window.localStorage.clear();
+                    dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
                 }
             })
         }
         fetchData()
-    },[ oficina_id, date, servicio_id, horaRedux ])
+    },[ oficina_id, date, servicio_id, horaRedux, dispatch ])
    
     
     return (
