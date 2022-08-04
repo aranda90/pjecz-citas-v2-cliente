@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Button, Grid, Input, TextField, Typography } from '@mui/material'
+import { Button, Grid, IconButton, Input, InputAdornment, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
@@ -8,6 +8,7 @@ import '../../css/global.css'
 
 import { RecoverAccountConfirm } from '../../actions/AuthActions'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 
 const cleanFormData = {
@@ -40,6 +41,8 @@ const RecoverAccountConfirmScreen = () => {
         password2: '',
         hashid: hashid,
         cadena_validar:cadena_validar,
+        showPassword: false,
+        showPassword2: false,
     })
     const [formSent, setFormSent] = useState(false)
 
@@ -54,6 +57,22 @@ const RecoverAccountConfirmScreen = () => {
                 [name]: value,
             }
         })
+    }
+
+    // Ver contraseña
+    const handleClickShowPassword = () => {
+        setFormValues((prevState) => {
+            return {
+
+                ...prevState,
+                showPassword: !formData.showPassword,
+                showPassword2: !formData.showPassword2,
+            }
+        })
+    }
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault()
     }
 
     const submitForm = async () => {
@@ -98,28 +117,58 @@ const RecoverAccountConfirmScreen = () => {
                     Cambiar mi contraseña
                 </Typography>
                 <form onSubmit={(e) => e.preventDefault()}>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{mb:2}}>
                         <span style={{color:'#8B1818', fontSize:14}}>La contraseña debe tener de 8 a 24 caracteres, comenzando con una letra y contener por lo menos una mayúscula y un número</span>
                     </Grid>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
                                 label="Cambiar contraseña"
-                                type="password"
+                                type={formData.showPassword ? 'text' : 'password'}
                                 fullWidth
                                 name='password'
                                 onChange={handleChange}
                                 value={formData.password}
+                                InputProps={{
+                                    endAdornment:(
+
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {formData.showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 label="Confirmar contraseña"
-                                type="password"
+                                type={formData.showPassword2 ? 'text' : 'password'}
                                 fullWidth
                                 name='password2'
                                 onChange={handleChange}
                                 value={formData.password2}
+                                InputProps={{
+                                    endAdornment:(
+
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {formData.showPassword2 ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>

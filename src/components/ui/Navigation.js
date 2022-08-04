@@ -25,14 +25,16 @@ const Navigation = () => {
         <AppBar position='absolute'>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
-                    <MenuIcon sx={navigationSX.menuIconMobile} />
+                    {/* <MenuIcon sx={navigationSX.menuIconMobile} /> */}
                     <Link to='/' className='app-bar-desktop-link'>
                         <Typography variant='h6' noWrap sx={navigationSX.systemNameMobile}>
                             Citas
                         </Typography>
                     </Link>
                     {/* <MenuIcon sx={navigationSX.menuIconDesktop} /> */}
-                    <img src='../assets/imges/logo.png' alt='' style={{aling:'center'}} />
+                    <Link to='/' className='app-bar-desktop-link'>
+                        <img src='../assets/imges/logo.png' alt='' style={{aling:'center', paddingRight:5}} />
+                    </Link>
                     <Link to='/' className='app-bar-desktop-link'>
                         <Typography variant='h5' noWrap sx={navigationSX.systemNameDesktop}>
                             Sistema de Citas
