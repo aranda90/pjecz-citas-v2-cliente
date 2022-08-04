@@ -87,6 +87,8 @@ const LoginScreen = () => {
                     
                 } else {
                     setErrorMessage(response.data.detail)
+                    window.localStorage.clear();
+
                 }
             })
             setFormValues(cleanFormData)
@@ -119,6 +121,7 @@ const LoginScreen = () => {
                                 type="email"
                                 fullWidth
                                 name="username"
+                                placeholder='Escribe tu correo electrónico'
                                 value={formData.username}
                                 onChange={handleChange}
                             />
@@ -132,6 +135,7 @@ const LoginScreen = () => {
                                 type="password"
                                 fullWidth
                                 name="password"
+                                placeholder='Escribe tu contraseña'
                                 value={formData.password}
                                 onChange={handleChange}
                             />
