@@ -97,6 +97,7 @@ const RecoverAccountScreen = () => {
                         <Grid item xs={12}>
                             <TextField
                                 label="Correo electrónico"
+                                placeholder='Escribe tu correo electrónico'
                                 type="email"
                                 fullWidth
                                 name='email'
@@ -106,7 +107,8 @@ const RecoverAccountScreen = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                label="Correo electrónico"
+                                label="Confirmar correo electrónico"
+                                placeholder='Confirma tu correo electrónico'
                                 type="email"
                                 fullWidth
                                 name='email2'

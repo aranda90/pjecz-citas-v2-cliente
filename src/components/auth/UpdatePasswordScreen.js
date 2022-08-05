@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import { Button, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 import ReCAPTCHA from 'react-google-recaptcha'
 
@@ -11,6 +11,7 @@ import { UpdatePassConfirm } from '../../actions/AuthActions'
 import commonSX from '../../theme/CommonSX'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 const cleanFormData = {
     contrasena_anterior: '',
@@ -42,6 +43,9 @@ const UpdatePasswordScreen = () => {
         contrasena_nueva: '',
         contrasena_nueva2: '',
         email: '',
+        showPassword: false,
+        showPassword2: false,
+        showPassword3: false,
     })
 
     const [formSent, setFormSent] = useState(false)
@@ -57,6 +61,41 @@ const UpdatePasswordScreen = () => {
                 [name]: value,
             }
         })
+    }
+
+     // Ver contraseña
+     const handleClickShowPassword = () => {
+        setFormValues((prevState) => {
+            return {
+
+                ...prevState,
+                showPassword: !formData.showPassword,
+            }
+        })
+    }
+
+    const handleClickShowPassword2 = () => {
+        setFormValues((prevState) => {
+            return {
+
+                ...prevState,
+                showPassword2: !formData.showPassword2,
+            }
+        })
+    }
+
+    const handleClickShowPassword3 = () => {
+        setFormValues((prevState) => {
+            return {
+
+                ...prevState,
+                showPassword3: !formData.showPassword3,
+            }
+        })
+    }
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault()
     }
 
     const submitForm = async() => {
@@ -123,9 +162,24 @@ const UpdatePasswordScreen = () => {
                                 label="Contraseña actual"
                                 name='contrasena_anterior'
                                 placeholder="Escribir contraseña que usa actualmente"
-                                type="password"
+                                type={formData.showPassword ? 'text' : 'password'}
                                 onChange={handleChange}
                                 value={formData.contrasena_anterior}
+                                InputProps={{
+                                    endAdornment:(
+
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {formData.showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -134,23 +188,53 @@ const UpdatePasswordScreen = () => {
                         <Grid item xs={12}>
                             <TextField
                                 label="Nueva contraseña"
-                                type="password"
+                                type={formData.showPassword2 ? 'text' : 'password'}
                                 fullWidth
                                 name='contrasena_nueva'
                                 placeholder="Escribir una nueva contraseña "
                                 onChange={handleChange}
                                 value={formData.contrasena_nueva}
+                                InputProps={{
+                                    endAdornment:(
+
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword2}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {formData.showPassword2 ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 label="Confirmar nueva contraseña"
-                                type="password"
+                                type={formData.showPassword3 ? 'text' : 'password'}
                                 fullWidth
                                 name='contrasena_nueva2'
                                 placeholder="Confirmar su nueva contraseña"
                                 onChange={handleChange}
                                 value={formData.contrasena_nueva2}
+                                InputProps={{
+                                    endAdornment:(
+
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword3}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {formData.showPassword3 ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
