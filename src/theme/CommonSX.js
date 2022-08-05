@@ -1,5 +1,5 @@
 const commonSX = {
-    container: { marginTop: 12, marginBottom:15 },
+    container: { marginTop: 12, marginBottom:35 },
     card: { padding: 4 },
     avatar: { padding: 4 },
     bigIcon: { padding: 4, fontSize: 64 },

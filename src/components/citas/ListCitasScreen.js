@@ -22,6 +22,10 @@ const ListCitasScreen = () => {
 
     const [citaList, setCitaList] = useState([])
 
+    const [botonActivo, setBotonActivo] = useState(false)
+
+    const [errorMsg, setErrorMsg] = useState('')
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -46,13 +50,25 @@ const ListCitasScreen = () => {
         setCitaList(filterCard)
     }
 
+    const botonDesabled = () =>{
+        if(citaList.length >= 11){
+            setBotonActivo(true)
+            setErrorMsg('Llego al limite de sus citas')
+            alert(' deshabilitado')
+        }else{
+            setBotonActivo(false)
+            alert(' habilitado')
+        }
+    }
+
     return (
         <>
-            
-            <Button component={Link} to='/new' variant="contained" sx={{m:4}}>
+            <Button component={Link} to='/new' variant="contained" sx={{m:4}} onClick={botonDesabled} disabled={botonActivo}>
                 Agendar Cita
             </Button>
-            
+            {
+                errorMsg ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{errorMsg}</span> : null
+            }
             {citaList.length === 0 && (
                 <Typography align='center' variant='h4' sx={{mt:15}}>
                     No tiene citas agendadas
@@ -75,7 +91,7 @@ const ListCitasScreen = () => {
                 {citaList.map((lista) => 
 
                     <Card align='center' sx={commonSX.card} key={ lista.id }>
-                        <Typography sx={{mt:3}}>
+                        <Typography sx={{mt:2}}>
                             {format(lista.inicio)}
                         </Typography>
                         <CardHeader
@@ -85,8 +101,7 @@ const ListCitasScreen = () => {
                                 fontWeight:500
                             }}
                         />
-                        <CardContent component="div">
-                            
+                        <CardContent component="div" style={{paddingTop:3, paddingBottom:15}}>
                             <Typography>
                                 <br/>
                                 <b>{lista.oficina_descripcion_corta} </b> <br/>
@@ -101,7 +116,7 @@ const ListCitasScreen = () => {
                             </Typography>
                         </CardContent>
                         
-                        <CardActions style={{float:'right'}}>
+                        <CardActions style={{float:'right', paddingTop:13, height:'auto'}}>
                             <CancelCitaScreen Id={ lista.id } cancelCard={cancelCard} />
                         </CardActions>
 

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
 
     return (
-        <AppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0 }}>
+        <AppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0}}>
             <Container maxWidth='md'>
                 <Toolbar>
                     <Grid container alignItems='center' justify='center' spacing={2}>
