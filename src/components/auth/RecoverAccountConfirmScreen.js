@@ -42,7 +42,7 @@ const RecoverAccountConfirmScreen = () => {
         hashid: hashid,
         cadena_validar:cadena_validar,
         showPassword: false,
-        // showPassword2: false,
+        showPassword2: false,
     })
     const [formSent, setFormSent] = useState(false)
 
@@ -66,7 +66,16 @@ const RecoverAccountConfirmScreen = () => {
 
                 ...prevState,
                 showPassword: !formData.showPassword,
-                // showPassword2: !formData.showPassword2,
+            }
+        })
+    }
+
+    const handleClickShowPassword2 = () => {
+        setFormValues((prevState) => {
+            return {
+
+                ...prevState,
+                showPassword2: !formData.showPassword2,
             }
         })
     }
@@ -150,7 +159,7 @@ const RecoverAccountConfirmScreen = () => {
                         <Grid item xs={12}>
                             <TextField
                                 label="Confirmar contraseña"
-                                type={formData.showPassword ? 'text' : 'password'}
+                                type={formData.showPassword2 ? 'text' : 'password'}
                                 fullWidth
                                 name='password2'
                                 placeholder='Confirmar la contraseña'
@@ -162,11 +171,11 @@ const RecoverAccountConfirmScreen = () => {
                                     <InputAdornment position="end">
                                         <IconButton
                                         aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
+                                        onClick={handleClickShowPassword2}
                                         onMouseDown={handleMouseDownPassword}
                                         edge="end"
                                         >
-                                        {formData.showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {formData.showPassword2 ? <VisibilityOff /> : <Visibility />}
                                         </IconButton>
                                     </InputAdornment>
                                     )

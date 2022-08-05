@@ -8,9 +8,9 @@ const NewCitaStep4Review = () => {
 
     return (
         <>
-            <Typography variant='h5' align='justify' sx={{ mt: 5, pl:5, pr:5 }}>
+            <Typography variant='h5' align='center' sx={{ mt: 5, pl:5, pr:5 }}>
                 <b>Tu cita ha sido agendada correctamente. <br/>
-                En unos minutos puede revisar su correo electrónico.</b>
+                En unos minutos puedes revisar tu correo electrónico.</b>
             </Typography>
             <Typography align='justify' sx={{ mt:3, pl:5, pr:5 }}>
                
