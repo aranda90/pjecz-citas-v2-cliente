@@ -6,7 +6,7 @@ import ReCAPTCHA  from 'react-google-recaptcha'
 
 import { Link } from 'react-router-dom'
 
-import {  Button, Divider, Grid, TextField, Typography } from '@mui/material'
+import {  Button, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 
@@ -17,7 +17,10 @@ import '../../css/global.css'
 import { LogIn } from '../../actions/AuthActions'
 import { Profile } from '../../actions/AuthActions'
 
-import { types } from '../../types/types';
+import { types } from '../../types/types'
+
+import { Visibility } from '@mui/icons-material'
+import { VisibilityOff } from '@mui/icons-material'
 
 const cleanFormData = {
     username: '',
@@ -48,6 +51,7 @@ const LoginScreen = () => {
     const [formData, setFormValues] = useState({
         username: '',
         password: '',
+        showPassword: false,
     })
     //const [isError, setIsError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
@@ -59,6 +63,21 @@ const LoginScreen = () => {
                 [name]: value,
             }
         })
+    }
+
+    // Ver contraseña
+    const handleClickShowPassword = () => {
+        setFormValues((prevState) => {
+            return {
+
+                ...prevState,
+                showPassword: !formData.showPassword,
+            }
+        })
+    }
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault()
     }
 
     // Enviar el formulario
@@ -132,12 +151,27 @@ const LoginScreen = () => {
                         <Grid item xs={12}>
                             <TextField
                                 label="Contraseña"
-                                type="password"
+                                type={formData.showPassword ? 'text' : 'password'}
                                 fullWidth
                                 name="password"
                                 placeholder='Escribe tu contraseña'
                                 value={formData.password}
                                 onChange={handleChange}
+                                InputProps={{
+                                    endAdornment:(
+
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                        >
+                                        {formData.showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                    )
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -166,7 +200,7 @@ const LoginScreen = () => {
                         <Grid item xs={12}>
                             <Typography variant='body1'>
                                 <Link to='/recover_account' className='link'>
-                                    Olvide mi contraseña
+                                    Recuperar mi contraseña
                                 </Link>
                             </Typography>
                         </Grid>

@@ -20,27 +20,22 @@ export const InicioScreen = () => {
                     El <b>Poder Judicial del Estado de Coahuila de Zaragoza </b> pone al servicio de la ciudadanía la versión 2 del Sistema de citas que te permitirá agendar tu visita a nuestros órganos jurisdiccionales mediante una moderna herramienta en línea.
                 </Typography>
                 {
-                    isAuthenticated ?
-                
+                    isAuthenticated 
+                ? 
                     null
                 :
                 <Button color='success' variant='contained' component={Link} to='/login' sx={{mr:2}}>
                     Ingresar
                 </Button>
                 }
-                <Grid item xs={12} md={12} sx={{mt:3}}>
-                    <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1}}>
-                        Aclaraciónes, dudas y comentarios, contáctenos al correo: <b>citas@pjecz.gob.mx</b>
-                    </Typography>
-                </Grid>
-                
+                <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1, mt:1}}>
+                    Aclaraciónes, dudas y comentarios, contáctenos al correo: <b>citas@pjecz.gob.mx</b>
+                </Typography>
             </Grid>
             <Grid item sm={5} xs={12}>
-                <img src='../assets/imges/inicioCitas.png' alt='' style={{maxWidth:400}} />
+                <img src='../assets/imges/inicioCitas.png' alt='' style={{maxWidth:400, marginTop:60}} />
             </Grid>
             <Grid item sm={1} xs={12}></Grid>
-            {/* { isAuthenticated ? <InicioLoginScreen /> : <InicioScreen />} */}
-            {/* { isAuthenticated ? <NavigationLogged username={ username } /> : <NavigationAccess />} */}
         </Grid>
     </>
   )

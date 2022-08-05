@@ -82,7 +82,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         })
         handleNext()
         
-        window.localStorage.clear();
     }
 
     const handleClickSelected = ( horaSelected ) => {
