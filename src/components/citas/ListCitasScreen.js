@@ -20,11 +20,8 @@ import { types } from '../../types/types'
 
 const ListCitasScreen = () => {
 
+    let limiteCitas = 30
     const [citaList, setCitaList] = useState([])
-
-    const [botonActivo, setBotonActivo] = useState(false)
-
-    const [errorMsg, setErrorMsg] = useState('')
 
     const dispatch = useDispatch();
 
@@ -50,24 +47,20 @@ const ListCitasScreen = () => {
         setCitaList(filterCard)
     }
 
-    const botonDesabled = () =>{
-        if(citaList.length >= 11){
-            setBotonActivo(true)
-            setErrorMsg('Llego al limite de sus citas')
-            alert(' deshabilitado')
-        }else{
-            setBotonActivo(false)
-            alert(' habilitado')
-        }
-    }
-
+ 
     return (
         <>
-            <Button component={Link} to='/new' variant="contained" sx={{m:4}} onClick={botonDesabled} disabled={botonActivo}>
+            {citaList.length <= limiteCitas ?
+            <Button component={Link} to='/new' variant="contained" sx={{m:4}}>
                 Agendar Cita
             </Button>
-            {
-                errorMsg ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{errorMsg}</span> : null
+            :
+            <>
+                <Button component={Link} to='/new' variant="contained" sx={{m:4}} disabled={true}>
+                Agendar Cita
+                </Button>
+                <span style={{fontFamily:'Roboto', color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>Alcanzaste el limite de citas</span>
+            </>
             }
             {citaList.length === 0 && (
                 <Typography align='center' variant='h4' sx={{mt:15}}>
@@ -101,7 +94,7 @@ const ListCitasScreen = () => {
                                 fontWeight:500
                             }}
                         />
-                        <CardContent component="div" style={{paddingTop:3, paddingBottom:15}}>
+                        <CardContent component="div" style={{paddingTop:3, minHeight:240, paddingBottom:15}}>
                             <Typography>
                                 <br/>
                                 <b>{lista.oficina_descripcion_corta} </b> <br/>
