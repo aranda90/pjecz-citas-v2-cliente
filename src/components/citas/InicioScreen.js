@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export const InicioScreen = () => {
     const { isAuthenticated } = useSelector( state => state.auth );
-    window.localStorage.clear();
+
   return (
     <>
         <Grid container sx={{mt:15, mb:'auto', display:'flex', flexDirection:'row'}}>
@@ -13,7 +13,7 @@ export const InicioScreen = () => {
             <Grid item sm={5} xs={12} sx={{mt:15, mb: 15, display:'flex', flexDirection:'column', pl:6, ml:3}}>
 
                 <Typography variant='h4' gutterBottom>
-                    Bienvenido al nuevo sistema de citas
+                    Bienvenido(a) al nuevo sistema de citas
                 </Typography>
                 
                 <Typography variant='body1' sx={{mb:3}}>

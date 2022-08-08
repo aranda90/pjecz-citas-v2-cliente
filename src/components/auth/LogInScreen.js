@@ -122,7 +122,7 @@ const LoginScreen = () => {
         return (
             <ContainerCardCenter>
                 <Typography variant='h5' sx={commonSX.title}>
-                    Bienvenido { username }
+                    Bienvenido(a) { username }
                 </Typography>
             </ContainerCardCenter>
         )
