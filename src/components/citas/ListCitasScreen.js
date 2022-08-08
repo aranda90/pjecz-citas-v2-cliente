@@ -20,7 +20,7 @@ import { types } from '../../types/types'
 
 const ListCitasScreen = () => {
 
-    let limiteCitas = 30
+    let limiteCitas = 29
     const [citaList, setCitaList] = useState([])
 
     const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const ListCitasScreen = () => {
             }
             {citaList.length === 0 && (
                 <Typography align='center' variant='h4' sx={{mt:15}}>
-                    No tiene citas agendadas
+                    No tienes citas agendadas
                 </Typography>
             )}
             <Box

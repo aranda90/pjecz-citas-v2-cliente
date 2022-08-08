@@ -60,7 +60,7 @@ const NewCitaScreen = () => {
             </Typography>
             <Stepper alternativeLabel activeStep={activeStep}>
                 <Step>
-                    <StepLabel>Distrito y Oficinas</StepLabel>
+                    <StepLabel>Distrito y Oficina</StepLabel>
                 </Step>
                 <Step>
                     <StepLabel>Tipo de trámite</StepLabel>

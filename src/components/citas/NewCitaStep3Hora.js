@@ -108,7 +108,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                             sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
                             onChange={onChangeCaptcha}
                         />
-                        { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
+                        { (captchaValido === false) ? <Typography variant='body1'>Selecciona el captcha para continuar</Typography> : null }
                     </Typography>
 
                 </Grid>
