@@ -225,16 +225,12 @@ const NewAccountScreen = () => {
                             </Typography>
                             <FormGroup>
                                 <FormControlLabel
-                                    control={
-                                        <Checkbox />
-                                    }
+                                    control={<Checkbox />}
                                     label='Aviso de privacidad'
                                     name='aviso'
                                 />
                                 <FormControlLabel
-                                    control={
-                                        <Checkbox />
-                                    }
+                                    control={<Checkbox />}
                                     label='Términos y condiciones de uso'
                                     name='terminos'
                                 />
