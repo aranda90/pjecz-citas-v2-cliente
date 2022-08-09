@@ -18,20 +18,21 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const dispatch = useDispatch()
     const { oficina_id, servicio_id, hora: horaRedux } = useSelector(state => state.citas)
     
-    const [date, setDate] = useState(new Date())
+    const fechaminima = () => {
+         let d = new Date()
+                 
+         if(d.getDay()){
+             d.setDate(d.getDate() + 1)
+             return d
+         }
+    }
+
+    const [date, setDate] = useState(fechaminima())
     const [fechas, setFechas] = useState([])
     
     const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
 
-       const fechaminima = () => {
-            let d = new Date()
-                    
-            if(d.getDay()){
-                d.setDate(d.getDate() + 1)
-                return d
-            }
-       }
 
 
     const disableDates = (fechacalendario) => {
@@ -146,9 +147,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                             shouldDisableDate={ disableDates }
                             className='calendar'                          
                         />
-                        {
-                            
-                        }
                     </LocalizationProvider>
                     </Grid>
 
