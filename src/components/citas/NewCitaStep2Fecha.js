@@ -26,8 +26,9 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
        const fechaminima = () => {
             let d = new Date()
+                    
             if(d.getDay()){
-                d.setDate(d.getDate() +1)
+                d.setDate(d.getDate() + 1)
                 return d
             }
        }
