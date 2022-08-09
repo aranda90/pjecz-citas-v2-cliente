@@ -24,9 +24,18 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
 
+       const fechaminima = () => {
+            let d = new Date()
+            if(d.getDay()){
+                d.setDate(d.getDate() +1)
+                return d
+            }
+       }
+
+
     const disableDates = (fechacalendario) => {
         const diaDisponible = fechas.find(element => element.fecha === moment(fechacalendario).format("YYYY-MM-DD"))
-        if(diaDisponible?.fecha || moment(new Date()).format("YYYY-MM-DD") === moment(fechacalendario).format("YYYY-MM-DD")){
+        if(diaDisponible?.fecha || moment(fechaminima()).format("YYYY-MM-DD") === moment(fechacalendario).format("YYYY-MM-DD")){
             return false
         }else{
             return true
@@ -131,7 +140,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
                         <CalendarPicker                                                         
                             date={ moment( date )}
-                            minDate={ moment( new Date() ) }
+                            minDate={ moment(fechaminima()) }
                             onChange={ ( newDate ) => { setDate( newDate ) } }
                             shouldDisableDate={ disableDates }
                             className='calendar'                          
