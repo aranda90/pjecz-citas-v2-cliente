@@ -18,26 +18,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const dispatch = useDispatch()
     const { oficina_id, servicio_id, hora: horaRedux } = useSelector(state => state.citas)
     
-    const fechaminima = () => {
-        let d = new Date()
-        switch(d.getDay()){
-            case 5:
-                d.setDate(d.getDate() + 4)
-                break
-            case 6:
-                d.setDate(d.getDate() + 3)
-                break
-            case 0:
-                d.setDate(d.getDate() + 2)
-                break
-            default:
-                d.setDate(d.getDate() + 1)      
-        }
-        return d
-    }
-    
-    
-    const [date, setDate] = useState(fechaminima())
+    const [date, setDate] = useState(new Date())
     const [fechas, setFechas] = useState([])
     
     const [hora, setHora] = useState('')
@@ -45,7 +26,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
     const disableDates = (fechacalendario) => {
         const diaDisponible = fechas.find(element => element.fecha === moment(fechacalendario).format("YYYY-MM-DD"))
-        if(diaDisponible?.fecha || moment(fechaminima()).format("YYYY-MM-DD") === moment(fechacalendario).format("YYYY-MM-DD")){
+        if(diaDisponible?.fecha || moment(new Date()).format("YYYY-MM-DD") === moment(fechacalendario).format("YYYY-MM-DD")){
             return false
         }else{
             return true
@@ -150,11 +131,14 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
                         <CalendarPicker                                                         
                             date={ moment( date )}
-                            minDate={ moment( fechaminima() ) }
+                            minDate={ moment( new Date() ) }
                             onChange={ ( newDate ) => { setDate( newDate ) } }
                             shouldDisableDate={ disableDates }
                             className='calendar'                          
                         />
+                        {
+                            
+                        }
                     </LocalizationProvider>
                     </Grid>
 

@@ -47,8 +47,14 @@ const NewAccountScreen = () => {
         telefono2: '',
         email: '',
         email2: '',
+        aviso:'',
+        terminos:'',
     })
     const [formSent, setFormSent] = useState(false)
+
+    const [checkBoxAviso, setCheckBoxAviso] = useState(false)
+    const [checkBoxTerms, setCheckBoxTerms] = useState(false)
+
     const [error, setError] = useState('')
 
 
@@ -62,6 +68,22 @@ const NewAccountScreen = () => {
         })
     }
 
+    const handleChangeCheckboxAviso = (event) => {
+        setCheckBoxAviso(event.target.checked)
+        // const checkedIndex = checkBoxAcept.indexOf(event.target.value)
+        // if(checkedIndex === -1){
+        //     setCheckBoxAcept([...checkBoxAcept, event.target.value])
+        // }else{
+        //     setCheckBoxAcept(checkBoxAcept.filter((checkboxA) => checkboxA !== event.target.value))
+        // }
+    }
+
+    const handleChangeCheckboxTerms = (event) => {
+        setCheckBoxTerms(event.target.checked)
+    }
+
+    console.log(handleChangeCheckboxAviso, handleChangeCheckboxTerms)
+
     const submitForm = async () => {
       
        if(captchaValido){
@@ -72,6 +94,10 @@ const NewAccountScreen = () => {
 
             }else if(formData.curp !== formData.curp2){
                 setError('Las CURP no coinciden, revise nuevamente')
+            }else if(checkBoxAviso.aviso === false){
+                setError('Debes aceptar los Avisos de privacidad')
+            }else if(checkBoxTerms.terminos === false){
+                setError('Debes aceptar los Terminos y condiciones')
             }else{
 
                 await NewAccount(formData).then( response => {
@@ -223,12 +249,22 @@ const NewAccountScreen = () => {
                             </Typography>
                             <FormGroup>
                                 <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={
+                                        <Checkbox 
+                                            checked={checkBoxAviso} 
+                                            onChange={handleChangeCheckboxAviso} 
+                                        />
+                                    }
                                     label='Aviso de privacidad'
                                     name='aviso'
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={
+                                        <Checkbox 
+                                            checked={checkBoxTerms} 
+                                            onChange={handleChangeCheckboxTerms} 
+                                        />
+                                    }
                                     label='Términos y condiciones de uso'
                                     name='terminos'
                                 />
