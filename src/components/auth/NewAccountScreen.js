@@ -49,6 +49,7 @@ const NewAccountScreen = () => {
         email2: '',
     })
     const [formSent, setFormSent] = useState(false)
+
     const [error, setError] = useState('')
 
 
@@ -61,6 +62,7 @@ const NewAccountScreen = () => {
             }
         })
     }
+
 
     const submitForm = async () => {
       

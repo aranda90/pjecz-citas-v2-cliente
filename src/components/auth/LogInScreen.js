@@ -106,8 +106,6 @@ const LoginScreen = () => {
                     
                 } else {
                     setErrorMessage(response.data.detail)
-                    window.localStorage.clear();
-
                 }
             })
             setFormValues(cleanFormData)
