@@ -32,7 +32,7 @@ export const InicioScreen = () => {
                     Aclaraciónes, dudas y comentarios, contáctenos al correo: <b>citas@pjecz.gob.mx</b>
                 </Typography>
                 <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1, mt:1}}>
-                    Preguntas frecuentes: <Link to='/preguntas_frecuentes' style={{}}>Resuelve tus dudas</Link>
+                   <Link to='/preguntas_frecuentes' style={{ textDecoration:'none', color:'#032590'}}> ¿Tienes dudas? Lee las Preguntas Frecuentes </Link>
                 </Typography>
             </Grid>
             <Grid item sm={5} xs={12}>
