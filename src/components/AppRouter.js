@@ -23,7 +23,7 @@ import { CitasScreen } from './citas/CitasScreen'
 import { InicioScreen } from './citas/InicioScreen'
 import UpdatePasswordScreen from './auth/UpdatePasswordScreen'
 import NotFound from './ui/NotFound'
-import { PreguntasFrecuentes } from './ui/PreguntasFrecuentes'
+import { PreguntasFrecuentes } from './static/PreguntasFrecuentes'
 
 const AppRouter = () => {       
 
