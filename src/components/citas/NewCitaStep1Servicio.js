@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { GetOficinaServicio } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
 
@@ -11,7 +11,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const dispatch = useDispatch()
     const { oficina_id, servicio_id, nota_id,nota } = useSelector(state => state.citas)
-    console.log(nota_id, nota)
+    //console.log(nota_id, nota)
     //servicios
     const [servicios, setServicios] = useState([])
     const [servicio, setServicio] = useState(0)
@@ -20,7 +20,6 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const handleChangeServicio = (e) => {
         setServicio(e.target.value)
-        console.log(e.target.value)
 
     }
 

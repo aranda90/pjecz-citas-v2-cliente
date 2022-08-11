@@ -17,11 +17,13 @@ const NavigationMain = () => {
     }
 
     return (
+        <>
         <Box sx={navigationSX.pagesBoxDesktop}>
             <Button key='Opcion' onClick={ goToListCitas } sx={navigationSX.pagesButtonDesktop}>
                 Mis Citas
             </Button>
         </Box>
+        </>
     )
 
 }

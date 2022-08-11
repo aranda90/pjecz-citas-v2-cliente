@@ -18,6 +18,19 @@ export const LogIn = (cliente) => {
     })
 }
 
+export const ValidarToken = data => {
+    return new Promise((resolve, reject) => {
+        HttpClient.post('/token', data)
+            .then(response => {
+                if (response.status === 200) {
+                    resolve(response)
+                }
+            })
+            .catch((error) => {
+                resolve(error.response)
+            })
+    })
+} 
 
 export const Profile = () => {
     return new Promise((resolve, eject) => {

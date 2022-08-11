@@ -1,10 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {  Button, Grid, Typography } from '@mui/material'
+import {  Box, Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 export const InicioScreen = () => {
-    const { isAuthenticated } = useSelector( state => state.auth );
+    const { isAuthenticated } = useSelector( state => state.auth )
 
   return (
     <>
@@ -32,11 +32,15 @@ export const InicioScreen = () => {
                     Aclaraciónes, dudas y comentarios, contáctenos al correo: <b>citas@pjecz.gob.mx</b>
                 </Typography>
                 <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1, mt:1}}>
-                   <Link to='/preguntas_frecuentes' style={{ textDecoration:'none', color:'#032590'}}> ¿Tienes dudas? Lee las Preguntas Frecuentes </Link>
+                   <Link to='/preguntas_frecuentes' style={{ textDecoration:'none', color:'#032590'}}> 
+                    ¿Tienes dudas? Lee las Preguntas Frecuentes 
+                   </Link>
                 </Typography>
             </Grid>
             <Grid item sm={5} xs={12}>
-                <img src='../assets/imges/inicioCitas.png' alt='' style={{maxWidth:400, marginTop:60}} />
+                <Box m={4} width={200}>
+                    <img src='../assets/imges/inicioCitas.png' alt='' style={{maxWidth:400, marginTop:60}} />
+                </Box>
             </Grid>
             <Grid item sm={1} xs={12}></Grid>
         </Grid>

@@ -21,9 +21,6 @@ const cleanFormData = {
 
 const UpdatePasswordScreen = () => {
 
-    
-    // const {  username } = useSelector( state => state.auth )
-    // console.log(username)
 
     // variables de estado para captcha
     const [captchaValido, setCaptachaValido] = useState(null)

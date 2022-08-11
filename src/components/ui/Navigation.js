@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom'
 
 import { AppBar, Container, Toolbar, Typography } from '@mui/material'
 
-import MenuIcon from '@mui/icons-material/Menu'
-
 import navigationSX from '../../theme/NavigationSX'
 
 import '../../css/global.css'
@@ -16,12 +14,16 @@ import NavigationAccess from './NavigationAccess'
 import NavigationMain from './NavigationMain'
 import NavigationLogged from './NavigationLogged'
 import NavigationPublic from './NavigationPublic'
+import { ModalTokenExpired } from '../modals/ModalTokenExpired'
 
 const Navigation = () => {
     
     const { isAuthenticated, username } = useSelector( state => state.auth );
 
     return(
+        <>
+        <ModalTokenExpired />
+
         <AppBar position='absolute'>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
@@ -45,8 +47,8 @@ const Navigation = () => {
                 </Toolbar>
             </Container>
         </AppBar>
+    </>
     )
-
 }
 
 export default Navigation
