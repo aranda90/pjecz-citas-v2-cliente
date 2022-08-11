@@ -14,7 +14,6 @@ import NavigationAccess from './NavigationAccess'
 import NavigationMain from './NavigationMain'
 import NavigationLogged from './NavigationLogged'
 import NavigationPublic from './NavigationPublic'
-import { ModalTokenExpired } from '../modals/ModalTokenExpired'
 
 const Navigation = () => {
     
@@ -22,7 +21,6 @@ const Navigation = () => {
 
     return(
         <>
-        <ModalTokenExpired />
 
         <AppBar position='absolute'>
             <Container maxWidth='xl'>

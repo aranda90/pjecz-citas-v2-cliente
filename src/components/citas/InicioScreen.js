@@ -2,12 +2,15 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import {  Box, Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { ModalTokenExpired } from '../modals/ModalTokenExpired' 
 
 export const InicioScreen = () => {
     const { isAuthenticated } = useSelector( state => state.auth )
 
   return (
     <>
+        <ModalTokenExpired />
+
         <Grid container sx={{mt:15, mb:'auto', display:'flex', flexDirection:'row'}}>
             <Grid item sm={1} xs={12}></Grid>
             <Grid item sm={5} xs={12} sx={{mt:15, mb: 15, display:'flex', flexDirection:'column', pl:6, ml:3}}>
