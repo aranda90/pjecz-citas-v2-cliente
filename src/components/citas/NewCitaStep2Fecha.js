@@ -29,10 +29,21 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const fechaminima = () => {
          let d = new Date()
                  
-         if(d.getDay()){
-             d.setDate(d.getDate() + sumadia)
-             return d
+         switch(d.getDay()){
+            case 4:
+                d.setDate(d.getDate() + 4)
+                break
+            case 5:
+                d.setDate(d.getDate() + 3)
+                break
+            case 6:
+                d.setDate(d.getDate() + 2)
+                break
+            default:
+                d.setDate(d.getDate() + sumadia)
+
          }
+        return d
     }
 
     const [date, setDate] = useState(fechaminima())
