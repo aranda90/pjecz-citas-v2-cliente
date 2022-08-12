@@ -20,7 +20,7 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
                 
                 setOpen( false )
                 
-                console.log(response)
+                // console.log(response)
             }
            
         })       

@@ -18,22 +18,37 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const dispatch = useDispatch()
     const { oficina_id, servicio_id, hora: horaRedux } = useSelector(state => state.citas)
 
+
     let horaactual = moment(new Date(),"h:mma")
     let horalimite = moment("2:00pm", "h:mma")
-    let sumadia = 1
-
-    if(horaactual.isAfter(horalimite)){
-        sumadia = 2
-    }
+    
 
     const fechaminima = () => {
-         let d = new Date()
-                 
-         if(d.getDay()){
-             d.setDate(d.getDate() + sumadia)
-             return d
-         }
+
+        let sumadia = 1
+        let d = new Date();
+
+        if(horaactual.isAfter(horalimite)){
+            
+            switch(d.getDay()){
+
+                case 4:
+                    sumadia = 4
+                    break
+                case 5:
+                    sumadia = 4
+                    break
+
+                default:
+                    sumadia = 2;
+            }
+
+        }
+
+        d.setDate(d.getDate() + sumadia)
+        return d
     }
+
 
     const [date, setDate] = useState(fechaminima())
     const [fechas, setFechas] = useState([])
