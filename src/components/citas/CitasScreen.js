@@ -42,7 +42,7 @@ export const CitasScreen = () => {
     }       
    
     return (
-        <Container sx={{ mt: 12 }}>
+        <Container sx={{ mt: 15, mb:20 }}>
 
             <Navigation />
    

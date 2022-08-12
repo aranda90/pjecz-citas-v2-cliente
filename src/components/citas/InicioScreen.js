@@ -38,17 +38,11 @@ export const InicioScreen = () => {
                 </Typography>
             </Grid>
             <Grid item sm={5} xs={12} >
-                <Card>
-
                     <CardMedia
-                        component="iframe"
-                        src="https://vimeo.com/738800419/17cda266e5"
-                        allow='autoPlayer'
-                        width={300}
-                        height={300}
-                        controls
+                        component="img"
+                        src="../assets/imges/inicioCitas.png"
+                    
                     />
-                </Card>
             </Grid>
             <Grid item sm={1} xs={12}></Grid>
         </Grid>
