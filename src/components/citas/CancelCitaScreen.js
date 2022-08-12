@@ -3,8 +3,12 @@ import React, { useState } from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
 import { DeleteCitas } from '../../actions/CitCitasActions'
+import { types } from '../../types/types'
+import { useDispatch } from 'react-redux'
 
 const CancelCitaScreen = ({ Id, cancelCard  }) => {
+
+    const dispatch = useDispatch()
 
     const [open, setOpen] = useState(false)
   
@@ -16,6 +20,8 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
 
                 if(response.status === 200){
                     cancelCard(Id)
+                }else if(response.status === 401){               
+                    dispatch({ type: types.TOKEN_EXPIRED });
                 }
                 
                 setOpen( false )

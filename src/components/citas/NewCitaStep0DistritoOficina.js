@@ -7,6 +7,7 @@ import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select
 import { GetDistritos, GetOficinas } from '../../actions/CitCitasActions'
 
 import { types } from '../../types/types'
+import { TokenExpired } from '../modals/TokenExpired'
 
 
 const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
@@ -58,9 +59,8 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
             const response = await GetDistritos()
             if(response.status === 200){
                 setDistritos(response.data.items)
-            }else if(response.status === 401){                
-                window.localStorage.clear()
-                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE })
+            }else if(response.status === 401){               
+                dispatch({ type: types.TOKEN_EXPIRED });
             }
         }
         fetchData()
@@ -76,9 +76,8 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                 const response = await GetOficinas(distrito)
                 if(response.status === 200){
                     setOficinas(response.data.items)
-                }else if(response.status === 401){                
-                    window.localStorage.clear()
-                    dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE })
+                }else if(response.status === 401){               
+                    dispatch({ type: types.TOKEN_EXPIRED });
                 }
             }
 
@@ -105,6 +104,7 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
    
     return (
         <>
+            <TokenExpired />
             <Container sx={{ mt: 5 }}>
                 <Grid container spacing={2}>
                     <Grid item md={1} xs={12}></Grid>

@@ -1,28 +1,32 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 import { types } from '../../types/types'
+import { LoadingButton } from '@mui/lab'
 
 
-export const ModalTokenExpired = () => {
+export const TokenExpired = () => {
 
     const dispatch = useDispatch()
 
-    const [open, setOpen] = useState(false)
+    const { open } = useSelector(state => state.token);
 
-    const [loading, setLoading] = useState(false)
+    const [openLoading, setopenLoading] = useState(false)
 
     const IniciarSesion = () => {
-        setLoading(true)
+
+        setopenLoading(true)
         
         setTimeout(() => {
+
+            window.localStorage.clear();
             dispatch({ type:types.SET_LOG_OUT_CIT_CLIENTE})
+            setopenLoading(false)
+            dispatch({ type:types.TOKEN_EXPIRED_CLEAN})
             
         }, 1000)
-        setOpen(false)
-    }
-
-    
+        
+    }  
     
   return (
     <>
@@ -38,14 +42,14 @@ export const ModalTokenExpired = () => {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button 
+                    <LoadingButton 
                         variant='contained' 
                         color='primary' 
-                        onClick={ IniciarSesion } 
-                        loading={ loading }
+                        onClick={ IniciarSesion }
+                        loading={ openLoading }
                     >
                         Aceptar
-                    </Button>
+                    </LoadingButton>
                 </DialogActions>
             </Dialog>  
         </>

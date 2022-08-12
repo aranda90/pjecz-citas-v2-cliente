@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import ReCAPTCHA  from 'react-google-recaptcha'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import {  Button, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material'
 
@@ -30,6 +30,7 @@ const cleanFormData = {
 const LoginScreen = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     // Variable de estado para captcha
     const [captchaValido, setCaptchaValido] = useState(null)
@@ -102,6 +103,8 @@ const LoginScreen = () => {
                                 username: responseProfile.status === 200 ? responseProfile.data.username : ''
                             }
                         });    
+
+                        navigate('/citas');
                     }           
                     
                 } else {
@@ -116,15 +119,8 @@ const LoginScreen = () => {
         }
     }
 
-    if ( isAuthenticated ) {
-        return (
-            <ContainerCardCenter>
-                <Typography variant='h5' sx={commonSX.title}>
-                    Bienvenido(a) { username }
-                </Typography>
-            </ContainerCardCenter>
-        )
-    } else {
+    if ( !isAuthenticated ) {
+       
         return (
             <ContainerCardCenter sx={{mb:15}}>
                 <Typography variant='h5' sx={commonSX.title}>

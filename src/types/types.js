@@ -7,5 +7,6 @@ export const types = {
     SET_PASO_2: 'SET_PASO_2',
     SET_PASO_3: 'SET_PASO_3',
     CLEAN_INPUTS: 'CLEAN_INPUTS',
-    
+    TOKEN_EXPIRED: 'TOKEN_EXPIRED',
+    TOKEN_EXPIRED_CLEAN: 'TOKEN_EXPIRED',
 }
