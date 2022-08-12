@@ -121,7 +121,7 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                                         value={distrito}
                                         onChange={(e) => { handleChangeDistrito(e) }}
                                     >
-                                        <MenuItem key={0} value={0}>Selecciona una opción</MenuItem>
+                                        <MenuItem key='0' value='0'>Selecciona una opción</MenuItem>
                                         {distritos.map((distrito) =>
                                             <MenuItem key={distrito.id} value={distrito.id}>
                                                 {distrito.nombre}
@@ -142,7 +142,7 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                                         onChange={(e) => { handleChangeOficina(e) }}
                                         disabled={distrito === 0}
                                     >
-                                        <MenuItem key={0} value={0}>Selecciona una opción</MenuItem>
+                                        <MenuItem key='0' value='0'>Selecciona una opción</MenuItem>
                                         {oficinas.map((oficina) =>
                                             <MenuItem key={oficina.id} value={oficina.id}>
                                                 {oficina.descripcion}

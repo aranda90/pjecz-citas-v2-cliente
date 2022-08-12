@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { GetOficinaServicio } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
 
@@ -10,8 +10,8 @@ import { types } from '../../types/types'
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const dispatch = useDispatch()
-    const { oficina_id, servicio_id, nota_id,nota } = useSelector(state => state.citas)
-    console.log(nota_id, nota)
+    const { oficina_id, servicio_id,nota } = useSelector(state => state.citas)
+   
     //servicios
     const [servicios, setServicios] = useState([])
     const [servicio, setServicio] = useState(0)
@@ -84,7 +84,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                                         value={servicio}
                                         onChange={(e) => { handleChangeServicio(e) }}
                                     >
-                                        <MenuItem key={0} value={0}>Selecciona una opción</MenuItem>
+                                        <MenuItem key='0' value='0'>Selecciona una opción</MenuItem>
                                         {servicios.map((servicio) =>
                                             <MenuItem key={servicio.cit_servicio_id} value={servicio.cit_servicio_id}>
                                                 {servicio.cit_servicio_descripcion}
