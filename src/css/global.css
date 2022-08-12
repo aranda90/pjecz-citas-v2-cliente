@@ -1,5 +1,14 @@
 /* Global CSS */
 
+*{
+    font-family: 'Roboto' !important;
+}
+
+.body{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 .app-bar-desktop-link {
     text-decoration: none;
     color: #c7d5dc;

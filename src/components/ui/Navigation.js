@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom'
 
 import { AppBar, Container, Toolbar, Typography } from '@mui/material'
 
-import MenuIcon from '@mui/icons-material/Menu'
-
 import navigationSX from '../../theme/NavigationSX'
 
 import '../../css/global.css'
@@ -22,6 +20,8 @@ const Navigation = () => {
     const { isAuthenticated, username } = useSelector( state => state.auth );
 
     return(
+        <>
+
         <AppBar position='absolute'>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
@@ -45,8 +45,8 @@ const Navigation = () => {
                 </Toolbar>
             </Container>
         </AppBar>
+    </>
     )
-
 }
 
 export default Navigation

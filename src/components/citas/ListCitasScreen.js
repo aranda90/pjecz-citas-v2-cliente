@@ -16,6 +16,7 @@ import '../../css/global.css'
 
 import { useDispatch } from 'react-redux'
 import { types } from '../../types/types'
+import { TokenExpired } from '../modals/TokenExpired'
 
 
 const ListCitasScreen = () => {
@@ -30,9 +31,8 @@ const ListCitasScreen = () => {
             const response = await GetCitCitas()
             if(response.status === 200){
                 setCitaList(response.data.items)     
-            }else if(response.status === 401){                
-                window.localStorage.clear();
-                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
+            }else if(response.status === 401){               
+                dispatch({ type: types.TOKEN_EXPIRED });
             }
         }
         fetchData()
@@ -50,6 +50,9 @@ const ListCitasScreen = () => {
  
     return (
         <>
+
+            <TokenExpired />
+
             {citaList.length <= limiteCitas ?
             <Button component={Link} to='/new' variant="contained" sx={{m:4}}>
                 Agendar Cita

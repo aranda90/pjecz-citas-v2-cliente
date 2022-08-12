@@ -11,7 +11,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const dispatch = useDispatch()
     const { oficina_id, servicio_id,nota } = useSelector(state => state.citas)
-   
+
     //servicios
     const [servicios, setServicios] = useState([])
     const [servicio, setServicio] = useState(0)
@@ -20,7 +20,6 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const handleChangeServicio = (e) => {
         setServicio(e.target.value)
-        console.log(e.target.value)
 
     }
 
@@ -51,9 +50,8 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             const response = await GetOficinaServicio(oficina_id)
             if(response.status === 200){
                 setServicios(response.data.items)
-            }else if(response.status === 401){                
-                window.localStorage.clear()
-                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE })
+            }else if(response.status === 401){               
+                dispatch({ type: types.TOKEN_EXPIRED });
             }
         }
         fetchData()

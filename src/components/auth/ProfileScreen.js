@@ -12,6 +12,7 @@ import { Profile } from '../../actions/AuthActions'
 
 const ProfileScreen = () => {
 
+
     // Consultar Perfil
     const [consultado, setConsultado] = useState(false)
     const [profile, setProfile] = useState({

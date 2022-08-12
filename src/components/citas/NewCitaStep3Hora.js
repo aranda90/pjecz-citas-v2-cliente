@@ -9,6 +9,7 @@ import ReCAPTCHA  from 'react-google-recaptcha'
 import { NewCit } from '../../actions/CitCitasActions'
 
 import { types } from '../../types/types'
+import { TokenExpired } from '../modals/TokenExpired'
 
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
@@ -42,25 +43,23 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             notas: nota,
         }
 
-        await NewCit(params).then( response => {
+        if(captchaValido){
+            await NewCit(params).then( response => {
             
-            if( response ){
 
                 if( response.status === 200){
-                   if(captchaValido){
 
-                        handleNext()
-                        cleanInputs()
-                    }else{
-                          setCaptachaValido(false)
-                    }
-                }else if(response.status === 401){                
-                    window.localStorage.clear();
-                    dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
+                    handleNext()
+                    cleanInputs()
+                }else if(response.status === 401){               
+                    dispatch({ type: types.TOKEN_EXPIRED });
                 }
+                    
                 
-            }
-        })
+            })
+        }else{
+            setCaptachaValido(false)
+        }
     }
  
     const cleanInputs = () => {
@@ -71,6 +70,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
     return (
         <>
+            <TokenExpired />
             <Typography variant='h5' align='center' sx={{ mt:6, mb:4, fontFamily:'serif' }}>
                 <b>Revise que tu información sea correcta</b> 
             </Typography>

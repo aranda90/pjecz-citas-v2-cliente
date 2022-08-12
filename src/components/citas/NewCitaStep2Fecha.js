@@ -12,6 +12,7 @@ import { types } from '../../types/types'
 import { GetCitDiasDisponibles, GetHorasDisponibles } from '../../actions/CitCitasActions'
 
 import '../../css/global.css'
+import { TokenExpired } from '../modals/TokenExpired'
 
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
@@ -22,13 +23,22 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     let horaactual = moment(new Date(),"h:mma")
     let horalimite = moment("2:00pm", "h:mma")
     
-
+    
     const fechaminima = () => {
-
-        let sumadia = 1
+        
         let d = new Date();
+        let sumadia = 1
 
-        if(horaactual.isAfter(horalimite)){
+        if(horaactual.isBefore(horalimite)){
+            switch(d.getDay()){
+                case 5:
+                    sumadia = 3
+                    break
+
+                default:
+                    sumadia = 2
+            }
+        }else if(horaactual.isAfter(horalimite)){
             
             switch(d.getDay()){
 
@@ -40,7 +50,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     break
 
                 default:
-                    sumadia = 2;
+                    sumadia = 2
             }
 
         }
@@ -72,9 +82,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             const response = await GetCitDiasDisponibles(oficina_id)
             if(response.status === 200){
                 setFechas(response.data.items)
-            }else if(response.status === 401){                
-                window.localStorage.clear();
-                dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
+            }else if(response.status === 401){               
+                dispatch({ type: types.TOKEN_EXPIRED });
             }
         }
         fetchData()
@@ -142,9 +151,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                         }))
                     }
 
-                }else if(response.status === 401){                
-                    window.localStorage.clear();
-                    dispatch({ type: types.SET_LOG_OUT_CIT_CLIENTE });
+                }else if(response.status === 401){               
+                    dispatch({ type: types.TOKEN_EXPIRED });
                 }
             })
         }
@@ -154,6 +162,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
     return (
         <>
+            <TokenExpired />
             <Container maxWidth='lg' sx={{ mt: 2 }}>
                 <Grid container spacing={2}>
 
@@ -173,7 +182,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     </LocalizationProvider>
                     </Grid>
 
-                    <Grid item md={5} xs={12} sx={{ m:2}}>
+                    <Grid item md={5} xs={12} sx={{ m:1}}>
                         <Stack 
                             alignItems='center' 
                             flexDirection='row' 
