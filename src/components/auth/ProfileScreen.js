@@ -9,8 +9,12 @@ import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 import { Profile } from '../../actions/AuthActions'
+import { useDispatch } from 'react-redux'
+import { types } from '../../types/types'
 
 const ProfileScreen = () => {
+
+    const dispatch = useDispatch()
 
     // Consultar Perfil
     const [consultado, setConsultado] = useState(false)
@@ -33,13 +37,15 @@ const ProfileScreen = () => {
             if (response.status === 200) {
                 setConsultado(true)
                 setProfile(response.data)
+            }else if(response.status === 401){               
+                dispatch({ type: types.TOKEN_EXPIRED });
             }
             
         }
 
         fetchData()
 
-    }, [ ])
+    }, [dispatch ])
 
     if (consultado) {
         return (
