@@ -43,24 +43,23 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             notas: nota,
         }
 
-        await NewCit(params).then( response => {
+        if(captchaValido){
+            await NewCit(params).then( response => {
             
-            if( response ){
 
                 if( response.status === 200){
-                   if(captchaValido){
 
-                        handleNext()
-                        cleanInputs()
-                    }else{
-                          setCaptachaValido(false)
-                    }
+                    handleNext()
+                    cleanInputs()
                 }else if(response.status === 401){               
                     dispatch({ type: types.TOKEN_EXPIRED });
                 }
+                    
                 
-            }
-        })
+            })
+        }else{
+            setCaptachaValido(false)
+        }
     }
  
     const cleanInputs = () => {

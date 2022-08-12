@@ -23,13 +23,22 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     let horaactual = moment(new Date(),"h:mma")
     let horalimite = moment("2:00pm", "h:mma")
     
-
+    
     const fechaminima = () => {
-
-        let sumadia = 1
+        
         let d = new Date();
+        let sumadia = 1
 
-        if(horaactual.isAfter(horalimite)){
+        if(horaactual.isBefore(horalimite)){
+            switch(d.getDay()){
+                case 5:
+                    sumadia = 3
+                    break
+
+                default:
+                    sumadia = 2
+            }
+        }else if(horaactual.isAfter(horalimite)){
             
             switch(d.getDay()){
 
@@ -41,7 +50,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     break
 
                 default:
-                    sumadia = 2;
+                    sumadia = 2
             }
 
         }
@@ -173,7 +182,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     </LocalizationProvider>
                     </Grid>
 
-                    <Grid item md={5} xs={12} sx={{ m:2}}>
+                    <Grid item md={5} xs={12} sx={{ m:1}}>
                         <Stack 
                             alignItems='center' 
                             flexDirection='row' 
