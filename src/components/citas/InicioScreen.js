@@ -37,9 +37,9 @@ export const InicioScreen = () => {
                    </Link>
                 </Typography>
             </Grid>
-            <Grid item sm={5} xs={12} >
+            <Grid item sm={5} xs={12} sx={{ mb:30}} >
                 <div style={{ padding:"10%", position:'relative'}}>
-                    <Card sx={{ maxWidth: 'lg', mt:110 }}>
+                    <Card sx={{ maxWidth: 'lg' }}>
 
                         <CardMedia
                             component="iframe"
