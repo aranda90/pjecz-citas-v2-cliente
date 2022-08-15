@@ -28,21 +28,31 @@ export const InicioScreen = () => {
                     Ingresar
                 </Button>
                 }
-                <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1, mt:1}}>
+                <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1, mt:1, mr:7}}>
                     Aclaraciónes, dudas y comentarios, contáctenos al correo: <b>citas@pjecz.gob.mx</b>
                 </Typography>
-                <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1, mt:1}}>
+                <Typography variant='body2' color='inherit' sx={{textAlign: 'center', mb:1, mt:1, mr:7}}>
                    <Link to='/preguntas_frecuentes' style={{ textDecoration:'none', color:'#032590'}}> 
                     ¿Tienes dudas? Lee las Preguntas Frecuentes 
                    </Link>
                 </Typography>
             </Grid>
-            <Grid item sm={5} xs={12} >
-                    <CardMedia
-                        component="img"
-                        src="../assets/imges/inicioCitas.png"
-                    
-                    />
+            <Grid item sm={5} xs={12} sx={{ mb:30}} >
+                <div style={{ padding:"10%", position:'relative'}}>
+                    <Card sx={{ maxWidth: 'lg' }}>
+
+                        <CardMedia
+                            component="iframe"
+                            controls
+                            src="https://player.vimeo.com/video/738800419?h=17cda266e5&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                            allow='autoplay'
+                            allowFullScreen
+                            sx={{ position:'absolute', top:60, left:0 }}
+                            height="260"
+                        />
+
+                    </Card>
+                </div>
             </Grid>
             <Grid item sm={1} xs={12}></Grid>
         </Grid>
