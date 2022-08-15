@@ -29,16 +29,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         let d = new Date();
         let sumadia = 1
 
-        if(horaactual.isBefore(horalimite)){
-            switch(d.getDay()){
-                case 5:
-                    sumadia = 3
-                    break
-
-                default:
-                    sumadia = 2
-            }
-        }else if(horaactual.isAfter(horalimite)){
+       if(horaactual.isAfter(horalimite)){
             
             switch(d.getDay()){
 
@@ -168,18 +159,18 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
                     <Grid item md={1} xs={12}></Grid>
 
-                    <Grid item md={5} xs={12}>
+                    <Grid item md={5} xs={12} sx={{ mr:10}}>
 
-                    <LocalizationProvider dateAdapter={ AdapterMoment }>
+                        <LocalizationProvider dateAdapter={ AdapterMoment }>
 
-                        <CalendarPicker                                                         
-                            date={ moment( date )}
-                            minDate={ moment(fechaminima()) }
-                            onChange={ ( newDate ) => { setDate( newDate ) } }
-                            shouldDisableDate={ disableDates }
-                            className='calendar'                          
-                        />
-                    </LocalizationProvider>
+                            <CalendarPicker                                                         
+                                date={ moment( date )}
+                                minDate={ moment(fechaminima()) }
+                                onChange={ ( newDate ) => { setDate( newDate ) } }
+                                shouldDisableDate={ disableDates }
+                                className='calendar'                          
+                            />
+                        </LocalizationProvider>
                     </Grid>
 
                     <Grid item md={5} xs={12} sx={{ m:1}}>
