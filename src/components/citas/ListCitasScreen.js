@@ -32,7 +32,7 @@ const ListCitasScreen = () => {
             if(response.status === 200){
                 setCitaList(response.data.items)     
             }else if(response.status === 401){               
-                dispatch({ type: types.TOKEN_EXPIRED });
+                dispatch({ type: types.TOKEN_EXPIRED })
             }
         }
         fetchData()

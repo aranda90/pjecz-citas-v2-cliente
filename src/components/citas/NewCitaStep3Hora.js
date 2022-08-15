@@ -52,7 +52,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     handleNext()
                     cleanInputs()
                 }else if(response.status === 401){               
-                    dispatch({ type: types.TOKEN_EXPIRED });
+                    dispatch({ type: types.TOKEN_EXPIRED })
                 }
                     
                 

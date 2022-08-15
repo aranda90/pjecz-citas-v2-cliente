@@ -74,7 +74,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             if(response.status === 200){
                 setFechas(response.data.items)
             }else if(response.status === 401){               
-                dispatch({ type: types.TOKEN_EXPIRED });
+                dispatch({ type: types.TOKEN_EXPIRED })
             }
         }
         fetchData()
@@ -159,7 +159,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
                     <Grid item md={1} xs={12}></Grid>
 
-                    <Grid item md={5} xs={12} sx={{ mr:10}}>
+                    <Grid item md={5} xs={12}>
 
                         <LocalizationProvider dateAdapter={ AdapterMoment }>
 

@@ -46,7 +46,7 @@ const LoginScreen = () => {
     }
 
     // Obtener el contexto del cliente
-    const { isAuthenticated, username } = useSelector( state => state.auth )
+    const { isAuthenticated } = useSelector( state => state.auth )
 
     // Formulario
     const [formData, setFormValues] = useState({
@@ -102,7 +102,7 @@ const LoginScreen = () => {
                                 isAuthenticated: true,
                                 username: responseProfile.status === 200 ? responseProfile.data.username : ''
                             }
-                        });    
+                        })
 
                         navigate('/citas');
                     }           
