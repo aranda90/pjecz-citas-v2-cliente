@@ -51,7 +51,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             if(response.status === 200){
                 setServicios(response.data.items)
             }else if(response.status === 401){               
-                dispatch({ type: types.TOKEN_EXPIRED });
+                dispatch({ type: types.TOKEN_EXPIRED })
             }
         }
         fetchData()
