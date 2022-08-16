@@ -50,7 +50,19 @@ const NewAccountScreen = () => {
     })
     const [formSent, setFormSent] = useState(false)
 
+    const [checkboxAviso, setCheckBoxAviso] = useState(false)
+
+    const [checkboxTerm, setCheckBoxTerm] = useState(false)
+
     const [error, setError] = useState('')
+
+    const handleChangeCheckBoxAviso = (e) => {
+        setCheckBoxAviso(e.target.checked)
+    }
+
+    const handleChangeCheckBoxTerm = (e) => {
+        setCheckBoxTerm(e.target.checked)
+    }
 
 
     const handleChange = (event) => {
@@ -74,13 +86,15 @@ const NewAccountScreen = () => {
 
             }else if(formData.curp !== formData.curp2){
                 setError('Las CURP no coinciden, revise nuevamente')
+            }else if(checkboxAviso === false && checkboxTerm === false){
+                setError('Debe seleccionar los avisos y terminos ')
             }else{
 
                 await NewAccount(formData).then( response => {
                     if( response ){
                         
                         if( response.status === 200){
-                            console.log(response)
+                            // console.log(response)
                             setFormSent(true)
                         }
                         if(response.status === 406){
@@ -225,12 +239,12 @@ const NewAccountScreen = () => {
                             </Typography>
                             <FormGroup>
                                 <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox checked={checkboxAviso} onChange={handleChangeCheckBoxAviso} />}
                                     label='Aviso de privacidad'
                                     name='aviso'
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox checked={checkboxTerm} onChange={handleChangeCheckBoxTerm} />}
                                     label='Términos y condiciones de uso'
                                     name='terminos'
                                 />
