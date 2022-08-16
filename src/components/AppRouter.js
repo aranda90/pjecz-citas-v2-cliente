@@ -24,6 +24,7 @@ import { InicioScreen } from './citas/InicioScreen'
 import UpdatePasswordScreen from './auth/UpdatePasswordScreen'
 import NotFound from './ui/NotFound'
 import { PreguntasFrecuentes } from './static/PreguntasFrecuentes'
+import { EncuestaSatisfaccion } from './static/EncuestaSatisfaccion'
 
 const AppRouter = () => {       
 
@@ -62,6 +63,7 @@ const AppRouter = () => {
                     <Route path='/privacy_terms' element={ <PrivacyTermsScreen /> } />
                     <Route path='/use_terms' element={ <UseTermsScreen /> } />
                     <Route path='/preguntas_frecuentes' element={ <PreguntasFrecuentes /> } />
+                    <Route path='/encuesta_satisfaccion' element={ <EncuestaSatisfaccion /> } />
 
                     <Route path='*' element={ <NotFound />} />
 
