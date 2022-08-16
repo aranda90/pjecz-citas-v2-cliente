@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Grid, TextField, Typography } from '@mui/material'
+import { Checkbox, FormControlLabel, FormGroup, Grid, TextField, Typography } from '@mui/material'
 
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 
@@ -9,6 +9,7 @@ import commonSX from '../../theme/CommonSX'
 import '../../css/global.css'
 
 import { Profile } from '../../actions/AuthActions'
+import { CheckBox } from '@mui/icons-material'
 
 const ProfileScreen = () => {
 
@@ -26,16 +27,22 @@ const ProfileScreen = () => {
         username: '',
     })
 
+    const [checkboxSuscripcion, setCheckBoxSuscripcion] = useState(false)
+
+    const handleChangeCheckBoxSuscripcion = (event) => {
+        setCheckBoxSuscripcion(event.target.checked)
+    }
+
     useEffect(() => {
 
         async function fetchData() {
-            
+
             const response = await Profile()
             if (response.status === 200) {
                 setConsultado(true)
                 setProfile(response.data)
             }
-            
+
         }
 
         fetchData()
@@ -102,6 +109,15 @@ const ProfileScreen = () => {
                             aria-readonly
                             value={profile.email}
                         />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormGroup sx={{ mt:2, ml:1 }}>
+                            <FormControlLabel
+                                control={ <Checkbox checked={checkboxSuscripcion} onChange={handleChangeCheckBoxSuscripcion} />}
+                                label='Deseas recibir el boletín diario'
+                                name='suscripcion'
+                            />
+                        </FormGroup>
                     </Grid>
                 </Grid>
             </ContainerCardCenter>
