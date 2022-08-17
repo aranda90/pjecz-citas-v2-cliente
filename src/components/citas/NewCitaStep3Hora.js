@@ -19,6 +19,9 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
     const tab = '\u00A0'
 
     const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora, nota } = useSelector( state => state.citas )
+
+    const [error, setError] = useState('')
+
     
     // variables de estado para captcha
     const [captchaValido, setCaptachaValido] = useState(null)
@@ -53,6 +56,9 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     cleanInputs()
                 }else if(response.status === 401){               
                     dispatch({ type: types.TOKEN_EXPIRED })
+                }
+                if(response.status === 406){
+                    setError(response.data.detail)
                 }
                     
                 
@@ -112,6 +118,9 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     </Typography>
 
                 </Grid>
+                {
+                    error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{error}</span> : null
+                }
                 <Grid item sm={3} xs={12}></Grid>
             </Grid>
             <Box sx={{ mb: 5 }}>
