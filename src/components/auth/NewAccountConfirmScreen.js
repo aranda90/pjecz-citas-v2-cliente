@@ -101,7 +101,6 @@ const NewAccountConfirmScreen = () => {
                         if(response.status === 406 || 404){
 
                             setError(response.data.detail)
-                            console.log(response.data.detail)
                         }
                        
                     }
@@ -111,7 +110,6 @@ const NewAccountConfirmScreen = () => {
 
         }else{
             setCaptachaValido(false)
-            // setError('')
         }
         
     }
