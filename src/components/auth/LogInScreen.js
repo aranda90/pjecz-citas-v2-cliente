@@ -91,7 +91,7 @@ const LoginScreen = () => {
             return false
         }
         if(captchaValido){
-            LogIn(formData).then(async (response) => {
+            LogIn(formData).then(async ( response ) => {
                 
                 if (response.status === 200) {
                     const { data } = response
@@ -102,6 +102,7 @@ const LoginScreen = () => {
                         window.localStorage.setItem('token', data.access_token) // Guardar el token
 
                         const responseProfile = await Profile()
+                        
                         dispatch({
                             type: types.SET_LOG_IN_CIT_CLIENTE,
                             payload: {
