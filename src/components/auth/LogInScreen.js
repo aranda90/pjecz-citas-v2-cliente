@@ -54,7 +54,7 @@ const LoginScreen = () => {
         password: '',
         showPassword: false,
     })
-    const {username, password } = formData
+    const { username, password } = formData
 
     const [errorMessage, setErrorMessage] = useState('')
     
@@ -91,18 +91,17 @@ const LoginScreen = () => {
             return false
         }
         if(captchaValido){
-            LogIn(formData).then(async ( response ) => {
+            LogIn(formData).then( async ( response ) => {
                 
                 if (response.status === 200) {
                     const { data } = response
-               
 
                     if( data.access_token ){
 
                         window.localStorage.setItem('token', data.access_token) // Guardar el token
 
                         const responseProfile = await Profile()
-                        
+
                         dispatch({
                             type: types.SET_LOG_IN_CIT_CLIENTE,
                             payload: {
@@ -182,7 +181,7 @@ const LoginScreen = () => {
                                     sitekey='6LdL-yMgAAAAAFaW2_5KwUlT5FXJjZYaPQd7fFbP'
                                     onChange={onchange}
                                 />
-                                { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null  && submitForm }
+                                { (captchaValido === false) ? <Typography variant='body1'>Seleccione el captcha para continuar</Typography> : null }
                             </Typography>
                         </Grid>
                         {
