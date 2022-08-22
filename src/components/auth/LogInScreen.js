@@ -54,8 +54,8 @@ const LoginScreen = () => {
         password: '',
         showPassword: false,
     })
-    const {username, password } = formData;
-    //const [isError, setIsError] = useState(false)
+    const {username, password } = formData
+
     const [errorMessage, setErrorMessage] = useState('')
     
     const handleChange = (event) => {
@@ -85,7 +85,7 @@ const LoginScreen = () => {
 
     // Enviar el formulario
     const submitForm = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if(username === '' || password === '' ){
             setErrorMessage('Debes escribir el correo electónico y la contraseña')
             return false
