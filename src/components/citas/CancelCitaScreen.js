@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
 
 import { DeleteCitas } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
@@ -11,6 +11,9 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
     const dispatch = useDispatch()
 
     const [open, setOpen] = useState(false)
+
+    const [error, setError] = useState('')
+
   
     const handleClickDelete = async (e) => {
         
@@ -23,10 +26,12 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
                 }else if(response.status === 401){               
                     dispatch({ type: types.TOKEN_EXPIRED });
                 }
+                if(response.status === 406 || 404){
+                    setError(response.data.detail)
+                }
                 
                 setOpen( false )
                 
-                // console.log(response)
             }
            
         })       
@@ -36,9 +41,18 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
 
     return (  
         <>
-            <Button onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained">
-                Cancelar 
-            </Button>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Button onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
+                        Cancelar 
+                    </Button>
+                </Grid>
+                <Grid item xs={12} sx={{ mt:2}}>
+                    {
+                        error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'120px', fontSize:18 }}>{error}</span> : null
+                    }
+                </Grid>
+            </Grid>
            
             <Dialog
                 open={open}
@@ -63,6 +77,7 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
                     </Button>
                 </DialogActions>
 
+           
             </Dialog>
         </>
 
