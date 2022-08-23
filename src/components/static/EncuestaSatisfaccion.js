@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied'
@@ -26,7 +26,7 @@ export const EncuestaSatisfaccion = () => {
             
         },
         2: {
-            icon: <SentimentDissatisfiedIcon color="secondary" />,
+            icon: <SentimentDissatisfiedIcon color="dissatisfied" />,
             label: 'Dissatisfied',
         },
         3: {
@@ -34,7 +34,7 @@ export const EncuestaSatisfaccion = () => {
             label: 'Neutral',
         },
         4: {
-            icon: <SentimentSatisfiedAltIcon color="success" />,
+            icon: <SentimentSatisfiedAltIcon color="satisfied" />,
             label: 'Satisfied',
         },
         5: {
