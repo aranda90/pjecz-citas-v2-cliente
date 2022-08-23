@@ -119,7 +119,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
                 </Grid>
                 {
-                    error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>{error}</span> : null
+                    error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'1620px', fontSize:18 }}>{error}</span> : null
                 }
                 <Grid item sm={3} xs={12}></Grid>
             </Grid>

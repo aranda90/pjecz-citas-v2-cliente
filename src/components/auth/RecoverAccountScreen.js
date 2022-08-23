@@ -59,7 +59,7 @@ const RecoverAccountScreen = () => {
                         console.log(response)
                         setFormSent(true)
                     }
-                    if(response.status === 406){
+                    if(response.status === 406 || 404){
                         setError(response.data.detail)
                     }
                 } 

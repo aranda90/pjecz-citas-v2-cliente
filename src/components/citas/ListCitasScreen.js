@@ -110,6 +110,10 @@ const ListCitasScreen = () => {
                                 <br/>
                                 {lista.estado}
                             </Typography>
+                            <Typography >
+                                <br/>
+                                {lista.notas}
+                            </Typography>
                         </CardContent>
                         
                         <CardActions style={{float:'right', paddingTop:13, height:'auto'}}>
