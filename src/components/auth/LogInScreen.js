@@ -54,8 +54,10 @@ const LoginScreen = () => {
         password: '',
         showPassword: false,
     })
-    //const [isError, setIsError] = useState(false)
+    const { username, password } = formData
+
     const [errorMessage, setErrorMessage] = useState('')
+    
     const handleChange = (event) => {
         const { name, value } = event.target
         setFormValues((prevState) => {
@@ -82,19 +84,24 @@ const LoginScreen = () => {
     }
 
     // Enviar el formulario
-    //const navigate = useNavigate()
-    const submitForm = () => {
+    const submitForm = (e) => {
+        e.preventDefault()
+        if(username === '' || password === '' ){
+            setErrorMessage('Debes escribir el correo electónico y la contraseña')
+            return false
+        }
         if(captchaValido){
             LogIn(formData).then( async ( response ) => {
+                
                 if (response.status === 200) {
-                    const { data } = response     
-                    
+                    const { data } = response
+
                     if( data.access_token ){
-                        
+
                         window.localStorage.setItem('token', data.access_token) // Guardar el token
-                        
+
                         const responseProfile = await Profile()
-                        
+
                         dispatch({
                             type: types.SET_LOG_IN_CIT_CLIENTE,
                             payload: {
@@ -105,16 +112,15 @@ const LoginScreen = () => {
                         })
 
                         navigate('/citas');
-                    }           
-                    
+                    }
+
                 } else {
                     setErrorMessage(response.data.detail)
                 }
             })
             setFormValues(cleanFormData)
-            //setIsError(true)
-        }
-        else{
+            
+        }else{
             setCaptchaValido(false)
         }
     }
