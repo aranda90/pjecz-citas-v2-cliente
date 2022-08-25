@@ -26,12 +26,13 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     }
 
+
     const guardarInformacion = () => {
-        notas.trim()
+        
         if(servicio === 0){
             return false
-        }else if(notas === ''){
-            setErrorMessage('Las notas deben tener alguna indicación, de no contener escribir Ninguna')
+        }else if(notas.trim() === ""){
+            setErrorMessage('FALTA llenar este campo.')
             return false
         }
         dispatch({
@@ -111,11 +112,11 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                             <TextField
                                 disabled={servicio === 0}
                                 id="indicaciones_tramite"
-                                label="Indicaciones del trámite y agregar expedientes si se requiere"
+                                label="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
                                 name="indicaciones_tramite"
                                 multiline
                                 onChange={(e) => { setNotas(e.target.value) }}
-                                placeholder="Favor de dar indicaciones del trámite y agregar expedientes si se requiere"
+                                placeholder="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
                                 rows={4}
                                 style={{ width: '100%' }}
                                 value={notas}
