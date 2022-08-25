@@ -90,7 +90,6 @@ const NewAccountConfirmScreen = () => {
             setError('Las Contraseñas no coiniciden, escribir nuevamente')
         }else if(captchaValido){
             
-                
                 await NewAccountConfirm(formData).then( response => {
                     if( response ){
                         
@@ -98,7 +97,8 @@ const NewAccountConfirmScreen = () => {
                             console.log(response)
                             setFormSent(true)
                         
-                        }else{
+                        }
+                        if(response.status === 406 || 404){
 
                             setError(response.data.detail)
                         }
@@ -110,7 +110,6 @@ const NewAccountConfirmScreen = () => {
 
         }else{
             setCaptachaValido(false)
-            setError('')
         }
         
     }
