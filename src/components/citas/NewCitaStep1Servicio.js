@@ -10,13 +10,16 @@ import { types } from '../../types/types'
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
     const dispatch = useDispatch()
-    const { oficina_id, servicio_id,nota } = useSelector(state => state.citas)
+    const { oficina_id, servicio_id,nota, nota_id } = useSelector(state => state.citas)
 
     //servicios
     const [servicios, setServicios] = useState([])
     const [servicio, setServicio] = useState(0)
 
+    //notas
     const [notas, setNotas] = useState(nota)
+
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleChangeServicio = (e) => {
         setServicio(e.target.value)
@@ -24,11 +27,13 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
     }
 
     const guardarInformacion = () => {
-
+        notas.trim()
         if(servicio === 0){
             return false
+        }else if(notas === ''){
+            setErrorMessage('Las notas deben tener alguna indicación, de no contener escribir Ninguna')
+            return false
         }
-
         dispatch({
             type: types.SET_PASO_1,
             payload:{
@@ -47,22 +52,30 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             setServicios([])
             setServicio(0)
 
+            
             const response = await GetOficinaServicio(oficina_id)
             if(response.status === 200){
                 setServicios(response.data.items)
             }else if(response.status === 401){               
                 dispatch({ type: types.TOKEN_EXPIRED })
             }
+            
         }
         fetchData()
-    },[oficina_id,dispatch])
+    },[oficina_id, dispatch])
 
     useEffect(() => {
-        if(servicio_id !== 0){
+        if(servicio_id !== 0 ){
             setServicio(servicio_id)
         }
     },[servicio_id])
 
+    useEffect(() => {
+        if(nota_id !== 0 && nota !== 0 ){
+            setNotas(nota_id)
+            console.log(nota_id)
+        }
+    },[nota_id, nota])
     
     return (
         <>
@@ -94,19 +107,23 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                         </Grid>
                     </Grid>
                     <Grid item md={5} xs={12}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{mb:2}}>
                             <TextField
+                                disabled={servicio === 0}
                                 id="indicaciones_tramite"
                                 label="Indicaciones del trámite y agregar expedientes si se requiere"
                                 name="indicaciones_tramite"
-                                value={notas}
-                                onChange={(e) => {setNotas(e.target.value)}}
                                 multiline
-                                rows={4}
+                                onChange={(e) => { setNotas(e.target.value) }}
                                 placeholder="Favor de dar indicaciones del trámite y agregar expedientes si se requiere"
+                                rows={4}
                                 style={{ width: '100%' }}
+                                value={notas}
                             />
                         </Grid>
+                        {
+                            errorMessage ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'1620px', fontSize:18 }}>{errorMessage}</span> : null
+                        }
                     </Grid>
                 </Grid>
             </Container>
