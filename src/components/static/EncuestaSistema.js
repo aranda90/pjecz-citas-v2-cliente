@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied'
@@ -11,7 +11,7 @@ import commonSX from '../../theme/CommonSX'
 
 
 
-export const EncuestaServicio = () => {
+export const EncuestaSistema = () => {
     
     const StyledRating = styled(Rating)(({ theme }) => ({
         '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -43,8 +43,6 @@ export const EncuestaServicio = () => {
         },
     }
     
-    console.log(customIcons)
-    
     
     function IconContainer(props) {
         const { value, ...other } = props;
@@ -55,8 +53,35 @@ export const EncuestaServicio = () => {
         value: PropTypes.number.isRequired,
     }
  
+    
+    const [ formData, setFormData] = useState({
+        preguntaInteaccion:'',
+        preguntaComentarios:'',
+    })
 
-    // const [] = useState()
+    //const {preguntaInteaccion } = formData
+
+   const [ratingValue, setReatingValue] = useState(IconContainer.value)
+
+    const handleChangeRating = (event, newValue) => {
+        setReatingValue(newValue)
+        console.log(newValue)
+    }
+
+    const handleChangeInputs = (e) => {
+        
+        setFormData({
+            ...formData,
+            [e.target.name] : e.target.value
+        })
+    }
+
+    const enviarInformacion = (e) => {
+        e.preventDefault()
+
+        console.log( ratingValue + ' ' + formData.preguntaInteaccion + ' ' + formData.preguntaComentarios)
+        
+    }
 
   return (
     <>
@@ -68,40 +93,44 @@ export const EncuestaServicio = () => {
                 <Grid item xs={12} sm={12}>
 
                     <Typography variant='body1' gutterBottom>
-                        ¿Cómo te sientes con el tiempo de atención para realizar tu trámite?
+                        ¿Cómo fue tu interacción con el Sistema de Citas Versión 2?
                     </Typography>
                     <StyledRating
                         name="highlight-selected-only"
-                        defaultValue={3}
                         IconContainerComponent={IconContainer}
                         getLabelText={(value) => customIcons[value].label}
                         highlightSelectedOnly
+                        onChange={handleChangeRating}
                     />
                 </Grid>
                 <Grid item xs={12} sm={12}>
 
                     <Typography variant='body1' gutterBottom>
-                        ¿Cómo calificarías tu experiencia con el servicio brindado?
-                    </Typography>
-                    <StyledRating
-                        name="highlight-selected-only"
-                        defaultValue={3}
-                        IconContainerComponent={IconContainer}
-                        getLabelText={(value) => customIcons[value].label}
-                        highlightSelectedOnly
-                    />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-
-                    <Typography variant='body1' gutterBottom>
-                        ¿Cómo podemos mejorar tu experiencia en el PJECZ?
+                        ¿Por qué?
                     </Typography>
                     <TextField
-                        id="experiencia"
+                        id="preguntaInteaccion"
                         label="Escribe tu opinión"
-                        name="experiencia"
+                        name="preguntaInteaccion"
+                        //value={preguntaInteaccion}
+                        onChange={handleChangeInputs}
+                        multiline
+                        rows={4}
+                        placeholder="Escribe tu opinión"
+                        style={{ width: '100%' }}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12}>
+
+                    <Typography variant='body1' gutterBottom>
+                        ¿Tienes algún comentario para nosotros?
+                    </Typography>
+                    <TextField
+                        id="preguntaComentarios"
+                        label="Escribe tu opinión"
+                        name="preguntaComentarios"
                         // value={}
-                        // onChange={}
+                        onChange={handleChangeInputs}
                         multiline
                         rows={4}
                         placeholder="Escribe tu opinión"
@@ -114,11 +143,13 @@ export const EncuestaServicio = () => {
                         color='info' 
                         style={{ float:'right'}}
                         type='submit'
+                        onClick={enviarInformacion}
                     >
                         Envíar
                     </Button>
                 </Grid>
             </Grid>
+            {/*<h3>{formData.preguntaInteaccion} - {formData.preguntaComentarios}</h3>*/}
         </ContainerCardCenter>
     </>
   )
