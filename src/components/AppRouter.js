@@ -26,6 +26,7 @@ import NotFound from './ui/NotFound'
 import { PreguntasFrecuentes } from './static/PreguntasFrecuentes'
 import { EncuestaServicio } from './static/EncuestaSatisfaccion'
 import { EncuestaSistema } from './static/EncuestaSistema'
+import { TestAlgo } from './static/TestAlgo'
 
 const AppRouter = () => {       
 
@@ -64,8 +65,9 @@ const AppRouter = () => {
                     <Route path='/privacy_terms' element={ <PrivacyTermsScreen /> } />
                     <Route path='/use_terms' element={ <UseTermsScreen /> } />
                     <Route path='/preguntas_frecuentes' element={ <PreguntasFrecuentes /> } />
-                    <Route path='/encuesta_servicio' element={ <EncuestaServicio /> } />
-                    <Route path='/encuesta_sistema' element={ <EncuestaSistema /> } />
+                    <Route path='/poll_services' element={ <EncuestaServicio /> } />
+                    <Route path='/poll_system' element={ <EncuestaSistema /> } />
+                    <Route path='/test' element={ <TestAlgo /> } />
 
                     <Route path='*' element={ <NotFound />} />
 
