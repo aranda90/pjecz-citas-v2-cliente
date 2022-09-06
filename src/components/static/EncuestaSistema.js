@@ -79,6 +79,7 @@ function IconContainer(props) {
 
 
 export const EncuestaSistema = () => {
+
     const navigate = useNavigate()
 
     let {search} = useLocation()
@@ -118,7 +119,7 @@ export const EncuestaSistema = () => {
 
     const handleChangeRating = (event, newValue) => {
         setReatingValue(newValue)
-        console.log(newValue)
+        // console.log(newValue)
     }
 
     const [ formData, setFormData ] = useState({
@@ -128,7 +129,7 @@ export const EncuestaSistema = () => {
         hashid:hashid,
     })
 
-
+    const {respuesta_02} = formData
 
     const handleChangeInputs = (e) => {
         
@@ -141,12 +142,16 @@ export const EncuestaSistema = () => {
 
     const enviarInformacion = async(e) => {
         e.preventDefault()
+        
+        if(respuesta_02 === ''){
+            setError('Debes llenar este campo')
+            return false
+        }
         formData.respuesta_01 = ratingValue
         await UpdatePollSystem(formData).then(response => {
             if(response){
                 if(response.status === 200){
-                    console.log(response)
-                    navigate('/test')
+                    navigate('/poll_response')
                     
                 }else {
                     
@@ -159,7 +164,7 @@ export const EncuestaSistema = () => {
             }
         })
 
-        console.log(formData)
+        // console.log(formData)
 
     }
   
@@ -204,6 +209,9 @@ export const EncuestaSistema = () => {
                             style={{ width: '100%' }}
                         />
                     </Grid>
+                    {
+                        error ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'1620px', fontSize:18 }}>{error}</span> : null
+                    }
                     <Grid item xs={12} sm={12}>
 
                         <Typography variant='body1' gutterBottom>
@@ -247,7 +255,7 @@ export const EncuestaSistema = () => {
     return(
         <>
             <ContainerCardCenter>
-                <Typography variant='h5'>
+                <Typography variant='h5' gutterBottom style={{ textTransform:'uppercase', color:'#022E66'}}>
                     Revisa tu información
                 </Typography>
                 <Typography variant='body1'>

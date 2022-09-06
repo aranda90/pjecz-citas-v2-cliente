@@ -27,6 +27,7 @@ import { PreguntasFrecuentes } from './static/PreguntasFrecuentes'
 import { EncuestaServicio } from './static/EncuestaSatisfaccion'
 import { EncuestaSistema } from './static/EncuestaSistema'
 import { TestAlgo } from './static/TestAlgo'
+import { RespuestaEncuestaSistema } from './static/RespuestaEncuestaSistema'
 
 const AppRouter = () => {       
 
@@ -67,7 +68,7 @@ const AppRouter = () => {
                     <Route path='/preguntas_frecuentes' element={ <PreguntasFrecuentes /> } />
                     <Route path='/poll_services' element={ <EncuestaServicio /> } />
                     <Route path='/poll_system' element={ <EncuestaSistema /> } />
-                    <Route path='/test' element={ <TestAlgo /> } />
+                    <Route path='/poll_response' element={ <RespuestaEncuestaSistema /> } />
 
                     <Route path='*' element={ <NotFound />} />
 
