@@ -44,7 +44,7 @@ const NotFound = () => {
         <Grid item sm={4} xs={12}>
           <CardMedia
               component="img"
-              image='../assets/imges/notfound1.png'
+              image='https://storage.googleapis.com/pjecz-informatica/static/images/notfound.png'
               height="auto"
               width="150"
               alt="not found"

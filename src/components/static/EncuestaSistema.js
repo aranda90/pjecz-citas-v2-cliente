@@ -5,7 +5,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
-import { Button, Grid, Input, Rating, styled, TextField, Typography } from '@mui/material'
+import { Box, Button, Grid, Input, Rating, styled, TextField, Tooltip, Typography } from '@mui/material'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import { GetPollSystem, UpdatePollSystem } from '../../actions/EncuestaActions'
@@ -29,7 +29,7 @@ const customIcons = {
     },
     3: {
         icon: <SentimentSatisfiedIcon color="warning" />,
-        label: 'Normal',
+        label: 'Neutral',
     },
     4: {
         icon: <SentimentSatisfiedAltIcon color="satisfied" />,
@@ -42,39 +42,27 @@ const customIcons = {
 }
 
 const labels = {
-
-    
   
-    1: "Useless+",
+    1: "Muy Difícil",
   
+    2: "Difícil",
   
-    2: "Poor+",
+    3: "Neutral",
   
+    4: "Fácil",
   
-    3: "Ok+",
-  
-    4: "Good+",
-  
-  
-    5: "Excellent+",
+    5: "Muy Fácil",
   
   };
   
   function getLabelText(value) {
-  
-    return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
-  
+    return `${value} ${value !== 1 ? '' : ''}, ${labels[value]}`;
   }
 
 function IconContainer(props) {
     const { value, ...other } = props;
     return <span {...other}>{customIcons[value].icon}</span>
 }
-
-// const cleanFormData = {
-//     preguntaInteaccion:'',
-//     preguntaComentarios:'',
-// }
 
 
 
@@ -119,7 +107,6 @@ export const EncuestaSistema = () => {
 
     const handleChangeRating = (event, newValue) => {
         setReatingValue(newValue)
-        // console.log(newValue)
     }
 
     const [ formData, setFormData ] = useState({
@@ -129,7 +116,7 @@ export const EncuestaSistema = () => {
         hashid:hashid,
     })
 
-    const {respuesta_02} = formData
+    const { respuesta_01, respuesta_02} = formData
 
     const handleChangeInputs = (e) => {
         
@@ -164,8 +151,6 @@ export const EncuestaSistema = () => {
             }
         })
 
-        // console.log(formData)
-
     }
   
     if(hashOK){
@@ -174,23 +159,31 @@ export const EncuestaSistema = () => {
         <>
             <ContainerCardCenter sx={{}}>
                 <Typography variant='h4' sx={commonSX.title} style={{color:'#022E66'}}>
-                    Encuesta de satisfacción {formData.cit_cliente_nombre}
+                    Encuesta de sistema {formData.cit_cliente_nombre}
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
 
                         <Typography variant='body1' gutterBottom>
-                            ¿Cómo fue tu interacción con el Sistema de Citas Versión 2?
+                            ¿Cómo fue tu experiencia con el Sistema de Citas Versión 2?
                         </Typography>
                         <StyledRating
                             name="respuesta_01"
                             id='respuesta_01'
                             IconContainerComponent={IconContainer}
-                            getLabelText={getLabelText}
+                            getLabelText={(value) => customIcons[value].label}
                             highlightSelectedOnly
                             onChange={handleChangeRating}
                         />
-                        {/* <Box>{getLabelText}</Box> */}
+                        {
+                            ratingValue <= respuesta_01 ?
+                            
+                            <span></span> 
+                            :
+                            <Box style={{ color:'#014DAE'}}>{getLabelText(ratingValue)}</Box> 
+                                
+                        }
+                       
                     </Grid>
                     <Grid item xs={12} sm={12}>
 
@@ -201,7 +194,6 @@ export const EncuestaSistema = () => {
                             id="respuesta_02"
                             label="Escribe tu opinión"
                             name="respuesta_02"
-                            //value={preguntaInteaccion}
                             onChange={handleChangeInputs}
                             multiline
                             rows={4}
@@ -221,7 +213,6 @@ export const EncuestaSistema = () => {
                             id="respuesta_03"
                             label="Escribe tu opinión"
                             name="respuesta_03"
-                            // value={}
                             onChange={handleChangeInputs}
                             multiline
                             rows={4}
