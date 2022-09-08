@@ -31,3 +31,34 @@ export const UpdatePollSystem = data => {
     })
 }
 
+
+export const GetPollService = (data) => {
+    return new Promise((resolve, reject) => {
+        
+            const ruta = `/v2/enc_servicios/validar?hashid=${data}`
+            
+            HttpClient.get(ruta)
+            .then(response => {
+                resolve(response)
+            })
+            .catch((error) => {
+                resolve(error.response)
+            })
+        
+    })
+}
+
+
+export const UpdatePollService = data => {
+    return new Promise((resolve, reject) => {
+        HttpClient.post('/v2/enc_servicios/contestar', data)
+            .then(response => {
+                if (response.status === 200) {
+                    resolve(response)
+                }
+            })
+            .catch((error) => {
+                resolve(error.response)
+            })
+    })
+}

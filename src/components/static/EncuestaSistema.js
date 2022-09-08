@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import PropTypes from 'prop-types'
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied'
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied'
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
-import { Box, Button, Grid, Input, Rating, styled, TextField, Tooltip, Typography } from '@mui/material'
+import { Box, Button, Grid, Input, Rating, styled, TextField, Typography } from '@mui/material'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import { GetPollSystem, UpdatePollSystem } from '../../actions/EncuestaActions'
 import { useLocation, useNavigate } from 'react-router-dom'
+
 
 const StyledRating = styled(Rating)(({ theme }) => ({
     '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
@@ -159,7 +160,7 @@ export const EncuestaSistema = () => {
         <>
             <ContainerCardCenter sx={{}}>
                 <Typography variant='h4' sx={commonSX.title} style={{color:'#022E66'}}>
-                    Encuesta de sistema {formData.cit_cliente_nombre}
+                    Encuesta de sistema
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
