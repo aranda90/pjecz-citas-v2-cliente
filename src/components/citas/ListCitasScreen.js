@@ -100,7 +100,7 @@ const ListCitasScreen = () => {
                                 fontWeight:500
                             }}
                         />
-                        <CardContent component="div" style={{paddingTop:3, minHeight:280, paddingBottom:18}}>
+                        <CardContent component="div" style={{paddingTop:3, minHeight:310, paddingBottom:18}}>
                             <Typography>
                                 <br/>
                                 <b>{lista.oficina_descripcion_corta} </b> <br/>
@@ -119,7 +119,7 @@ const ListCitasScreen = () => {
                             </Typography>
                             <Typography >
                                 <br/>
-                                {lista.codigo_asistencia}
+                                <b>{lista.codigo_asistencia}</b>
                             </Typography>
                         </CardContent>
                         
