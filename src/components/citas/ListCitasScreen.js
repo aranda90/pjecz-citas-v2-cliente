@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Tooltip, Typography } from '@mui/material'
 
 import commonSX from '../../theme/CommonSX'
 
@@ -49,7 +49,9 @@ const ListCitasScreen = () => {
         setCitaList(filterCard)
     }
 
+    // const resultSubstr = citaList.notas.substr(0,10)
 
+    // console.log(resultSubstr)
  
     return (
         <>
@@ -114,10 +116,13 @@ const ListCitasScreen = () => {
                                 <br/>
                                 {lista.estado}
                             </Typography>
-                            <Typography >
-                                <br/>
-                                {lista.notas}
-                            </Typography>
+                            <br/>
+                            <Tooltip title={lista.notas} arrow>
+                                {
+                                    lista.notas.length > 40 ? <Box>{lista.notas.substring(0,40) + '...'}</Box> : <Box>{lista.notas}</Box>
+                                }
+                                
+                            </Tooltip>
                             <Typography sx={{ mt:3}}>
                                 Código asistencia<br/>
                                 <b style={{color:'#EB0000'}}>{lista.codigo_asistencia}</b>
