@@ -19,7 +19,7 @@ const NewCitaStep4Review = () => {
         <Grid container align='center' sx={{mt:6}}>
             <Grid item xs={12}></Grid>
             <Grid item xs={12}>
-                <Typography variant='h5' align='center' sx={{ mt: 3, pl:5, pr:5, textTransform:'uppercase' }}>
+                <Typography variant='h5' align='center' sx={{ color:"#002540", mt: 3, pl:5, pr:5, textTransform:'uppercase' }}>
                     <b>Tu cita se agendo correctamente</b>
                 </Typography>
             </Grid>
@@ -29,20 +29,20 @@ const NewCitaStep4Review = () => {
             <Grid item  xs={12}></Grid>
             <Grid item  xs={12}>
                 <Typography variant='h5' align='center' sx={{ mt: 2, pl:5, pr:5, color:"#002540" }}>
-                    <b>Este es tu código de asistencia<br/></b>
+                    <b>Código de asistencia<br/></b>
                 </Typography>
                 <Box style={{ color:'#EB0000', fontSize:30}}>{ codigoRedux }</Box>
-                <Box style={{ color:'#002540', fontSize:11}}>Te sugerimos guardar bien este código</Box>
+                <Box style={{ color:'#002540', fontSize:11}}>Muestralo para marcar tu asistencia</Box>
             </Grid>
             <Grid item  xs={12}></Grid>
         </Grid>
         <Grid container align='center' style={{ padding:'3px 15px'}}>
             <Grid item xs={12}></Grid>
             <Grid item xs={12}>
-                <Typography align='justify' sx={{ mt:3, pl:5, pr:5 }}>
+                <Typography align='justify' sx={{ mt:3, pl:10, pr:10 }}>
                     En unos minutos puedes revisar tu correo electrónico, te sugerimos acudir a nuestra sede con 10 minutos de anticipación para brindarte un mejor servicio. 
                 </Typography>
-                <Typography align='justify' sx={{ mt:3, pl:5, pr:5 }}>
+                <Typography align='justify' sx={{ mt:3, pl:10, pr:10 }}>
                     A tu ingreso debes presentar una identificación oficial y presentar el mensaje que se te envío a tu correo electrónico. Si acude 10 minutos después de la hora señalada en esta confirmación no será posible garantizarle el servicio. 
                 </Typography>
             </Grid>

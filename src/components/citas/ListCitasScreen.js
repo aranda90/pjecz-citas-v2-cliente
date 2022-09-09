@@ -90,9 +90,7 @@ const ListCitasScreen = () => {
                 {citaList.map((lista) => 
 
                     <Card align='center' sx={commonSX.card} key={ lista.id }>
-                        <Typography sx={{mt:2}}>
-                            {format(lista.inicio)}
-                        </Typography>
+                        
                         <CardHeader
                             title={"Cita " + lista.id }
                             titleTypographyProps={{
@@ -100,6 +98,9 @@ const ListCitasScreen = () => {
                                 fontWeight:500
                             }}
                         />
+                        <Typography sx={{mt:2}}>
+                            {format(lista.inicio)}
+                        </Typography>
                         <CardContent component="div" style={{paddingTop:3, minHeight:310, paddingBottom:18}}>
                             <Typography>
                                 <br/>
@@ -117,9 +118,9 @@ const ListCitasScreen = () => {
                                 <br/>
                                 {lista.notas}
                             </Typography>
-                            <Typography >
-                                <br/>
-                                <b>{lista.codigo_asistencia}</b>
+                            <Typography sx={{ mt:3}}>
+                                Código asistencia<br/>
+                                <b style={{color:'#EB0000'}}>{lista.codigo_asistencia}</b>
                             </Typography>
                         </CardContent>
                         
