@@ -21,6 +21,7 @@ import { TokenExpired } from '../modals/TokenExpired'
 
 const ListCitasScreen = () => {
 
+
     let limiteCitas = 29
     const [citaList, setCitaList] = useState([])
 
@@ -42,10 +43,12 @@ const ListCitasScreen = () => {
         return moment(inicio).format("YYYY-MM-DD HH:mm")
     }
 
+
     const cancelCard = (id) => {
         const filterCard = citaList.filter(citaList => citaList.id !== id)
         setCitaList(filterCard)
     }
+
 
  
     return (
@@ -113,6 +116,10 @@ const ListCitasScreen = () => {
                             <Typography >
                                 <br/>
                                 {lista.notas}
+                            </Typography>
+                            <Typography >
+                                <br/>
+                                {lista.codigo_asistencia}
                             </Typography>
                         </CardContent>
                         

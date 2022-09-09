@@ -21,7 +21,6 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
     const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora, nota } = useSelector( state => state.citas )
 
     const [error, setError] = useState('')
-
     
     // variables de estado para captcha
     const [captchaValido, setCaptachaValido] = useState(null)
@@ -36,6 +35,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
         }
     }
 
+
     const guardarInformacion = async () => {
 
         const params = {
@@ -46,14 +46,21 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             notas: nota,
         }
 
+        
+        
         if(captchaValido){
             await NewCit(params).then( response => {
-            
-
+                
+                
                 if( response.status === 200){
-
+                    
+                    dispatch({
+                        type: types.SET_PASO_3,
+                        payload:{
+                            codigo: response.data.codigo_asistencia
+                        }
+                    });
                     handleNext()
-                    cleanInputs()
                 }else if(response.status === 401){               
                     dispatch({ type: types.TOKEN_EXPIRED })
                 }
@@ -67,13 +74,8 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             setCaptachaValido(false)
         }
     }
- 
-    const cleanInputs = () => {
-        dispatch({
-            type:types.CLEAN_INPUTS
-        })
-    }
 
+ 
     return (
         <>
             <TokenExpired />
