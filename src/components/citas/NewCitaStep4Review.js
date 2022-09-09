@@ -32,7 +32,7 @@ const NewCitaStep4Review = () => {
                     <b>Código de asistencia<br/></b>
                 </Typography>
                 <Box style={{ color:'#EB0000', fontSize:30}}>{ codigoRedux }</Box>
-                <Box style={{ color:'#002540', fontSize:11}}>Muestralo para marcar tu asistencia</Box>
+                <Box style={{ color:'#002540', fontSize:11}}>Muéstralo para marcar tu asistencia</Box>
             </Grid>
             <Grid item  xs={12}></Grid>
         </Grid>
