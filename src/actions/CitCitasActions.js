@@ -16,6 +16,21 @@ export const GetCitCitas = () => {
     })
 }
 
+export const GetCitCitasCodigo = (cit_cita_id) => {
+    return new Promise((resolve, eject) => {
+        const token = window.localStorage.getItem('token')
+        if (token) {
+            HttpClientToken.get(`/v2/cit_citas/consultar?cit_cita_id=${cit_cita_id}`, token)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    resolve(error.response)
+                })
+        }
+    })
+}
+
 export const DeleteCitas = (cit_cita_id) => {
     return new Promise((resolve, reject) => {
         const token = window.localStorage.getItem('token')
