@@ -7,13 +7,18 @@ import { Box, Button } from '@mui/material'
 import navigationSX from '../../theme/NavigationSX'
 
 import '../../css/global.css'
+import { useDispatch } from 'react-redux'
+import { types } from '../../types/types'
 
 const NavigationMain = () => {
 
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
+
     const goToListCitas = () => {
         navigate('/citas')
+        dispatch({ type:types.CLEAN_INPUTS })
     }
 
     return (
