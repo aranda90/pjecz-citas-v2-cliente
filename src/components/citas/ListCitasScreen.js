@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Typography } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Tooltip, Typography } from '@mui/material'
 
 import commonSX from '../../theme/CommonSX'
 
@@ -20,6 +20,7 @@ import { TokenExpired } from '../modals/TokenExpired'
 
 
 const ListCitasScreen = () => {
+
 
     let limiteCitas = 29
     const [citaList, setCitaList] = useState([])
@@ -42,11 +43,15 @@ const ListCitasScreen = () => {
         return moment(inicio).format("YYYY-MM-DD HH:mm")
     }
 
+
     const cancelCard = (id) => {
         const filterCard = citaList.filter(citaList => citaList.id !== id)
         setCitaList(filterCard)
     }
 
+    // const resultSubstr = citaList.notas.substr(0,10)
+
+    // console.log(resultSubstr)
  
     return (
         <>
@@ -87,9 +92,7 @@ const ListCitasScreen = () => {
                 {citaList.map((lista) => 
 
                     <Card align='center' sx={commonSX.card} key={ lista.id }>
-                        <Typography sx={{mt:2}}>
-                            {format(lista.inicio)}
-                        </Typography>
+                        
                         <CardHeader
                             title={"Cita " + lista.id }
                             titleTypographyProps={{
@@ -97,7 +100,10 @@ const ListCitasScreen = () => {
                                 fontWeight:500
                             }}
                         />
-                        <CardContent component="div" style={{paddingTop:3, minHeight:240, paddingBottom:15}}>
+                        <Typography sx={{mt:2}}>
+                            {format(lista.inicio)}
+                        </Typography>
+                        <CardContent component="div" style={{paddingTop:3, minHeight:310, paddingBottom:18}}>
                             <Typography>
                                 <br/>
                                 <b>{lista.oficina_descripcion_corta} </b> <br/>
@@ -110,9 +116,16 @@ const ListCitasScreen = () => {
                                 <br/>
                                 {lista.estado}
                             </Typography>
-                            <Typography >
-                                <br/>
-                                {lista.notas}
+                            <br/>
+                            <Tooltip title={lista.notas} arrow>
+                                {
+                                    lista.notas.length > 40 ? <Box>{lista.notas.substring(0,40) + '...'}</Box> : <Box>{lista.notas}</Box>
+                                }
+                                
+                            </Tooltip>
+                            <Typography sx={{ mt:3}}>
+                                Código asistencia<br/>
+                                <b style={{color:'#EB0000'}}>{lista.codigo_asistencia}</b>
                             </Typography>
                         </CardContent>
                         
