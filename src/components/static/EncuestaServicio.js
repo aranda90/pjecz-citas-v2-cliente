@@ -5,7 +5,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
-import { Avatar, Box, Button, Card, CardHeader, CardMedia, Container, Grid, Rating, Stack, styled, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardHeader, CardMedia, Container, Grid, Rating, styled, TextField, Typography } from '@mui/material'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import { useLocation, useNavigate } from 'react-router-dom'

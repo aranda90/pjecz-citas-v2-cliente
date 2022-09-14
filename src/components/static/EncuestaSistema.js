@@ -115,7 +115,7 @@ export const EncuestaSistema = () => {
         hashid:hashid,
     })
 
-    const { respuesta_01,respuesta_02} = formData
+    const { respuesta_02} = formData
 
     const handleChangeInputs = (e) => {
         
