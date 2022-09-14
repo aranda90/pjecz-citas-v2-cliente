@@ -5,7 +5,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
-import { Box, Button, Grid, Input, Rating, styled, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardHeader, CardMedia, Container, Grid, Input, Rating, styled, TextField, Typography } from '@mui/material'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import { GetPollSystem, UpdatePollSystem } from '../../actions/EncuestaActions'
@@ -20,9 +20,8 @@ const StyledRating = styled(Rating)(({ theme }) => ({
 
 const customIcons = {
     1: {
-        icon: <SentimentVeryDissatisfiedIcon color="error" />,
-        label: 'Muy Difícil',
-        
+        icon: <SentimentVeryDissatisfiedIcon color="error"  />,
+        label: 'Muy Difícil', 
     },
     2: {
         icon: <SentimentDissatisfiedIcon color="dissatisfied" />,
@@ -43,7 +42,6 @@ const customIcons = {
 }
 
 const labels = {
-  
     1: "Muy Difícil",
   
     2: "Difícil",
@@ -57,7 +55,7 @@ const labels = {
   };
   
   function getLabelText(value) {
-    return `${value} ${value !== 1 ? '' : ''}, ${labels[value]}`;
+    return `${value !== 1 ? '' : ''} ${labels[value]}`;
   }
 
 function IconContainer(props) {
@@ -117,7 +115,7 @@ export const EncuestaSistema = () => {
         hashid:hashid,
     })
 
-    const { respuesta_01, respuesta_02} = formData
+    const { respuesta_01,respuesta_02} = formData
 
     const handleChangeInputs = (e) => {
         
@@ -131,11 +129,15 @@ export const EncuestaSistema = () => {
     const enviarInformacion = async(e) => {
         e.preventDefault()
         
-        if(respuesta_02 === ''){
+        if(!ratingValue){
+            setError('Selecciona el icono de la pregunta 1')
+            return false
+        }else if(respuesta_02 === ''){
             setError('Debes llenar este campo')
             return false
         }
         formData.respuesta_01 = ratingValue
+
         await UpdatePollSystem(formData).then(response => {
             if(response){
                 if(response.status === 200){
@@ -162,6 +164,9 @@ export const EncuestaSistema = () => {
                 <Typography variant='h4' sx={commonSX.title} style={{color:'#022E66'}}>
                     Encuesta de sistema
                 </Typography>
+                <Typography variant='body2' style={{color:'#022E66'}} gutterBottom>
+                    (Selecciona el icono para calificar la encuesta)
+                </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
 
@@ -177,11 +182,10 @@ export const EncuestaSistema = () => {
                             onChange={handleChangeRating}
                         />
                         {
-                            ratingValue <= respuesta_01 ?
-                            
-                            <span></span> 
+                            !ratingValue ?
+                            null
                             :
-                            <Box style={{ color:'#014DAE'}}>{getLabelText(ratingValue)}</Box> 
+                            <Box style={{ color:'#014DAE'}}>{ getLabelText(ratingValue) } </Box> 
                                 
                         }
                        
@@ -246,14 +250,34 @@ export const EncuestaSistema = () => {
 
     return(
         <>
-            <ContainerCardCenter>
-                <Typography variant='h5' gutterBottom style={{ textTransform:'uppercase', color:'#022E66'}}>
-                    Revisa tu información
-                </Typography>
-                <Typography variant='body1'>
-                    {error}
-                </Typography>
-            </ContainerCardCenter>
+            <Container sx={commonSX.container}>
+                <Grid container spacing={2}>
+                    <Grid item md={3} xs={12}></Grid>
+                    <Grid item md={6} xs={12}>   
+                        <Card align='center' sx={{ maxWidth: 450 }}>
+                            <CardMedia 
+                                component="img"
+                                src='https://storage.googleapis.com/pjecz-informatica/static/images/warning.png'
+                                sx={{  display:'flex', width:300}}
+                                alt="warning"
+                            />
+                            <CardHeader 
+                                style={{ 
+                                    background:'linear-gradient(180deg, rgba(6,109,166,1) 0%, rgba(1,80,123,1) 35%, rgba(0,67,96,1) 100%)',
+                                    boxShadow:'-3px -6px 13px -4px rgba(137,137,137,0.75)', 
+                                    color:'#F8F8F8', 
+                                    margin:0, 
+                                    marginTop:10,
+                                    textTransform:'uppercase', 
+                                    padding:30, 
+                                }}
+                                title={error}
+                            />                           
+                        </Card>
+                    </Grid>
+                    <Grid item md={3} xs={12}></Grid>
+                </Grid>
+            </Container>
         </>
     )
 

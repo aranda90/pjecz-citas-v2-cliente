@@ -5,11 +5,11 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied'
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
-import { Box, Button, Grid, Rating, styled, TextField, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, CardHeader, CardMedia, Container, Grid, Rating, Stack, styled, TextField, Typography } from '@mui/material'
 import ContainerCardCenter from '../ui/ContainerCardCenter'
 import commonSX from '../../theme/CommonSX'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { GetPollService } from '../../actions/EncuestaActions'
+import { GetPollService, UpdatePollService } from '../../actions/EncuestaActions'
 
 
 const StyledRating = styled(Rating)(({ theme }) => ({
@@ -21,12 +21,12 @@ const StyledRating = styled(Rating)(({ theme }) => ({
 const customIcons = {
     1: {
         icon: <SentimentVeryDissatisfiedIcon color="error" />,
-        label: 'Very Dissatisfied',
+        label: 'Muy Insatisfecho',
         
     },
     2: {
         icon: <SentimentDissatisfiedIcon color="dissatisfied" />,
-        label: 'Dissatisfied',
+        label: 'Insatisfecho',
     },
     3: {
         icon: <SentimentSatisfiedIcon color="warning" />,
@@ -34,30 +34,30 @@ const customIcons = {
     },
     4: {
         icon: <SentimentSatisfiedAltIcon color="satisfied" />,
-        label: 'Satisfied',
+        label: 'Satisfecho',
     },
     5: {
         icon: <SentimentVerySatisfiedIcon color="success" />,
-        label: 'Very Satisfied',
+        label: 'Muy Satisfecho',
     },
 }
 
 const labels = {
   
-    1: "Muy Difícil",
+    1: "Muy Insatisfecho",
   
-    2: "Difícil",
+    2: "Insatisfecho",
   
     3: "Neutral",
   
-    4: "Fácil",
+    4: "Satisfecho",
   
-    5: "Muy Fácil",
+    5: "Muy Satisfecho",
   
   }
 
   function getLabelText(value) {
-    return `${value} ${value !== 1 ? '' : ''}, ${labels[value]}`
+    return `${value !== 1 ? '' : ''} ${labels[value]}`
   }
 
 function IconContainer(props) {
@@ -67,52 +67,46 @@ function IconContainer(props) {
 
 export const EncuestaServicio = () => {
     
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
-    // let {search} = useLocation()
-    // let parametros = new URLSearchParams(search)
-    // let hashid = parametros.get('hashid')
+    let {search} = useLocation()
+    let parametros = new URLSearchParams(search)
+    let hashid = parametros.get('hashid')
 
-    // const [hashOK, setHashOK] = useState(false)
+    const [hashOK, setHashOK] = useState(false)
 
     const [error, setError ] = useState('')
 
-    // const checkHash = () => {
+    const checkHash = async() => {
 
-    //     if(hashOK){
-    //         return true
-    //     }else{
-    //         return false
-    //     }
-    //     console.log(hashOK)
-
-        // await GetPollService(hashid).then( response => {
-        //     if(response){
+        await GetPollService(hashid).then( response => {
+            if(response){
                 
-        //         if(response.status === 200){
+                if(response.status === 200){
                     
-        //             setHashOK(true);
+                    setHashOK(true);
 
-        //         }else{
-        //             setError(response.data.detail)
-        //             setHashOK(false);
-        //         }
+                }else{
+                    setError(response.data.detail)
+                    setHashOK(false);
+                }
 
-        //     }
-        // })
-    // }
+            }
+        })
+    }
 
-    // if(hashid === null){
-    //     setHashOK(false)
-    // }else{
+    if(hashid === null){
+        setHashOK(false)
+    }else{
         
-    //     checkHash();
+        checkHash();
 
-    // }
+    }
 
     const [ratingValue01, setReatingValue01] = useState(IconContainer.value)
     const [ratingValue02, setReatingValue02] = useState(IconContainer.value)
     const [ratingValue03, setReatingValue03] = useState(IconContainer.value)
+
 
     const handleChangeRating01 = (event, newValue) => {
         setReatingValue01(newValue)
@@ -131,10 +125,8 @@ export const EncuestaServicio = () => {
         respuesta_02:0,
         respuesta_03:0,
         respuesta_04:'',
-        // hashid:hashid,
+        hashid:hashid,
     })
-
-    const { respuesta_01, respuesta_02, respuesta_03} = formData
 
     const handleChangeInputs = (e) => {
         
@@ -147,19 +139,45 @@ export const EncuestaServicio = () => {
     const enviarInformacion = async(e) => {
         e.preventDefault()
 
-        // formData.respuesta_01 = ratingValue
-        // formData.respuesta_02 = ratingValue
-        // formData.respuesta_03 = ratingValue
+        if(!ratingValue01){
+            setError('Selecciona el icono de la pregunta 1')
+            return false
+        }else if(!ratingValue02){
+            setError('Selecciona el icono de la pregunta 2')
+            return false
+        }else if(!ratingValue03){
+            setError('Selecciona el icono de la pregunta 3')
+            return false
+        }
 
-        console.log(respuesta_01, respuesta_02, respuesta_03)
+        formData.respuesta_01 = ratingValue01
+        formData.respuesta_02 = ratingValue02
+        formData.respuesta_03 = ratingValue03
+
+        await UpdatePollService(formData).then(response => {
+            if(response){
+                if(response.status === 200){
+                    navigate('/poll_response')
+                }else{
+                    setError(response.data.detail)
+                }
+
+                if(response.status === 406 || 404){
+                    setError(response.data.detail)
+                }
+            }
+        })
     }
 
-    //if(hashOK){
+    if(hashOK){
     return (
         <>
             <ContainerCardCenter sx={{}}>
                 <Typography variant='h4' sx={commonSX.title} style={{color:'#022E66'}}>
                     Encuesta de servicio
+                </Typography>
+                <Typography variant='body2' sx={commonSX.title} style={{color:'#022E66'}} gutterBottom>
+                    (Selecciona los iconos para calificar la encuesta)
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
@@ -176,9 +194,9 @@ export const EncuestaServicio = () => {
                             onChange={handleChangeRating01}
                         />
                         {
-                            ratingValue01 <= respuesta_01 ?
+                            !ratingValue01 ?
                             
-                            <span></span> 
+                            null 
                             :
                             <Box style={{ color:'#014DAE'}}>{getLabelText(ratingValue01)}</Box> 
                                 
@@ -198,9 +216,9 @@ export const EncuestaServicio = () => {
                             onChange={handleChangeRating02}
                         />
                         {
-                            ratingValue02 <= respuesta_02 ?
+                            !ratingValue02  ?
                             
-                            <span></span> 
+                            null 
                             :
                             <Box style={{ color:'#014DAE'}}>{getLabelText(ratingValue02)}</Box> 
                                 
@@ -220,9 +238,9 @@ export const EncuestaServicio = () => {
                             onChange={handleChangeRating03}
                         />
                         {
-                            ratingValue03 <= respuesta_03 ?
+                            !ratingValue03 ?
                             
-                            <span></span> 
+                            null
                             :
                             <Box style={{ color:'#014DAE'}}>{getLabelText(ratingValue03)}</Box> 
                                 
@@ -262,20 +280,40 @@ export const EncuestaServicio = () => {
             </ContainerCardCenter>
         </>
     )
-    // }else{
-    //     return(
-    //         <>
-    //             <ContainerCardCenter>
-    //                 <Typography variant='h5' gutterBottom style={{ textTransform:'uppercase', color:'#022E66'}}>
-    //                     Revisa tu información
-    //                 </Typography>
-    //                 <Typography variant='body1'>
-    //                     {error}
-    //                 </Typography>
-    //             </ContainerCardCenter>
-    //         </>
-    //     ) 
-    // }
+    }else{
+        return(
+        <>
+            <Container sx={commonSX.container}>
+                <Grid container spacing={2}>
+                    <Grid item md={3} xs={12}></Grid>
+                    <Grid item md={6} xs={12}>   
+                        <Card align='center' sx={{ maxWidth: 450 }}>
+                            <CardMedia 
+                                component="img"
+                                src='https://storage.googleapis.com/pjecz-informatica/static/images/warning.png'
+                                sx={{  display:'flex', width:300}}
+                                alt="warning"
+                            />
+                            <CardHeader 
+                                style={{ 
+                                    background:'linear-gradient(180deg, rgba(6,109,166,1) 0%, rgba(1,80,123,1) 35%, rgba(0,67,96,1) 100%)',
+                                    boxShadow:'-3px -6px 13px -4px rgba(137,137,137,0.75)', 
+                                    color:'#F8F8F8', 
+                                    margin:0, 
+                                    marginTop:10,
+                                    textTransform:'uppercase', 
+                                    padding:30, 
+                                }}
+                                title={error}
+                            />                           
+                        </Card>
+                    </Grid>
+                    <Grid item md={3} xs={12}></Grid>
+                </Grid>
+            </Container>
+        </>
+        ) 
+    }
 }
 
 
