@@ -21,7 +21,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
 
     let horaactual = moment(new Date(),"h:mma")
-    let horalimite = moment("2:00pm", "h:mma")
+    let horalimite = moment("14:00", "h:mma")
     
     
     const fechaminima = () => {
@@ -32,7 +32,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         if(horalimite){
             switch(d.getDay()){
                 case 4:
-                    sumadia = 3
+                    sumadia = 4
                     break
                 case 5:
                     sumadia = 3
@@ -52,7 +52,9 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 case 5:
                     sumadia = 4
                     break
-
+                case horaactual:
+                    sumadia = 3
+                    break
                 default:
                     sumadia = 2
             }

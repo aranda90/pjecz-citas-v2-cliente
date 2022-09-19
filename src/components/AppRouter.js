@@ -24,6 +24,9 @@ import { InicioScreen } from './citas/InicioScreen'
 import UpdatePasswordScreen from './auth/UpdatePasswordScreen'
 import NotFound from './ui/NotFound'
 import { PreguntasFrecuentes } from './static/PreguntasFrecuentes'
+import { EncuestaServicio } from './static/EncuestaServicio'
+import { EncuestaSistema } from './static/EncuestaSistema'
+import { RespuestaEncuestaSistema } from './static/RespuestaEncuestaSistema'
 
 const AppRouter = () => {       
 
@@ -62,6 +65,9 @@ const AppRouter = () => {
                     <Route path='/privacy_terms' element={ <PrivacyTermsScreen /> } />
                     <Route path='/use_terms' element={ <UseTermsScreen /> } />
                     <Route path='/preguntas_frecuentes' element={ <PreguntasFrecuentes /> } />
+                    <Route path='/poll_service' element={ <EncuestaServicio /> } />
+                    <Route path='/poll_system' element={ <EncuestaSistema /> } />
+                    <Route path='/poll_response' element={ <RespuestaEncuestaSistema /> } />
 
                     <Route path='*' element={ <NotFound />} />
 
