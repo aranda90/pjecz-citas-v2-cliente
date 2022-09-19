@@ -10,6 +10,12 @@ const InstitutionalTheme = createTheme({
         secondary: {
             main: '#d0a473',
         },
+        dissatisfied:{
+            main:'#E13400',
+        },
+        satisfied: {
+            main: '#00B32F',
+        },
     },
 })
 

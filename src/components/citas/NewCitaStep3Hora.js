@@ -80,7 +80,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
         <>
             <TokenExpired />
             <Typography variant='h5' align='center' sx={{ mt:6, mb:4, fontFamily:'serif' }}>
-                <b>Revise que tu información sea correcta</b> 
+                <b>Revisa que tu información sea correcta</b> 
             </Typography>
             <Grid container align='justify'>
                 <Grid item sm={3} xs={12}></Grid>

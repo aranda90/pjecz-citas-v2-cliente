@@ -1,5 +1,6 @@
-import { Grid, Typography } from '@mui/material'
+import { Button, CardMedia, Grid, Typography } from '@mui/material'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const NotFound = () => {
   return (
@@ -11,25 +12,45 @@ const NotFound = () => {
         justifyContent="center"
       >
         <Grid item sm={2} xs={12}></Grid>
-        <Grid item sm={8} xs={12}>
-            <Typography variant='h4' gutterBottom style={{ textTransform:'uppercase', textAlign:'center'}}>
-                Página no encontrada,<br/> regrese al inicio
+        <Grid item sm={9} xs={12}>
+            <Typography variant='h4' gutterBottom style={{ textTransform:'uppercase', textAlign:'center', color:'#022E66'}}>
+                Página no encontrada<br/> 
             </Typography>
+            <Link 
+              to='/' 
+              className='link' 
+              style={{  
+                display:'flex', 
+                float:'right', 
+                fontWeight:500, 
+                marginBottom:16, 
+                marginRight:360, 
+                textTransform:'uppercase'}}
+            >
+              regrese al inicio
+            </Link>
+            
         </Grid>
-        <Grid item sm={2} xs={12}></Grid>
+        <Grid item sm={1} xs={12}></Grid>
       </Grid>
 
       <Grid 
-        alignContent="center"
+        alignContent="flex-start"
         container 
         direction='row'
         justifyContent="center"
       >
         <Grid item sm={4} xs={12}></Grid>
-        <Grid item sm={5} xs={12} style={{ alignSelf:'revert-layer'}}>
-            <img src='../assets/imges/notfound1.png' alt='' style={{maxWidth:400}} />
+        <Grid item sm={4} xs={12}>
+          <CardMedia
+              component="img"
+              image='https://storage.googleapis.com/pjecz-informatica/static/images/notfound.png'
+              height="auto"
+              width="150"
+              alt="not found"
+          />
         </Grid>
-        <Grid item sm={3} xs={12}></Grid>
+        <Grid item sm={4} xs={12}></Grid>
       </Grid>
     </>
   )

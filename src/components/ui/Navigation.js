@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 
-import { AppBar, Container, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, CardMedia, Container, Toolbar, Typography } from '@mui/material'
 
 import navigationSX from '../../theme/NavigationSX'
 
@@ -33,7 +33,7 @@ const Navigation = () => {
                     </Link>
                     {/* <MenuIcon sx={navigationSX.menuIconDesktop} /> */}
                     <Link to='/' className='app-bar-desktop-link'>
-                        <img src='../assets/imges/logo.png' alt='' style={{aling:'center', paddingRight:5}} />
+                        <Avatar src='https://storage.googleapis.com/pjecz-informatica/static/images/logo-pjecz-beige.png' style={{aling:'center', paddingRight:5}}/>
                     </Link>
                     <Link to='/' className='app-bar-desktop-link'>
                         <Typography variant='h5' noWrap sx={navigationSX.systemNameDesktop}>
