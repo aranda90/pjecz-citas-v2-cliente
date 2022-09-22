@@ -31,6 +31,21 @@ export const GetCitCitasCodigo = (cit_cita_id) => {
     })
 }
 
+export const GetCitCitasDisponibles = () => {
+    return new Promise((resolve, eject) => {
+        const token = window.localStorage.getItem('token')
+        if (token) {
+            HttpClientToken.get(`/v2/cit_citas/disponibles`, token)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    resolve(error.response)
+                })
+        }
+    })
+}
+
 export const DeleteCitas = (cit_cita_id) => {
     return new Promise((resolve, reject) => {
         const token = window.localStorage.getItem('token')

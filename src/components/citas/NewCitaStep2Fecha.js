@@ -29,30 +29,31 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         let d = new Date();
         let sumadia = 1
 
-        if(horalimite){
-            switch(d.getDay()){
-                case 4:
-                    sumadia = 4
-                    break
-                case 5:
-                    sumadia = 3
-                    break
-                default: 
-                    sumadia = 1
-            }
-        }
 
        if(horaactual.isAfter(horalimite)){
+
+            if(horalimite){
+                switch(d.getDay()){
+                    case 4:
+                        sumadia = 4
+                        break
+                    case 5:
+                        sumadia = 4
+                        break
+                    default: 
+                        sumadia = 2
+                }
+            }
             
             switch(d.getDay()){
 
-                case 4:
-                    sumadia = 3
+                case 3:
+                    sumadia = 5
                     break
-                case 5:
+                case 4:
                     sumadia = 4
                     break
-                case horaactual:
+                case 5:
                     sumadia = 3
                     break
                 default:
@@ -60,6 +61,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
             }
 
         }
+
+    
         
         d.setDate(d.getDate() + sumadia)
         return d
