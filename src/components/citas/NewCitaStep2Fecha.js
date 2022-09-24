@@ -21,8 +21,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
 
     let horaactual = moment(new Date(),"h:mma")
-    let horalimite = moment("14:00", "h:mma")
-    
+    let horalimite = moment("2:00pm", "h:mma")
     
     const fechaminima = () => {
         
@@ -30,39 +29,51 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         let sumadia = 1
 
 
-       if(horaactual.isAfter(horalimite)){
 
-            if(horalimite){
-                switch(d.getDay()){
-                    case 4:
-                        sumadia = 4
-                        break
-                    case 5:
-                        sumadia = 4
-                        break
-                    default: 
-                        sumadia = 2
-                }
-            }
-            
+       if(horaactual.isAfter(horalimite)){        
+
+
             switch(d.getDay()){
-
+                case 1: 
+                    sumadia = 2
+                    break
+                case 2:
+                    sumadia = 2
+                    break
                 case 3:
-                    sumadia = 5
-                    break
+                   sumadia = 2
+                   break
                 case 4:
-                    sumadia = 4
+                   sumadia = 4
+                   break
+                case 5:
+                   sumadia = 4
+                   break
+                case 6:
+                    sumadia = 3
                     break
+                case 7:
+                    sumadia = 2
+                    break
+                default:
+                   sumadia = 2
+           }
+        }
+        else{
+            switch(d.getDay()){
                 case 5:
                     sumadia = 3
                     break
-                default:
+                case 6:
+                    sumadia = 3
+                    break
+                case 7: 
                     sumadia = 2
+                    break
+                default:
+                    sumadia = 1
             }
-
         }
-
-    
         
         d.setDate(d.getDate() + sumadia)
         return d
