@@ -1,4 +1,5 @@
 import HttpClient from '../services/HttpClientToken'
+import HttpClientToken from '../services/HttpClientToken'
 
 
 export const GetPollSystem = (data) => {
@@ -48,6 +49,20 @@ export const GetPollService = (data) => {
     })
 }
 
+export const GetPollPendiente = () => {
+    return new Promise((resolve, eject) => {
+        const token = window.localStorage.getItem('token')
+        if (token) {
+            HttpClientToken.get(`/v2/enc_servicios/pendiente`, token)
+                .then(response => {
+                    resolve(response)
+                })
+                .catch(error => {
+                    resolve(error.response)
+                })
+        }
+    })
+}
 
 export const UpdatePollService = data => {
     return new Promise((resolve, reject) => {

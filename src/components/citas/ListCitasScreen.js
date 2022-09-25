@@ -2,28 +2,31 @@ import React, { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { Box, Button, Card, CardActions, CardContent, CardHeader, Tooltip, Typography } from '@mui/material'
+import { Alert, Box, Button, Card, CardActions, CardContent, CardHeader, Grid, Tooltip, Typography } from '@mui/material'
 
 import commonSX from '../../theme/CommonSX'
 
-import { GetCitCitas } from '../../actions/CitCitasActions'
+import { GetCitCitas, GetCitCitasDisponibles } from '../../actions/CitCitasActions'
 
 import CancelCitaScreen from './CancelCitaScreen'
 
 import moment from 'moment'
 
-import '../../css/global.css'
 
 import { useDispatch } from 'react-redux'
 import { types } from '../../types/types'
 import { TokenExpired } from '../modals/TokenExpired'
+import { GetPollPendiente } from '../../actions/EncuestaActions'
 
+import '../../css/global.css'
 
 const ListCitasScreen = () => {
+    
+    const [limitCit, setLimitCit] = useState(true)
 
-
-    let limiteCitas = 29
     const [citaList, setCitaList] = useState([])
+
+    const [encuestaPend, setEncuestaPend] = useState("")
 
     const dispatch = useDispatch();
 
@@ -32,7 +35,7 @@ const ListCitasScreen = () => {
             const response = await GetCitCitas()
             if(response.status === 200){
                 setCitaList(response.data.items)     
-            }else if(response.status === 401){               
+            }else if(response.status === 401){        
                 dispatch({ type: types.TOKEN_EXPIRED })
             }
         }
@@ -43,33 +46,80 @@ const ListCitasScreen = () => {
         return moment(inicio).format("YYYY-MM-DD HH:mm")
     }
 
+    useEffect(() => {
+
+        async function fetchData(){
+            await GetPollPendiente().then( response => {
+
+                if(response){
+    
+                    if(response.status === 200){
+                        setEncuestaPend(response.data.url)
+                    }
+                    
+                }
+               
+            }) 
+        }
+        fetchData()
+    },[])
+
+    useEffect(() => {
+
+        async function fetchData(){
+            await GetCitCitasDisponibles().then( response => {
+
+                if(response){
+    
+                    if(response.status === 200){
+                       
+                        if( response.data === limitCit ){
+                            setLimitCit( true )
+                        }else{
+                            setLimitCit( false )
+
+                        }
+                    }
+                    
+                }
+               
+            }) 
+        }
+        fetchData()
+    },[])
+
 
     const cancelCard = (id) => {
         const filterCard = citaList.filter(citaList => citaList.id !== id)
         setCitaList(filterCard)
+        setLimitCit( false )
     }
 
-    // const resultSubstr = citaList.notas.substr(0,10)
-
-    // console.log(resultSubstr)
  
     return (
         <>
 
             <TokenExpired />
-
-            {citaList.length <= limiteCitas ?
-            <Button component={Link} to='/new' variant="contained" sx={{m:4}}>
-                Agendar Cita
-            </Button>
-            :
-            <>
-                <Button component={Link} to='/new' variant="contained" sx={{m:4}} disabled={true}>
-                Agendar Cita
-                </Button>
-                <span style={{fontFamily:'Roboto', color: '#BC0B0B', marginTop:4, inlineSize:'620px', fontSize:18 }}>Alcanzaste el limite de citas</span>
-            </>
+            {
+                encuestaPend ?
+            
+                <Alert severity="info">
+                    Tienes una encuesta pendiente, responde dando  
+                    <a className='link' style={{ color: '#002540', textTransform:'uppercase', fontWeight:500 }} href={encuestaPend}> click aquí </a>
+                </Alert>
+                :
+                null
             }
+            
+            { 
+                limitCit &&
+                <Alert severity='error'>Alcanzaste el límite de citas</Alert>
+            }
+             
+            <Button component={Link} to='/new' variant="contained" sx={{m:4}} disabled={ limitCit }>
+                Agendar Cita
+            </Button>   
+
             {citaList.length === 0 && (
                 <Typography align='center' variant='h4' sx={{mt:15}}>
                     No tienes citas agendadas
