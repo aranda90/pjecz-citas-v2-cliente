@@ -17,7 +17,8 @@ const initialState = {
     nota:'',
     cit_cita_id:0,
     codigo:'',
-    limiteCitas:0
+    limiteCitas:0,
+    oficina_descrip: ''
 }
 
 
