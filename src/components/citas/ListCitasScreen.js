@@ -68,16 +68,16 @@ const ListCitasScreen = () => {
 
         async function fetchData(){
             await GetCitCitasDisponibles().then( response => {
-
+                
                 if(response){
-    
+                    
                     if(response.status === 200){
-                       
-                        if( response.data === limitCit ){
+                        
+                        if( response.data === 0 ){
                             setLimitCit( true )
                         }else{
                             setLimitCit( false )
-
+                            
                         }
                     }
                     

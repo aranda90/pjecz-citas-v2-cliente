@@ -32,7 +32,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
        if(horaactual.isAfter(horalimite)){        
 
-
             switch(d.getDay()){
                 case 1: 
                     sumadia = 2

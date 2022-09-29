@@ -19,10 +19,14 @@ export const InicioScreen = () => {
                 <Typography variant='body1' sx={{mb:3}}>
                     El <b>Poder Judicial del Estado de Coahuila de Zaragoza </b> pone al servicio de la ciudadanía la versión 2 del Sistema de citas que te permitirá agendar tu visita a nuestros órganos jurisdiccionales mediante una moderna herramienta en línea.
                 </Typography>
+                
                 {
                     isAuthenticated 
+                    
                 ? 
-                    null
+                <Typography variant='body1' sx={{ color:'#002540',fontWeight:500, mb:3, textAlign:'center' }}>
+                    Tienes tu sesión iniciada, ve a <Link to='/citas' style={{ textDecoration:'none', color:'#002540', fontWeight:700}} >MIS CITAS</Link>
+                </Typography>
                 :
                 <Button color='success' variant='contained' component={Link} to='/login' sx={{mr:2}}>
                     Ingresar
