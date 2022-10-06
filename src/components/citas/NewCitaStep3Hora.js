@@ -43,10 +43,10 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             cit_servicio_id: servicio_id,
             fecha: fecha,
             hora_minuto: hora,
-            notas: nota,
+            notas:  nota,
         }
 
-        
+        console.log(params)
         
         if(captchaValido){
             await NewCit(params).then( response => {

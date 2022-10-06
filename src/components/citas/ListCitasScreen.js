@@ -91,6 +91,7 @@ const ListCitasScreen = () => {
 
     const cancelCard = (id) => {
         const filterCard = citaList.filter(citaList => citaList.id !== id)
+        console.log(filterCard)
         setCitaList(filterCard)
         setLimitCit( false )
     }
