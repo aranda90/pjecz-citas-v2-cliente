@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Alert, Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { GetOficinaServicio } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
+import { WifiTetheringErrorRoundedSharp } from '@mui/icons-material'
 
 
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
@@ -16,14 +17,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
     const [servicios, setServicios] = useState([])
     const [servicio, setServicio] = useState(0)
     const [expedienteStatus, setExpedienteStatus] = useState(expedienteStat)
-    // const [expedientes, setExpedientes] = useState({
-    //     expediente1: "",
-    //     expediente2: "",
-    //     expediente3: "",
-    //     expediente4: "",
-    //     expediente5: "",
-    // })
-
+   
     const [exp1, setExp1] = useState("");
     const [exp2, setExp2] = useState("");
     const [exp3, setExp3] = useState("");
@@ -34,8 +28,9 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
     const [notas, setNotas] = useState(nota)
     const [notastemp, setNotastemp] = useState(notatemp)
 
-
-    const [errorMessage, setErrorMessage] = useState('')
+    // Mensaje error
+    const [errores, setErrores] = useState("")
+    const [erroresServ, setErroresServ] = useState("")
 
     const handleChangeServicio = (e) => {
         
@@ -45,8 +40,10 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             setExpedienteStatus(false)
         }
         setServicio(e.target.value)
-
+        
     }
+    
+   
 
 
     const guardarInformacion = () => {
@@ -55,6 +52,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
         let expnota = ""
 
         if(servicio === 0){
+            setErroresServ('Debes seleccionar un trámite')
             return false
         }else if(expedienteStatus){
               
@@ -99,16 +97,14 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             }
             
             if(expnota.trim() === ""){
-                setErrorMessage('Falta llenar al menos un expediente')
+                setErrores('Falta llenar al menos un expediente')
                 return false
             }
             setNotas(expnota)
             
-            console.log(notas)
-            console.log(expnota)
         }else{ 
             if(notastemp.trim() === ""){
-                setErrorMessage('FALTA llenar este campo.')
+                setErrores('FALTA llenar este campo.')
                 return false
             }else{
                 expnota = notastemp;
@@ -136,6 +132,7 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
             
         })
 
+        setErrores(errores, erroresServ)
         handleNext()
     }
 
@@ -233,6 +230,13 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                                         )}
                                     </Select>
                                 </FormControl>
+                                {
+                                    erroresServ
+                                    &&
+                                    <Alert severity='warning' variant='filled' sx={{ mt: 1 }}>
+                                        {erroresServ}
+                                    </Alert>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
@@ -298,30 +302,48 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                                     value={exp5}
                                     onChange={ (e) => { setExp5(e.target.value) } }
                                 /> 
-                                    
+
+                                {
+                                    errores
+                                    &&
+                                    <Alert severity='warning' variant='filled' sx={{ mt: 1 }}>
+                                        {errores}
+                                    </Alert>
+                                }
+                            
                             </> 
                             
                         : 
                           
-                        
-                            <TextField
-                                disabled={servicio === 0}
-                                id="indicaciones_tramite"
-                                label="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
-                                name="indicaciones_tramite"
-                                multiline
-                                onChange={(e) => { setNotastemp(e.target.value) }}
-                                placeholder="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
-                                rows={4}
-                                style={{ width: '100%' }}
-                                value={notastemp}
-                            />
+                            <>
+                                <TextField
+                                    disabled={servicio === 0}
+                                    id="indicaciones_tramite"
+                                    label="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
+                                    name="indicaciones_tramite"
+                                    multiline
+                                    placeholder="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
+                                    rows={4}
+                                    style={{ width: '100%' }}
+                                    value={notastemp}
+                                    onChange={(e) => { setNotastemp(e.target.value) }}
+                                />
+
+                                {
+                                    errores
+                                    &&
+                                    <Alert severity='warning' variant='filled' sx={{ mt: 1 }}>
+                                        {errores}
+                                    </Alert>
+                                }
+
+                            </>
                         }
 
                         </Grid>
-                        {
+                        {/* {
                             errorMessage ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'1620px', fontSize:18 }}>{errorMessage}</span> : null
-                        }
+                        } */}
                     </Grid>
                 </Grid>
             </Container>

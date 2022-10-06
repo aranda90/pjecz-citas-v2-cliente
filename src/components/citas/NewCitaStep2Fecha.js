@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
+import { Alert, Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
@@ -27,8 +27,6 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         
         let d = new Date();
         let sumadia = 1
-
-
 
        if(horaactual.isAfter(horalimite)){        
 
@@ -85,6 +83,9 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
 
+    // Mensaje error
+    const [errores, setErrores] = useState("")
+
 
 
     const disableDates = (fechacalendario) => {
@@ -110,8 +111,12 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
 
     const guardarInformacion = () => {
-        if(hora === '' && date === '' ){
+        if(date === '' ){
             return false;
+        }
+
+        if(hora === ''){
+            setErrores("Debes seleccionar una hora")
         }
         
         dispatch({
@@ -228,6 +233,13 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                                 )  
                             )}
                         </Stack>
+                        {
+                            errores
+                            &&
+                            <Alert severity='warning' variant='filled' sx={{ mt: 1 }}>
+                                {errores}
+                            </Alert>
+                        }
                     </Grid>
                     <Grid item md={1} xs={12}></Grid>
                 </Grid>
