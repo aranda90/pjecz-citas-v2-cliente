@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
 
 import { DeleteCitas } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
 import { useDispatch } from 'react-redux'
 import { LoadingButton } from '@mui/lab'
 
-const CancelCitaScreen = ({ Id, cancelCard, cancelar }) => {
+const CancelCitaScreen = ({ Id, cancelCard, puedeCancelar }) => {
 
     const dispatch = useDispatch()
 
@@ -40,7 +40,7 @@ const CancelCitaScreen = ({ Id, cancelCard, cancelar }) => {
 
     }
 
-    console.log(cancelar)
+    console.log(puedeCancelar)
 
     const DeleteCita = () =>{
         setLoadingAcept( true );
@@ -58,9 +58,18 @@ const CancelCitaScreen = ({ Id, cancelCard, cancelar }) => {
         <>
             <Grid container>
                 <Grid item xs={12}>
-                    <Button disabled={ cancelar ? false : true } onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
+                    {
+                        puedeCancelar
+                        ?
+                            <Button onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
+                                Cancelar 
+                            </Button>
+                        :
+                            <Box component='div' style={{ marginBottom:33}}></Box>
+                    }
+                    {/* <Button disabled={ cancelar ? false : true } onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
                         Cancelar 
-                    </Button>
+                    </Button> */}
                 </Grid>
                 <Grid item xs={12} sx={{ mt:2}}>
                     {

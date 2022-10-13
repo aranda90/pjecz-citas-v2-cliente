@@ -106,7 +106,6 @@ const ListCitasScreen = () => {
 
     const cancelCard = (id) => {
         const filterCard = citaList.filter(citaList => citaList.id !== id)
-        console.log(filterCard)
         setCitaList(filterCard)
         setLimitCit( false )
     }
@@ -189,12 +188,14 @@ const ListCitasScreen = () => {
                                                     {lista.estado}
                                                 </Typography>
                                                 <br/>
-                                                <Tooltip title={lista.notas} arrow>
-                                                    {
-                                                        lista.notas.length > 40 ? <Box>{lista.notas.substring(0,40) + '...'}</Box> : <Box>{lista.notas}</Box>
-                                                    }
-                                                    
-                                                </Tooltip>
+                                                <Box sx={{ mt:2, fontFamily:'Roboto'}}>
+                                                    <Tooltip title={lista.notas} arrow>
+                                                        {
+                                                            lista.notas.length > 40 ? <Box>{lista.notas.substring(0,40) + '...'}</Box> : <Box>{lista.notas}</Box>
+                                                        }
+                                                        
+                                                    </Tooltip>
+                                                </Box>
                                                 <Typography sx={{ mt:3}}>
                                                     Código asistencia<br/>
                                                     <b style={{color:'#EB0000'}}>{lista.codigo_asistencia}</b>
@@ -202,7 +203,7 @@ const ListCitasScreen = () => {
                                             </CardContent>
                                             
                                             <CardActions style={{float:'right', paddingTop:13, height:'auto'}}>
-                                                <CancelCitaScreen Id={ lista.id } cancelCard={cancelCard} cancelar={ lista.puede_cancelarse }/>
+                                                <CancelCitaScreen Id={ lista.id } cancelCard={cancelCard} puedeCancelar={ lista.puede_cancelarse }/>
                                             </CardActions>
 
                                         </Card>

@@ -23,6 +23,7 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     const [date, setDate] = useState(moment(new Date()))
     const [isGetDate, setIsGetDate] = useState(false)
     const [fechas, setFechas] = useState([])
+    const [loadFechas, setLoadFechas] = useState( true )
     
     const [loadHoras, setLoadHoras] = useState( true )
     const [hora, setHora] = useState('')
@@ -43,12 +44,18 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     useEffect(() => {
         async function fetchData(){
             setIsGetDate( false );
+            setLoadFechas(true);
 
             const response = await GetCitDiasDisponibles(oficina_id)
             if(response.status === 200){
-                setFechas(response.data.items)
-                setDate(moment(response.data.items[0].fecha))
-                setIsGetDate( true );
+                setTimeout(() => {
+
+                    setFechas(response.data.items)
+                    setDate(moment(response.data.items[0].fecha))
+                    setIsGetDate( true );
+                    setLoadFechas(false);
+
+                },700)
             }else if(response.status === 401){               
                 dispatch({ type: types.TOKEN_EXPIRED })
             }
@@ -158,17 +165,24 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     <Grid item md={1} xs={12}></Grid>
 
                     <Grid item md={5} xs={12}>
+                    {
+                        loadFechas
+                        ?
+                            <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: '25%' }}>
+                                <CircularProgress size={50} />
+                            </Grid>
+                        :
+                            <LocalizationProvider dateAdapter={ AdapterMoment }>
 
-                        <LocalizationProvider dateAdapter={ AdapterMoment }>
+                                <CalendarPicker                                                         
+                                    date={ date }
+                                    onChange={ ( newDate ) => { setDate( newDate ) } }
+                                    shouldDisableDate={ disableDates }
+                                    className='calendar'                          
+                                />
 
-                            <CalendarPicker                                                         
-                                date={ date }
-                                onChange={ ( newDate ) => { setDate( newDate ) } }
-                                shouldDisableDate={ disableDates }
-                                className='calendar'                          
-                            />
-
-                        </LocalizationProvider>
+                            </LocalizationProvider>
+                    }
                     </Grid>
 
                     <Grid item md={5} xs={12} sx={{ m:1}}>
