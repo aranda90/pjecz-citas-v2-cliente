@@ -250,9 +250,9 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                             <>
                                 <TextField
                                     id='expediente1'
-                                    label="Expedientes / Folios"
+                                    label="Expediente"
                                     name='expediente1'
-                                    placeholder='F356/2022'
+                                    placeholder='352/2022'
                                     variant="standard"
                                     value={exp1}
                                     onChange={ (e) => { setExp1(e.target.value) } }
@@ -262,10 +262,10 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
                                 <TextField
                                     id='expediente2'
-                                    label="Expedientes / Folios"
+                                    label="Expediente"
                                     name='expediente2'
                                     variant="standard"
-                                    placeholder='F356/2022'
+                                    placeholder='353/2022'
                                     value={exp2}
                                     onChange={ (e) => { setExp2(e.target.value) } }
                                     sx={{ mb:2 }}
@@ -273,10 +273,10 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
  
                                 <TextField
                                     id='expediente3'
-                                    label="Expedientes / Folios"
+                                    label="Expediente"
                                     name='expediente3'
                                     variant="standard"
-                                    placeholder='F356/2022'
+                                    placeholder='354/2022'
                                     value={exp3}
                                     onChange={ (e) => { setExp3(e.target.value) } }
                                     sx={{ mb:2 }}
@@ -284,10 +284,10 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
                                 <TextField
                                     id='expediente4'
-                                    label="Expedientes / Folios"
+                                    label="Expediente"
                                     name='expediente4'
                                     variant="standard"
-                                    placeholder='F356/2022'
+                                    placeholder='355/2022'
                                     value={exp4}
                                     onChange={ (e) => { setExp4(e.target.value) } }
                                     sx={{ mb:2 }}
@@ -295,10 +295,10 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
 
                                 <TextField
                                     id='expediente5'
-                                    label="Expedientes / Folios"
+                                    label="Expediente"
                                     name='expediente5'
                                     variant="standard"
-                                    placeholder='F356/2022'
+                                    placeholder='356/2022'
                                     value={exp5}
                                     onChange={ (e) => { setExp5(e.target.value) } }
                                 /> 
@@ -319,10 +319,10 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                                 <TextField
                                     disabled={servicio === 0}
                                     id="indicaciones_tramite"
-                                    label="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
+                                    label="Escriba las indicaciones del servicio o NINGUNO"
                                     name="indicaciones_tramite"
                                     multiline
-                                    placeholder="Escriba los expedientes a revisar, las indicaciones del servicio o NINGUNO"
+                                    placeholder="Escriba las indicaciones del servicio o NINGUNO"
                                     rows={4}
                                     style={{ width: '100%' }}
                                     value={notastemp}

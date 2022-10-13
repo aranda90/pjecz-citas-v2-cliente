@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, responsiveFontSizes, Typography } from '@mui/material'
 
 import ReCAPTCHA  from 'react-google-recaptcha'
 
@@ -57,7 +57,8 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     dispatch({
                         type: types.SET_PASO_3,
                         payload:{
-                            codigo: response.data.codigo_asistencia
+                            codigo: response.data.codigo_asistencia,
+                            puedeCancelar: response.data.puede_cancelarse
                         }
                     });
                     handleNext()

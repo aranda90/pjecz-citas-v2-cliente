@@ -5,15 +5,17 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { DeleteCitas } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
 import { useDispatch } from 'react-redux'
+import { LoadingButton } from '@mui/lab'
 
-const CancelCitaScreen = ({ Id, cancelCard  }) => {
+const CancelCitaScreen = ({ Id, cancelCard, cancelar }) => {
 
     const dispatch = useDispatch()
 
     const [open, setOpen] = useState(false)
 
     const [error, setError] = useState('')
-
+    
+    const [loadingAcept, setLoadingAcept] = useState( false )
   
     const handleClickDelete = async (e) => {
         
@@ -38,12 +40,25 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
 
     }
 
+    console.log(cancelar)
+
+    const DeleteCita = () =>{
+        setLoadingAcept( true );
+
+        setTimeout(() => {
+            
+            setLoadingAcept( false );
+            handleClickDelete();
+
+        }, 1200);
+    }
+
 
     return (  
         <>
             <Grid container>
                 <Grid item xs={12}>
-                    <Button onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
+                    <Button disabled={ cancelar ? false : true } onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
                         Cancelar 
                     </Button>
                 </Grid>
@@ -72,9 +87,14 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
 
                 <DialogActions>
                     <Button onClick={() => { setOpen( false ) }}>Cancelar</Button>
-                    <Button variant='contained' color='primary' onClick={ handleClickDelete } autoFocus>
-                        Aceptar
-                    </Button>
+                    <LoadingButton
+                        variant="contained" 
+                        color="primary"
+                        onClick={ DeleteCita }
+                        loading={ loadingAcept }
+                    > 
+                        Aceptar 
+                    </LoadingButton>
                 </DialogActions>
 
            
