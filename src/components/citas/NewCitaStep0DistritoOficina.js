@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
+import { Alert, Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
 
 import { GetDistritos, GetOficinas } from '../../actions/CitCitasActions'
 
@@ -24,6 +24,9 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
     const [oficinas, setOficinas] = useState([])
     const [oficina, setOficina] = useState(0)
 
+    // Mensaje error
+    const [errores, setErrors] = useState({});
+
     const handleChangeDistrito = (e) => {
         setDistrito(e.target.value)
     }
@@ -32,12 +35,30 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
         setOficina(e.target.value)
     }
 
-    const guardarInformacion = () =>{
+    const validarSelect = () => {
+        let valid = true
+    
+        let errores = {}
         
-        if( oficina === 0 && distrito === 0){
-            return false
+        if(distrito === 0){
+            valid = false
+            errores.distrito = "Debes seleccionar un distrito"
         }
 
+        if( oficina === 0){
+            valid = false
+            errores.oficina = "Debes seleccionar una oficina"
+        }
+
+        setErrors(errores)
+
+        return valid
+    }
+
+    const guardarInformacion = () =>{
+
+        validarSelect()
+        
         dispatch({
             type: types.SET_PASO_0,
             payload:{
@@ -47,9 +68,7 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                 oficina: oficinas.find( ( element ) => { return element.id === oficina; } ).descripcion,
             }
         })
-
         
-
         handleNext()
     }
 
@@ -129,6 +148,14 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                                         )}
                                     </Select>
                                 </FormControl>
+                                {
+                                    errores.distrito
+                                    &&
+                                    <Alert severity='warning' variant='filled' sx={{ mt: 1 }}>
+                                        {errores.distrito}
+                                    </Alert>
+
+                                }
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControl fullWidth>
@@ -150,6 +177,13 @@ const NewCitaStep0DistritoOficina = ({ handleNext, styles }) => {
                                         )}
                                     </Select>
                                 </FormControl>
+                                {
+                                    errores.oficina
+                                    &&
+                                    <Alert severity='warning' variant='filled' sx={{ mt: 1 }}>
+                                        {errores.oficina}
+                                    </Alert>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>

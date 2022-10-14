@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Chip, Container, Grid, Stack } from '@mui/material'
+import { Alert, Box, Button, Chip, CircularProgress, Container, Grid, Stack, Typography } from '@mui/material'
 
 import { CalendarPicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
@@ -17,80 +17,26 @@ import { TokenExpired } from '../modals/TokenExpired'
 const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
     const dispatch = useDispatch()
+
     const { oficina_id, servicio_id, hora: horaRedux } = useSelector(state => state.citas)
 
-
-    let horaactual = moment(new Date(),"h:mma")
-    let horalimite = moment("2:00pm", "h:mma")
-    
-    const fechaminima = () => {
-        
-        let d = new Date();
-        let sumadia = 1
-
-
-
-       if(horaactual.isAfter(horalimite)){        
-
-
-            switch(d.getDay()){
-                case 1: 
-                    sumadia = 2
-                    break
-                case 2:
-                    sumadia = 2
-                    break
-                case 3:
-                   sumadia = 2
-                   break
-                case 4:
-                   sumadia = 4
-                   break
-                case 5:
-                   sumadia = 4
-                   break
-                case 6:
-                    sumadia = 3
-                    break
-                case 7:
-                    sumadia = 2
-                    break
-                default:
-                   sumadia = 2
-           }
-        }
-        else{
-            switch(d.getDay()){
-                case 5:
-                    sumadia = 3
-                    break
-                case 6:
-                    sumadia = 3
-                    break
-                case 7: 
-                    sumadia = 2
-                    break
-                default:
-                    sumadia = 1
-            }
-        }
-        
-        d.setDate(d.getDate() + sumadia)
-        return d
-    }
-
-
-    const [date, setDate] = useState(fechaminima())
+    // fechas
+    const [date, setDate] = useState(moment(new Date()))
+    const [isGetDate, setIsGetDate] = useState(false)
     const [fechas, setFechas] = useState([])
+    const [loadFechas, setLoadFechas] = useState( true )
     
+    // horas
+    const [loadHoras, setLoadHoras] = useState( true )
     const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
 
-
+    // Mensaje error
+    const [errores, setErrores] = useState("")
 
     const disableDates = (fechacalendario) => {
         const diaDisponible = fechas.find(element => element.fecha === moment(fechacalendario).format("YYYY-MM-DD"))
-        if(diaDisponible?.fecha || moment(fechaminima()).format("YYYY-MM-DD") === moment(fechacalendario).format("YYYY-MM-DD")){
+        if(diaDisponible?.fecha === moment(fechacalendario).format("YYYY-MM-DD")){
             return false
         }else{
             return true
@@ -99,9 +45,19 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
     useEffect(() => {
         async function fetchData(){
+            setIsGetDate( false );
+            setLoadFechas(true);
+
             const response = await GetCitDiasDisponibles(oficina_id)
             if(response.status === 200){
-                setFechas(response.data.items)
+                setTimeout(() => {
+
+                    setFechas(response.data.items)
+                    setDate(moment(response.data.items[0].fecha))
+                    setIsGetDate( true );
+                    setLoadFechas(false);
+
+                },700)
             }else if(response.status === 401){               
                 dispatch({ type: types.TOKEN_EXPIRED })
             }
@@ -111,8 +67,12 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
     
 
     const guardarInformacion = () => {
-        if(hora === '' && date === '' ){
+        if(date === '' ){
             return false;
+        }
+
+        if(hora === ''){
+            setErrores("Debes seleccionar una hora")
         }
         
         dispatch({
@@ -151,34 +111,49 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
         async function fetchData(){
             setHoras([])
             setHora('')
+            setLoadHoras( true )
+
             const params = {
                 oficina_id: oficina_id, 
                 fecha: moment(date).format('YYYY-MM-DD'),
                 cit_servicio_id: servicio_id,
             }
-            await GetHorasDisponibles( params ).then( response => {
-                if(response.status === 200){
 
-                    const horasData = response.data.items                 
+            if( isGetDate ){
+                await GetHorasDisponibles( params ).then( response => {
+                    if(response.status === 200){
+                        const horasData = response.data.items                 
 
-                    if( horasData ){
-                        setHoras(
-                            horasData.map( ( element ) => {
-                            return {
-                                ...element,
-                                selected: element.horas_minutos === horaRedux ? true : false
-                            }
-                        }))
+                        if( horasData ){
+
+                            setTimeout(() => {
+
+                                setHoras(
+                                    horasData.map( ( element ) => {
+                                        return {
+                                            ...element,
+                                            selected: element.horas_minutos === horaRedux ? true : false
+                                        }
+                                    }
+                                ))
+                                setLoadHoras( false )
+
+                            }, 1000)
+                        }
+                        else{
+                            setLoadHoras( false )
+                        }
+
+                    }else if(response.status === 401){               
+                        dispatch({ type: types.TOKEN_EXPIRED });
                     }
-
-                }else if(response.status === 401){               
-                    dispatch({ type: types.TOKEN_EXPIRED });
-                }
-            })
+                }).catch(() => {
+                    setLoadHoras( false )
+                })
+            }
         }
         fetchData()
-    },[ oficina_id, date, servicio_id, horaRedux, dispatch ])
-   
+    },[ oficina_id, date, servicio_id, horaRedux, isGetDate, dispatch ])
     
     return (
         <>
@@ -189,46 +164,88 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                     <Grid item md={1} xs={12}></Grid>
 
                     <Grid item md={5} xs={12}>
+                    {
+                        loadFechas
+                        ?
+                            <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: '25%' }}>
+                                <CircularProgress size={50} />
+                            </Grid>
+                        :
+                            <LocalizationProvider dateAdapter={ AdapterMoment }>
 
-                        <LocalizationProvider dateAdapter={ AdapterMoment }>
+                                <CalendarPicker                                                         
+                                    date={ date }
+                                    onChange={ ( newDate ) => { setDate( newDate ) } }
+                                    shouldDisableDate={ disableDates }
+                                    className='calendar'                          
+                                />
 
-                            <CalendarPicker                                                         
-                                date={ moment( date )}
-                                minDate={ moment(fechaminima()) }
-                                onChange={ ( newDate ) => { setDate( newDate ) } }
-                                shouldDisableDate={ disableDates }
-                                className='calendar'                          
-                            />
-                        </LocalizationProvider>
+                            </LocalizationProvider>
+                    }
                     </Grid>
 
                     <Grid item md={5} xs={12} sx={{ m:1}}>
-                        <Stack 
-                            alignItems='center' 
-                            flexDirection='row' 
-                            flexWrap='wrap' 
-                            spacing={1} 
-                        >
-                            
-                            { horas.map((h) => 
-                                (
-                                    h.selected
+                        
+                        {
+                            loadHoras
+                            ?
+                                <Grid container direction="column" alignItems="center" justifyContent="center" style={{ marginTop: '25%' }}>
+                                    <CircularProgress size={50} />
+                                </Grid>
+                                
+                            :
+
+                                <Grid container spacing={2} sx={{ p: 1, mt:5 }}>  
+
+                                {
+                                    
+                                    horas.length !== 0
                                     ?
-                                        <Chip 
-                                            label={h.horas_minutos.slice(0,-3)}
-                                            key={h.horas_minutos}
-                                            onClick={ () => { handleClickSelected( h.horas_minutos ) } }
-                                            color='primary'
-                                        />
+                                        horas.map( (h) => (
+
+                                            h.selected
+                                            ?
+                                                <Grid key={ h.horas_minutos } item md={2} xs={4} > 
+
+                                                    <Chip 
+                                                        label={h.horas_minutos.slice(0,-3)}
+                                                        key={h.horas_minutos}
+                                                        onClick={ () => { handleClickSelected( h.horas_minutos ) } }
+                                                        color='primary'
+                                                        size='small'
+                                                    />
+                                                </Grid>
+                                            :
+                                                <Grid key={ h.horas_minutos } item md={2} xs={4} > 
+
+                                                    <Chip 
+                                                        label={h.horas_minutos.slice(0, -3)}
+                                                        key={h.horas_minutos}
+                                                        onClick={ () => { handleClickSelected( h.horas_minutos ) } }
+                                                        size='small'
+                                                    />
+                                                </Grid>
+
+                                        ))
                                     :
-                                        <Chip 
-                                            label={h.horas_minutos.slice(0, -3)}
-                                            key={h.horas_minutos}
-                                            onClick={ () => { handleClickSelected( h.horas_minutos ) } }
-                                        />
-                                )  
-                            )}
-                        </Stack>
+                                        <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                                            <Typography variant="subtitle1" style={{ fontWeight: 'bold' }} >
+                                                No se tiene horas disponibles en esta fecha
+                                            </Typography>        
+                                        </Grid>
+
+                            }
+                    
+                        </Grid>
+                        }
+
+                        {
+                            errores
+                            &&
+                            <Alert severity='warning' variant='filled' sx={{ mt: 1 }}>
+                                {errores}
+                            </Alert>
+                        }
                     </Grid>
                     <Grid item md={1} xs={12}></Grid>
                 </Grid>
