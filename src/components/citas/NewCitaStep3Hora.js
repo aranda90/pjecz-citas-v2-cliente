@@ -10,6 +10,7 @@ import { NewCit } from '../../actions/CitCitasActions'
 
 import { types } from '../../types/types'
 import { TokenExpired } from '../modals/TokenExpired'
+import { LoadingButton } from '@mui/lab'
 
 
 const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
@@ -21,6 +22,8 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
     const { distrito, oficina_id, oficina, servicio_id, servicio, fecha, hora, nota } = useSelector( state => state.citas )
 
     const [error, setError] = useState('')
+    
+    const [loadingAcept, setLoadingAcept] = useState( false )
     
     // variables de estado para captcha
     const [captchaValido, setCaptachaValido] = useState(null)
@@ -37,6 +40,7 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
 
 
     const guardarInformacion = async () => {
+        setLoadingAcept( true )
 
         const params = {
             oficina_id: oficina_id,
@@ -51,15 +55,17 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                 
                 
                 if( response.status === 200){
-                    
-                    dispatch({
-                        type: types.SET_PASO_3,
-                        payload:{
-                            codigo: response.data.codigo_asistencia,
-                            puedeCancelar: response.data.puede_cancelarse
-                        }
-                    });
-                    handleNext()
+                    setTimeout(() => {
+            
+                        setLoadingAcept( false )
+                        dispatch({
+                            type: types.SET_PASO_3,
+                            payload:{
+                                codigo: response.data.codigo_asistencia
+                            }
+                        })
+                        handleNext()
+                    }, 1200)
                 }else if(response.status === 401){               
                     dispatch({ type: types.TOKEN_EXPIRED })
                 }
@@ -126,7 +132,15 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             </Grid>
             <Box sx={{ mb: 5 }}>
                 <Button onClick={handleBack} variant='outlined' style={styles.btnBack}>Anterior</Button>
-                <Button onClick={guardarInformacion} variant='outlined' style={styles.btnNext}>Confirmar Cita</Button>
+                <LoadingButton
+                        variant="contained" 
+                        color="primary"
+                        onClick={ guardarInformacion }
+                        loading={ loadingAcept }
+                        style={styles.btnNext}
+                    > 
+                    Confirmar Cita 
+                </LoadingButton>
             </Box>
         </>
     )
