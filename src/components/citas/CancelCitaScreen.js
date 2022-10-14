@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material'
 
 import { DeleteCitas } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
 import { useDispatch } from 'react-redux'
+import { LoadingButton } from '@mui/lab'
 
-const CancelCitaScreen = ({ Id, cancelCard  }) => {
+const CancelCitaScreen = ({ Id, cancelCard, puedeCancelar }) => {
 
     const dispatch = useDispatch()
 
     const [open, setOpen] = useState(false)
 
     const [error, setError] = useState('')
-
+    
+    const [loadingAcept, setLoadingAcept] = useState( false )
   
     const handleClickDelete = async (e) => {
         
@@ -38,14 +40,31 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
 
     }
 
+    const DeleteCita = () =>{
+        setLoadingAcept( true );
+
+        setTimeout(() => {
+            
+            setLoadingAcept( false );
+            handleClickDelete();
+
+        }, 1200);
+    }
+
 
     return (  
         <>
             <Grid container>
                 <Grid item xs={12}>
-                    <Button onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
-                        Cancelar 
-                    </Button>
+                    {
+                        puedeCancelar
+                        ?
+                            <Button onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
+                                Cancelar 
+                            </Button>
+                        :
+                            <Box component='div' style={{ marginBottom:33}}></Box>
+                    }
                 </Grid>
                 <Grid item xs={12} sx={{ mt:2}}>
                     {
@@ -72,9 +91,14 @@ const CancelCitaScreen = ({ Id, cancelCard  }) => {
 
                 <DialogActions>
                     <Button onClick={() => { setOpen( false ) }}>Cancelar</Button>
-                    <Button variant='contained' color='primary' onClick={ handleClickDelete } autoFocus>
-                        Aceptar
-                    </Button>
+                    <LoadingButton
+                        variant="contained" 
+                        color="primary"
+                        onClick={ DeleteCita }
+                        loading={ loadingAcept }
+                    > 
+                        Aceptar 
+                    </LoadingButton>
                 </DialogActions>
 
            

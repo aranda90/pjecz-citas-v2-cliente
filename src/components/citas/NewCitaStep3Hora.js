@@ -43,10 +43,8 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             cit_servicio_id: servicio_id,
             fecha: fecha,
             hora_minuto: hora,
-            notas: nota,
+            notas:  nota,
         }
-
-        
         
         if(captchaValido){
             await NewCit(params).then( response => {
@@ -57,7 +55,8 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
                     dispatch({
                         type: types.SET_PASO_3,
                         payload:{
-                            codigo: response.data.codigo_asistencia
+                            codigo: response.data.codigo_asistencia,
+                            puedeCancelar: response.data.puede_cancelarse
                         }
                     });
                     handleNext()

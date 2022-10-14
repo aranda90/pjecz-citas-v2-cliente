@@ -11,7 +11,6 @@ import commonSX from '../../theme/CommonSX'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GetPollService, UpdatePollService } from '../../actions/EncuestaActions'
 
-
 const StyledRating = styled(Rating)(({ theme }) => ({
     '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
       color: theme.palette.action.disabled,
@@ -73,9 +72,13 @@ export const EncuestaServicio = () => {
     let parametros = new URLSearchParams(search)
     let hashid = parametros.get('hashid')
 
+
     const [hashOK, setHashOK] = useState(false)
 
     const [error, setError ] = useState('')
+
+    const [oficinaDescripcion, setOficiaDescripcion] = useState("")
+
 
     const checkHash = async() => {
 
@@ -85,6 +88,7 @@ export const EncuestaServicio = () => {
                 if(response.status === 200){
                     
                     setHashOK(true);
+                    setOficiaDescripcion(response.data.oficina_descripcion)
 
                 }else{
                     setError(response.data.detail)
@@ -150,6 +154,7 @@ export const EncuestaServicio = () => {
             return false
         }
 
+
         formData.respuesta_01 = ratingValue01
         formData.respuesta_02 = ratingValue02
         formData.respuesta_03 = ratingValue03
@@ -176,8 +181,11 @@ export const EncuestaServicio = () => {
                 <Typography variant='h4' sx={commonSX.title} style={{color:'#022E66'}}>
                     Encuesta de servicio
                 </Typography>
+                <Typography sx={commonSX.title} style={{color:'#022E66', fontSize:17}}>
+                    Gracias por su visita a <b>{oficinaDescripcion}</b>
+                </Typography>
                 <Typography variant='body2' sx={commonSX.title} style={{color:'#022E66'}} gutterBottom>
-                    (Selecciona los iconos para calificar la encuesta)
+                    (Selecciona los iconos para responder cada pregunta)
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>

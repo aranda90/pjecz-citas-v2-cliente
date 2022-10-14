@@ -8,7 +8,7 @@ const initialState = {
     oficina: '',
     servicio_id: 0,
     servicio: '',
-    expedientes: [],
+    expedienteStat:false,
     fecha_id: 0,
     fecha: '',
     hora_id: 0,
@@ -16,7 +16,15 @@ const initialState = {
     nota_id:0,
     nota:'',
     cit_cita_id:0,
-    codigo:''
+    codigo:'',
+    limiteCitas:0,
+    oficina_descrip: '',
+    expediente1:'',
+    expediente2:'',
+    expediente3:'',
+    expediente4:'',
+    expediente5:'',
+    notatemp:'',
 }
 
 
