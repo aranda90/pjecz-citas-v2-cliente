@@ -20,11 +20,13 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
 
     const { oficina_id, servicio_id, hora: horaRedux } = useSelector(state => state.citas)
 
+    // fechas
     const [date, setDate] = useState(moment(new Date()))
     const [isGetDate, setIsGetDate] = useState(false)
     const [fechas, setFechas] = useState([])
     const [loadFechas, setLoadFechas] = useState( true )
     
+    // horas
     const [loadHoras, setLoadHoras] = useState( true )
     const [hora, setHora] = useState('')
     const [horas, setHoras] = useState([])
@@ -117,11 +119,8 @@ const NewCitaStep2Fecha = ({ handleBack, handleNext, styles}) => {
                 cit_servicio_id: servicio_id,
             }
 
-            console.log( params );
-
             if( isGetDate ){
                 await GetHorasDisponibles( params ).then( response => {
-                    console.log(response.status)
                     if(response.status === 200){
                         const horasData = response.data.items                 
 

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Alert, Box, Button, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { GetOficinaServicio } from '../../actions/CitCitasActions'
 import { types } from '../../types/types'
-import { WifiTetheringErrorRoundedSharp } from '@mui/icons-material'
 
 
 const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
@@ -162,7 +161,6 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
     useEffect(() => {
         if(nota_id !== 0 && nota !== 0 ){
             setNotas(nota_id)
-            console.log(nota_id)
         }
     },[nota_id, nota])
 
@@ -170,35 +168,30 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
     useEffect(() => {
         if(expediente1 !== "" ){
             setExp1(expediente1)
-            console.log(expediente1)
         }
     },[expediente1])
 
     useEffect(() => {
         if(expediente2 !== "" ){
             setExp2(expediente2)
-            console.log(expediente2)
         }
     },[expediente2])
 
     useEffect(() => {
         if(expediente3 !== "" ){
             setExp3(expediente3)
-            console.log(expediente3)
         }
     },[expediente3])
 
     useEffect(() => {
         if(expediente4 !== "" ){
             setExp4(expediente4)
-            console.log(expediente4)
         }
     },[expediente4])
 
     useEffect(() => {
         if(expediente5 !== "" ){
             setExp5(expediente5)
-            console.log(expediente5)
         }
     },[expediente5])
 
@@ -341,9 +334,6 @@ const NewCitaStep1Servicio = ({ handleBack, handleNext, styles }) => {
                         }
 
                         </Grid>
-                        {/* {
-                            errorMessage ? <span style={{color: '#BC0B0B', marginTop:4, inlineSize:'1620px', fontSize:18 }}>{errorMessage}</span> : null
-                        } */}
                     </Grid>
                 </Grid>
             </Container>

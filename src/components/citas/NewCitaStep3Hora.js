@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Box, Button, Grid, responsiveFontSizes, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import ReCAPTCHA  from 'react-google-recaptcha'
 
@@ -45,8 +45,6 @@ const NewCitaStep3Hora = ({ handleBack, handleNext, styles }) => {
             hora_minuto: hora,
             notas:  nota,
         }
-
-        console.log(params)
         
         if(captchaValido){
             await NewCit(params).then( response => {

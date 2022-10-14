@@ -40,8 +40,6 @@ const CancelCitaScreen = ({ Id, cancelCard, puedeCancelar }) => {
 
     }
 
-    console.log(puedeCancelar)
-
     const DeleteCita = () =>{
         setLoadingAcept( true );
 
@@ -67,9 +65,6 @@ const CancelCitaScreen = ({ Id, cancelCard, puedeCancelar }) => {
                         :
                             <Box component='div' style={{ marginBottom:33}}></Box>
                     }
-                    {/* <Button disabled={ cancelar ? false : true } onClick={ () => { setOpen( true ) } } color="error" size="small" variant="contained"  style={{ float:'right'}}>
-                        Cancelar 
-                    </Button> */}
                 </Grid>
                 <Grid item xs={12} sx={{ mt:2}}>
                     {
