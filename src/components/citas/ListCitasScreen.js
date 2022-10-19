@@ -120,7 +120,7 @@ const ListCitasScreen = () => {
             
                 <Alert severity="info">
                     Tienes una encuesta pendiente, responde dando  
-                    <a className='link' style={{ color: '#002540', textTransform:'uppercase', fontWeight:500 }} href={encuestaPend}> click aquí </a>
+                    <a className='link' style={{ color: '#002540', textTransform:'uppercase', fontWeight:500 }} href={encuestaPend} target="_blank" rel='noreferrer'> click aquí </a>
                 </Alert>
                 :
                 null
