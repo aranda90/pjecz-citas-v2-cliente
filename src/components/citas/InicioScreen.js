@@ -10,7 +10,7 @@ export const InicioScreen = () => {
    
     useEffect(() => {
 
-        fetch(`http://storage.googleapis.com/pjecz-informatica/static/json/datosInicio.json`)
+        fetch(`https://storage.googleapis.com/pjecz-informatica/static/json/datosInicio.json`)
             .then((res) => res.json())
             .then((data) => {
                 setData(data);
