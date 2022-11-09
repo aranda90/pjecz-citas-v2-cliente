@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Button, Card, CardMedia,  Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 export const InicioScreen = () => {
     const { isAuthenticated } = useSelector( state => state.auth )
+
+    const [data, setData] = useState(); 
+   
+    useEffect(() => {
+
+        fetch(`http://storage.googleapis.com/pjecz-informatica/static/json/datosInicio.json`)
+            .then((res) => res.json())
+            .then((data) => {
+                setData(data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+
+    },[])
 
   return (
     <>
@@ -80,32 +95,37 @@ export const InicioScreen = () => {
         <Grid container sx={{ mb:2, display:'flex', flexDirection:'row', fontFamily:'Roboto'}}>
             <Grid item sm={2} xs={12}></Grid>
             <Grid item sm={8} xs={12}>
-                
-                <Typography variant='h5' align='center' style={{ color:'#002540', fontWeight:700, marginBottom:22}} gutterBottom>
-                    Estas son las NUEVAS Medidas Administrativas
-                </Typography>
-                <Typography variant='body1' align='justify' paragraph='true' style={{ color:'#012037'}}>
-                    A partir del 12 de Septiembre del 2022
-                </Typography>  
-                <Typography variant='body1' paragraph={true} align='justify' style={{ color:'#012037'}}>
-                    Tendrás un CÓDIGO DE ASISTENCIA en cada cita, proporciónalo al llegar a tu cita
-                    para marcar asistencia 
-                </Typography> 
-                <Typography variant='subtitle1' align='justify' paragraph={true}  style={{ color:'#012037', fontWeight:700}}>
-                    * COMIENZA en el Centro de Justicia de Saltillo *
-                </Typography> 
-                <Typography variant='body1' align='justify' paragraph={true}  style={{ color:'#012037'}}>
-                    Se han ampliado la cantidad de citas por segmento de tiempo de 3 a 5
-                </Typography>
-                <Typography variant='body1' align='justify' paragraph={true} style={{ color:'#012037'}}>
-                    Donde los Adultos Mayores pueden mostrar una identificación oficial y solicitar en recepción una CITA INMEDIATA 
-                </Typography>
-                <Typography variant='body1' align='justify' style={{ color:'#012037', fontWeight:700, marginTop:15}}>
-                    Esto es resultado del diálogo permanente con foros, barras y colegios de abogados para brindar un servicio acorde al dinamismo que exige la justicia.
-                </Typography>
+                { 
+                    data && data.map((item) => (
+                       <>
+                        <Typography variant='h5' align='center' style={{ color:'#002540', fontWeight:700, marginBottom:22}} gutterBottom>
+                            {item.titulo}
+                        </Typography>
+                        <Typography variant='body1' align='justify' paragraph style={{ color:'#012037'}}>
+                            {item.subtitulo} 
+                        </Typography>  
+                        <Typography variant='body1' paragraph align='justify' style={{ color:'#012037'}}>
+                            {item.descripcion1}
+                        </Typography> 
+                        <Typography variant='subtitle1' align='justify' paragraph style={{ color:'#012037', fontWeight:700}}>
+                            {item.descripcion2}
+                        </Typography> 
+                        <Typography variant='body1' align='justify' paragraph style={{ color:'#012037'}}>
+                            {item.descripcion3}
+                        </Typography>
+                        <Typography variant='body1' align='justify' paragraph style={{ color:'#012037'}}>
+                            {item.descripcion4}
+                        </Typography>
+                        <Typography variant='body1' align='justify' style={{ color:'#012037', fontWeight:700, marginTop:15}}>
+                            {item.descripcion5}
+                        </Typography>
+                        </>
+                    ))
+                }
             </Grid>
             <Grid item sm={2} xs={12}></Grid>
         </Grid>
     </>
   )
 }
+
