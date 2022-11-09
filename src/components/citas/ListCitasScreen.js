@@ -128,7 +128,7 @@ const ListCitasScreen = () => {
             
             { 
                 limitCit &&
-                <Alert severity='error'>Alcanzaste el límite de citas</Alert>
+                <Alert severity='error' sx={{mb:5}}>Alcanzaste el límite de citas</Alert>
             }
              
             <Button component={Link} to='/new' variant="contained" sx={{m:4}} disabled={ limitCit }>
