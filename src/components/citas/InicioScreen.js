@@ -10,7 +10,7 @@ export const InicioScreen = () => {
    
     useEffect(() => {
 
-        fetch("https://storage.googleapis.com/pjecz-informatica/json/datosInicio.json")
+        fetch(`https://storage.googleapis.com/pjecz-informatica/json/datosJson.json`)
             .then((res) => res.json())
             .then((data) => {
                 setData(data);
@@ -18,7 +18,6 @@ export const InicioScreen = () => {
             .catch((err) => {
                 console.log(err.message);
             });
-
     },[])
 
   return (
@@ -75,56 +74,37 @@ export const InicioScreen = () => {
             </Grid>
             <Grid item sm={1} xs={12}></Grid>
         </Grid>
-            <CardMedia
-                component="img"
-                src="https://storage.googleapis.com/pjecz-informatica/static/images/carrusel-nuevas-medidas-administrativas.jpg"
-                sx={{
-                    display: 'flex',
-                    '& > :not(style)': {
-                        
-                        width: 950,
-                        height: 220,
-                    },
-                    objectFit:'contain',
-                    position:'relative',
-                    right:0,
-                    left:0,
-                    bottom:30
-                }}
-            />          
-        <Grid container sx={{ mb:2, display:'flex', flexDirection:'row', fontFamily:'Roboto'}}>
-            <Grid item sm={2} xs={12}></Grid>
-            <Grid item sm={8} xs={12}>
-                { 
-                    data && data.map((item) => (
-                       <>
-                        <Typography variant='h5' align='center' style={{ color:'#002540', fontWeight:700, marginBottom:22}} gutterBottom>
-                            {item.titulo}
-                        </Typography>
-                        <Typography variant='body1' align='justify' paragraph style={{ color:'#012037'}}>
-                            {item.subtitulo} 
-                        </Typography>  
-                        <Typography variant='body1' paragraph align='justify' style={{ color:'#012037'}}>
-                            {item.descripcion1}
-                        </Typography> 
-                        <Typography variant='subtitle1' align='justify' paragraph style={{ color:'#012037', fontWeight:700}}>
-                            {item.descripcion2}
-                        </Typography> 
-                        <Typography variant='body1' align='justify' paragraph style={{ color:'#012037'}}>
-                            {item.descripcion3}
-                        </Typography>
-                        <Typography variant='body1' align='justify' paragraph style={{ color:'#012037'}}>
-                            {item.descripcion4}
-                        </Typography>
-                        <Typography variant='body1' align='justify' style={{ color:'#012037', fontWeight:700, marginTop:15}}>
-                            {item.descripcion5}
-                        </Typography>
-                        </>
-                    ))
-                }
-            </Grid>
-            <Grid item sm={2} xs={12}></Grid>
-        </Grid>
+        
+                <CardMedia
+                    component="img"
+                    src={"https://storage.googleapis.com/pjecz-informatica/static/images/carrusel-nuevas-medidas-administrativas.jpg"}
+                    sx={{
+                        display: 'flex',
+                        '& > :not(style)': {
+                            
+                            width: 950,
+                            height: 220,
+                        },
+                        objectFit:'contain',
+                        position:'relative',
+                        right:0,
+                        left:0,
+                        bottom:30
+                    }}
+                />          
+                <Grid container sx={{ mb:2, display:'flex', flexDirection:'row', fontFamily:'Roboto'}}>
+                    <Grid item sm={2} xs={12}></Grid>
+                    <Grid item sm={8} xs={12}>
+                        { 
+                            data && data.map((item) => (
+                                <Typography key={item.texto} variant={item.formato} align={item.align} style={{ color:'#002540', marginBottom:15 }} gutterBottom>
+                                    {item.texto}
+                                </Typography>  
+                            ))
+                        }
+                    </Grid>
+                    <Grid item sm={2} xs={12}></Grid>
+                </Grid>
     </>
   )
 }
