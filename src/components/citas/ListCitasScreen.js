@@ -47,7 +47,7 @@ const ListCitasScreen = () => {
                     setLoadCitas(false)
 
                 }else if(response.status === 401){
-                            
+                    setLoadCitas(false)    
                     dispatch({ type: types.TOKEN_EXPIRED })
                 }    
 
